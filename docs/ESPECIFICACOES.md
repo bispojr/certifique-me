@@ -29,6 +29,15 @@
 - [x] Soft delete deve funcionar
 - [x] Deve permitir restaurar atividade deletada
 
+## Testes planejados para Evento
+- [x] Deve criar evento com dados válidos
+- [x] Não deve criar evento sem ano (campo obrigatório)
+- [x] Não deve criar evento sem nome (campo obrigatório)
+- [x] Não deve criar evento sem codigo_base (campo obrigatório)
+- [x] Não deve criar evento com codigo_base duplicado
+- [x] Soft delete deve funcionar
+- [x] Deve permitir restaurar evento deletado
+
 ---
 
 ## Estrutura das tabelas principais
@@ -37,6 +46,7 @@
 - id: Identificador único
 - nome: Nome do evento
 - codigo_base: Código base para geração de certificados (ex: EDUCOMP2026)
+- ano: Ano do evento (obrigatório)
 - created_at: Data de criação
 - updated_at: Data de atualização
 - deleted_at: Soft delete
