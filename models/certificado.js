@@ -4,8 +4,9 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Certificado extends Model {
     static associate(models) {
-      // Certificado.belongsTo(models.Evento, { foreignKey: 'evento_id' });
-      // Certificado.belongsTo(models.TiposCertificados, { foreignKey: 'tipo_certificado_id' });
+      Certificado.belongsTo(models.Participante, { foreignKey: 'participante_id' });
+      Certificado.belongsTo(models.Evento, { foreignKey: 'evento_id' });
+      Certificado.belongsTo(models.TiposCertificados, { foreignKey: 'tipo_certificado_id' });
     }
   }
 
@@ -15,13 +16,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     status: {
-      type: DataTypes.ENUM('liberado', 'suspenso'),
+      type: DataTypes.ENUM('emitido', 'pendente', 'cancelado'),
       allowNull: false,
-      defaultValue: 'liberado'
+      defaultValue: 'emitido'
     },
     valores_dinamicos: {
       type: DataTypes.JSONB,
       allowNull: true
+    },
+    participante_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     evento_id: {
       type: DataTypes.INTEGER,

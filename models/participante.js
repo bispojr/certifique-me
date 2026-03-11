@@ -4,11 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Participante extends Model {
     static associate(models) {
-      // Relacionamentos serão definidos quando os outros models forem criados
-      // Participante.hasMany(models.Certificado, {
-      //   foreignKey: 'participanteId',
-      //   as: 'certificados'
-      // });
+      Participante.hasMany(models.Certificado, { foreignKey: 'participante_id', as: 'certificados' });
     }
   }
 
