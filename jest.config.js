@@ -1,9 +1,26 @@
 process.env.NODE_ENV = 'test'; // Define ambiente de teste
 
 module.exports = {
-  testEnvironment: 'node',
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
-  testMatch: ['**/tests/**/*.test.js'],
+  verbose: true,
+  projects: [
+    {
+      displayName: 'models',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/tests/models/**/*.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+    },
+    {
+      displayName: 'migrations',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/tests/migrations/**/*.test.js'],
+    },
+    {
+      displayName: 'routes',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/tests/routes/**/*.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+    },
+  ],
   collectCoverageFrom: [
     'models/**/*.js',
     'routes/**/*.js',
@@ -12,5 +29,4 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
-  verbose: true
 };

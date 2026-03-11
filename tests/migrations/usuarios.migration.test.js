@@ -11,9 +11,7 @@ describe('Migration: usuarios', () => {
     await migrationEventos.up(queryInterface, sequelize.constructor);
   });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+
 
   test('up cria a tabela usuarios com campos esperados', async () => {
     await migration.up(queryInterface, sequelize.constructor);

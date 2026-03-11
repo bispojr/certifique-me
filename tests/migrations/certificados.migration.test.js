@@ -15,9 +15,7 @@ const migrationTiposCertificados = require('../../migrations/20260311180308-crea
     await migrationTiposCertificados.up(queryInterface, sequelize.constructor);
   });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+
 
   test('up cria a tabela certificados com campos esperados', async () => {
     await migration.up(queryInterface, sequelize.constructor);

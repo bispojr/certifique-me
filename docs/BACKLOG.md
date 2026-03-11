@@ -12,11 +12,11 @@
 **Por que:** Sem migrations, o schema só existe via `sync({ force: true })`, que destrói dados a cada execução. Em produção e CI é inaceitável.
 
 **Critérios de aceite:**
-- [ ] Migration de `participantes` criada (`up` e `down` completos)
-- [ ] Migration de `eventos` criada (`up` e `down` completos)
-- [ ] Migration de `tipos_certificados` criada (`up` e `down` completos)
-- [ ] Migration de `certificados` criada com foreign keys (`up` e `down` completos)
-- [ ] Migration de `usuarios` criada (`up` e `down` completos) _(depende de TASK-05)_
+  - [x] Migration de `participantes` criada (`up` e `down` completos)
+  - [x] Migration de `eventos` criada (`up` e `down` completos)
+  - [x] Migration de `tipos_certificados` criada (`up` e `down` completos)
+  - [x] Migration de `certificados` criada com foreign keys (`up` e `down` completos)
+  - [x] Migration de `usuarios` criada (`up` e `down` completos) _(depende de TASK-05)_
 - [ ] `tests/setup.js` atualizado para rodar `sequelize db:migrate` em vez de `sync({ force: true })`
 - [ ] CI executa migrations antes dos testes
 

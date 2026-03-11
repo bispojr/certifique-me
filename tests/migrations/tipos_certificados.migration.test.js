@@ -9,9 +9,7 @@ const migration = require('../../migrations/20260311180308-create-tipos-certific
     await sequelize.query('CREATE SCHEMA public;');
   });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+
 
   test('up cria a tabela tipos_certificados com campos esperados', async () => {
     await migration.up(queryInterface, sequelize.constructor);

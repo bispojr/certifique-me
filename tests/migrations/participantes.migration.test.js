@@ -9,9 +9,7 @@ describe('Migration: participantes', () => {
     await sequelize.query('CREATE SCHEMA public;');
   });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+
 
   test('up cria a tabela participantes com campos esperados', async () => {
     await migration.up(queryInterface, sequelize.constructor);
