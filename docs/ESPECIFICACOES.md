@@ -60,6 +60,7 @@
   - Usado para exibição do certificado quando o usuário visualizar todos os seus certificados
   - Deve referenciar o nome do campo 'nome' do model certificado ou um campo de dados_dinamicos
 - dados_dinamicos: Campo JSONB para definir os campos dinâmicos do tipo de certificado
+- texto_base: Texto obrigatório que servirá como base para o template do certificado. Pode conter expressões como ${nome_completo}, ${funcao}, etc., que serão substituídas pelos valores correspondentes ao instanciar certificados desse tipo. Exemplo: "Certificamos para os devidos fins que ${nome_completo} participou do Comitê de Programa Especial para a escolha dos melhores trabalhos do IV Simpósio Brasileiro de Educação em Computação (EduComp 2024) na condição de ${funcao}."
 - created_at: Data de criação
 - updated_at: Data de atualização
 - deleted_at: Soft delete
@@ -78,7 +79,7 @@
 ### Tabela eventos
 - id: Identificador único
 - nome: Nome do evento
-- codigo_base: Código base para geração de certificados (ex: EDUCOMP2026)
+- codigo_base: Código base para geração de certificados (exatamente três letras, apenas caracteres alfabéticos, ex: EDU, CMP, OFC)
 - ano: Ano do evento (obrigatório)
 - created_at: Data de criação
 - updated_at: Data de atualização
@@ -146,7 +147,7 @@ Cada linha da planilha pode ser convertida para um registro em certificados, com
 ### Tabela eventos
 - id: Identificador único
 - nome: Nome do evento
-- codigo_base: Código base para geração de certificados (ex: EDUCOMP2026)
+- codigo_base: Código base para geração de certificados (exatamente três letras, apenas caracteres alfabéticos, ex: EDU, CMP, OFC)
 - ano: Ano do evento (obrigatório)
 - created_at: Data de criação
 - updated_at: Data de atualização
@@ -161,6 +162,7 @@ Cada linha da planilha pode ser convertida para um registro em certificados, com
   - Usado para exibição do certificado quando o usuário visualizar todos os seus certificados
   - Deve referenciar o nome do campo 'nome' do model certificado ou um campo de dados_dinamicos
 - dados_dinamicos: Campo JSONB para definir os campos dinâmicos do tipo de certificado
+- texto_base: Texto obrigatório que servirá como base para o template do certificado. Pode conter expressões como ${nome_completo}, ${funcao}, etc., que serão substituídas pelos valores correspondentes ao instanciar certificados desse tipo. Exemplo: "Certificamos para os devidos fins que ${nome_completo} participou do Comitê de Programa Especial para a escolha dos melhores trabalhos do IV Simpósio Brasileiro de Educação em Computação (EduComp 2024) na condição de ${funcao}."
 - created_at: Data de criação
 - updated_at: Data de atualização
 - deleted_at: Soft delete

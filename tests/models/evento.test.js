@@ -8,7 +8,7 @@ describe('Evento Model', () => {
   test('deve criar evento com dados válidos', async () => {
     const eventoData = {
       nome: 'Congresso de Educação',
-      codigo_base: 'EDUCOMP2026',
+      codigo_base: 'EDU',
       ano: 2026
     };
     const evento = await Evento.create(eventoData);
@@ -23,13 +23,13 @@ describe('Evento Model', () => {
 
   test('não deve criar evento sem ano', async () => {
     await expect(
-      Evento.create({ nome: 'Congresso de Educação', codigo_base: 'EDUCOMP2026' })
+      Evento.create({ nome: 'Congresso de Educação', codigo_base: 'EDU' })
     ).rejects.toThrow();
   });
 
   test('não deve criar evento sem nome', async () => {
     await expect(
-      Evento.create({ codigo_base: 'EDUCOMP2026', ano: 2026 })
+      Evento.create({ codigo_base: 'EDU', ano: 2026 })
     ).rejects.toThrow();
   });
 
@@ -40,14 +40,15 @@ describe('Evento Model', () => {
   });
 
   test('não deve criar evento com codigo_base duplicado', async () => {
-    await Evento.create({ nome: 'Evento 1', codigo_base: 'EDUCOMP2026', ano: 2026 });
+    await Evento.create({ nome: 'Evento 1', codigo_base: 'EDU', ano: 2026 });
     await expect(
-      Evento.create({ nome: 'Evento 2', codigo_base: 'EDUCOMP2026', ano: 2026 })
+      Evento.create({ nome: 'Evento 2', codigo_base: 'EDU', ano: 2026 })
     ).rejects.toThrow();
   });
 
+
   test('soft delete deve funcionar', async () => {
-    const evento = await Evento.create({ nome: 'Congresso', codigo_base: 'EDUCOMP2026', ano: 2026 });
+    const evento = await Evento.create({ nome: 'Congresso', codigo_base: 'EDU', ano: 2026 });
     await evento.destroy();
     const encontrado = await Evento.findByPk(evento.id);
     expect(encontrado).toBeNull();
@@ -57,7 +58,7 @@ describe('Evento Model', () => {
   });
 
   test('deve permitir restaurar evento deletado', async () => {
-    const evento = await Evento.create({ nome: 'Congresso', codigo_base: 'EDUCOMP2026', ano: 2026 });
+    const evento = await Evento.create({ nome: 'Congresso', codigo_base: 'EDU', ano: 2026 });
     await evento.destroy();
     await evento.restore();
     const restaurado = await Evento.findByPk(evento.id);

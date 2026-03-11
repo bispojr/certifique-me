@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    texto_base: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'O campo texto_base é obrigatório.'
+        }
+      }
+    },
     dados_dinamicos: {
       type: DataTypes.JSONB,
       allowNull: true

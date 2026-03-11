@@ -16,7 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       codigo_base: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+          is: {
+            args: /^[A-Za-z]{3}$/,
+            msg: 'O campo codigo_base deve conter exatamente três letras (apenas caracteres alfabéticos).'
+          }
+        }
       },
       ano: {
         type: DataTypes.INTEGER,
