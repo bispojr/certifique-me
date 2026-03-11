@@ -109,5 +109,5 @@ describe('Participante Model', () => {
     ).rejects.toThrow();
   });
 
-  // Teste de associação com atividades será implementado após criação dos models participacoes e atividades
+  // Teste de associação com certificados será implementado após criação dos models participacoes e certificados
 });

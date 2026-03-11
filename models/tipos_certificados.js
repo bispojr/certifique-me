@@ -2,13 +2,13 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class TipoAtividade extends Model {
+  class TiposCertificados extends Model {
     static associate(models) {
-      // TipoAtividade.hasMany(models.Atividade, { foreignKey: 'tipo_atividade_id' });
+      // TiposCertificados.hasMany(models.Certificado, { foreignKey: 'tipo_certificado_id' });
     }
   }
 
-  TipoAtividade.init({
+  TiposCertificados.init({
     codigo: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -24,11 +24,15 @@ module.exports = (sequelize, DataTypes) => {
     campo_destaque: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    dados_dinamicos: {
+      type: DataTypes.JSONB,
+      allowNull: true
     }
   }, {
     sequelize,
-    modelName: 'TipoAtividade',
-    tableName: 'tipos_atividade',
+    modelName: 'TiposCertificados',
+    tableName: 'tipos_certificados',
     paranoid: true,
     timestamps: true,
     createdAt: 'created_at',
@@ -36,5 +40,5 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: 'deleted_at'
   });
 
-  return TipoAtividade;
+  return TiposCertificados;
 };

@@ -2,16 +2,14 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Atividade extends Model {
+  class Certificado extends Model {
     static associate(models) {
-      // Relacionamentos: evento, tipo_atividade, participacoes
-      // Atividade.belongsTo(models.Evento, { foreignKey: 'evento_id' });
-      // Atividade.belongsTo(models.TipoAtividade, { foreignKey: 'tipo_atividade_id' });
-      // Atividade.hasMany(models.Participacao, { foreignKey: 'atividade_id' });
+      // Certificado.belongsTo(models.Evento, { foreignKey: 'evento_id' });
+      // Certificado.belongsTo(models.TiposCertificados, { foreignKey: 'tipo_certificado_id' });
     }
   }
 
-  Atividade.init({
+  Certificado.init({
     nome: {
       type: DataTypes.STRING,
       allowNull: false
@@ -21,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'liberado'
     },
-    dados_dinamicos: {
+    valores_dinamicos: {
       type: DataTypes.JSONB,
       allowNull: true
     },
@@ -29,14 +27,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    tipo_atividade_id: {
+    tipo_certificado_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
     sequelize,
-    modelName: 'Atividade',
-    tableName: 'atividades',
+    modelName: 'Certificado',
+    tableName: 'certificados',
     paranoid: true,
     timestamps: true,
     createdAt: 'created_at',
@@ -44,5 +42,5 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: 'deleted_at'
   });
 
-  return Atividade;
+  return Certificado;
 };
