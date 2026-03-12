@@ -112,6 +112,9 @@ describe('Participante Model', () => {
   test('deve associar participante a certificados', async () => {
     const { Certificado, Evento, TiposCertificados } = require('../../models');
 
+    // Limpa TiposCertificados para evitar conflito de código duplicado
+    await TiposCertificados.destroy({ where: {}, force: true });
+
     // Cria dependências
     const participante = await Participante.create({
       nomeCompleto: 'Maria Teste',
