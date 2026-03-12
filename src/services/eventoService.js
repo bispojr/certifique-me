@@ -21,6 +21,9 @@ module.exports = {
     if (!evento) return null;
     return evento.destroy();
   },
+  async delete(id) {
+    return this.destroy(id);
+  },
   async restore(id) {
     const evento = await Evento.findByPk(id, { paranoid: false });
     if (!evento) return null;

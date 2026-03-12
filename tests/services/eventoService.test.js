@@ -13,6 +13,22 @@ jest.mock('../../models', () => ({
 }));
 
 describe('eventoService', () => {
+    describe('delete', () => {
+      it('deve deletar um evento existente', async () => {
+        const eventoMock = { destroy: jest.fn() };
+        Evento.findByPk.mockResolvedValue(eventoMock);
+        await eventoService.delete(1);
+        expect(Evento.findByPk).toHaveBeenCalledWith(1);
+        expect(eventoMock.destroy).toHaveBeenCalled();
+      });
+
+      it('deve retornar null se evento não existir', async () => {
+        Evento.findByPk.mockResolvedValue(null);
+        const result = await eventoService.delete(999);
+        expect(result).toBeNull();
+        expect(Evento.findByPk).toHaveBeenCalledWith(999);
+      });
+    });
   beforeEach(() => {
     jest.clearAllMocks();
   });
