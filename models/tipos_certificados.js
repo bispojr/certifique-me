@@ -23,18 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     campo_destaque: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        campoValido(value) {
-          // 'nome' é sempre válido
-          if (value === 'nome') return;
-          // Precisa acessar dados_dinamicos do this
-          const dados = this.dados_dinamicos || {};
-          if (!Object.keys(dados).includes(value)) {
-            throw new Error('campo_destaque deve ser "nome" ou uma chave de dados_dinamicos');
-          }
-        }
-      }
+      allowNull: false
     },
     texto_base: {
       type: DataTypes.TEXT,
@@ -58,6 +47,15 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at'
+  });
+
+  TiposCertificados.addHook('beforeValidate', (instance) => {
+    const value = instance.campo_destaque;
+    if (value === 'nome') return;
+    const dados = instance.dados_dinamicos || {};
+    if (!Object.keys(dados).includes(value)) {
+      throw new Error('campo_destaque deve ser "nome" ou uma chave de dados_dinamicos');
+    }
   });
 
   return TiposCertificados;

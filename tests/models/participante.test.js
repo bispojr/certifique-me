@@ -127,7 +127,7 @@ describe('Participante Model', () => {
       codigo: 'MC',
       descricao: 'Minicurso',
       campo_destaque: 'tema',
-      texto_base: 'Certificamos que ${nome_completo} participou.',
+      texto_base: 'Certificamos que ${nome_completo} participou como ${tema} no minicurso.',
       dados_dinamicos: { tema: '', instrutor: '' }
     });
 

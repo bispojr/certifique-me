@@ -11,6 +11,7 @@
     "test:routes": "jest tests/routes"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^17.3.1",
