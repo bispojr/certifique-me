@@ -1,5 +1,5 @@
 const { sequelize } = require('../../models');
-const migration = require('../../migrations/20260311190353-create-usuarios.js');
+const migration = require('../../migrations/20260312180000-create-usuarios.js');
 const migrationEventos = require('../../migrations/20260311175950-create-eventos.js');
 
 describe('Migration: usuarios', () => {
