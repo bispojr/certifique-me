@@ -23,6 +23,7 @@ jobs:
     env:
       DB_USER: postgres
       DB_PASSWORD: senha_segura
+      DB_NAME: certificados_db_test
       DB_NAME_TEST: certificados_db_test
       DB_HOST: localhost
       DB_PORT_TEST: 5432
