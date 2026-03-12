@@ -109,7 +109,7 @@
 **Por que:** As rotas atuais são apenas stubs — nenhum endpoint real da aplicação está exposto.
 
 **Subtarefas:**
-- [ ] Criar `src/routes/participantes.js` — CRUD completo
+- [x] Criar `src/routes/participantes.js` — CRUD completo
 - [x] Remover `routes/users.js` (stub sem domínio)
 - [ ] Criar `src/routes/eventos.js` — CRUD completo
 - [ ] Criar `src/routes/certificados.js` — emissão, consulta, cancelamento, restauração
