@@ -64,8 +64,8 @@
 - [x] Criar `src/controllers/eventoController.js` com métodos REST
 - [x] Criar `src/controllers/certificadoController.js` com métodos REST e cancelamento
 - [x] Criar `src/controllers/tiposCertificadosController.js` com métodos REST
-- [ ] Cada controller delega para services (não implementa lógica de negócio diretamente)
-- [ ] Testes de rota (`tests/routes/`) cobrindo ao menos os casos de erro 400/404/422
+- [x] Cada controller delega para services (não implementa lógica de negócio diretamente)
+- [x] Testes de rota (`tests/routes/`) cobrindo ao menos os casos de erro 400/404/422
 
 **Estimativa:** 8 pontos  
 **Dependências:** TASK-06 (services), TASK-01 (migrations)
