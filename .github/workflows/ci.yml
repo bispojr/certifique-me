@@ -28,15 +28,13 @@ jobs:
       DB_HOST: localhost
       DB_PORT: 5432
       DB_PORT_TEST: 5432
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Opt-in Node.js 24
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       - name: Install dependencies
         run: npm install
       - name: Run migrations
