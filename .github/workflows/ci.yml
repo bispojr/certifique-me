@@ -30,6 +30,8 @@ jobs:
         run: npm install
       - name: Install docker-compose
         run: sudo apt-get update && sudo apt-get install -y docker-compose
+      - name: Clean up Docker containers (before)
+        run: docker-compose -f docker-compose.test.yml down --remove-orphans || true
       - name: Clean up Docker containers
         run: docker ps -aq | xargs -r docker rm -f
       - name: Start test containers
@@ -37,4 +39,6 @@ jobs:
       - name: Wait for DB
         run: sleep 10
       - name: Run tests
-        run: npm run test:docker
+        run: npm run test:docker -- --detectOpenHandles
+      - name: Clean up Docker containers (after)
+        run: docker-compose -f docker-compose.test.yml down --remove-orphans || true

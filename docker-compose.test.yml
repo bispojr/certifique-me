@@ -19,9 +19,13 @@ services:
       - postgres_test
     environment:
       - DATABASE_URL=postgresql://postgres:password@postgres_test:5432/certificados_test
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=certificados_test
+      - DB_HOST=postgres_test
+      - DB_PORT=5432
     volumes:
       - .:/app
-      - /app/node_modules
 
 volumes:
   postgres_test_data:
