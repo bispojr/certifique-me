@@ -97,9 +97,9 @@
 **Por que:** Lógica de negócio como geração de certificado, interpolação de `texto_base`, validações complexas não deve viver nem no controller nem no model.
 
 **Subtarefas:**
-- [ ] Criar `src/services/participanteService.js`
-- [ ] Criar `src/services/eventoService.js`
-- [ ] Criar `src/services/certificadoService.js` — inclui lógica de emissão, cancelamento
+ - [x] Criar `src/services/participanteService.js`
+ - [x] Criar `src/services/eventoService.js`
+ - [x] Criar `src/services/certificadoService.js` — inclui lógica de emissão, cancelamento
 - [ ] Criar `src/services/templateService.js` — interpola `texto_base` com `valores_dinamicos`
 - [ ] Criar `tests/services/templateService.test.js`
 
