@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "22"
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE DATABASE certificados_db_test;" -U postgres
+  - psql -c "CREATE USER postgres WITH PASSWORD 'senha_segura';" -U postgres || true
+  - export DB_USER=postgres
+  - export DB_PASSWORD=senha_segura
+  - export DB_NAME_TEST=certificados_db_test
+  - export DB_HOST=localhost
+  - export DB_PORT_TEST=5432
+  - npx sequelize-cli db:migrate --env test
+script:
+  - npm test

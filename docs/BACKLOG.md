@@ -17,8 +17,8 @@
   - [x] Migration de `tipos_certificados` criada (`up` e `down` completos)
   - [x] Migration de `certificados` criada com foreign keys (`up` e `down` completos)
   - [x] Migration de `usuarios` criada (`up` e `down` completos) _(depende de TASK-05)_
-- [x] `tests/setup.js` atualizado para rodar `sequelize db:migrate` em vez de `sync({ force: true })`
-- [ ] CI executa migrations antes dos testes
+  - [x] `tests/setup.js` atualizado para rodar `sequelize db:migrate` em vez de `sync({ force: true })`
+- [x] CI executa migrations antes dos testes
 
 **Estimativa:** 5 pontos  
 **Dependências:** nenhuma
