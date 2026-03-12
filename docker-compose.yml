@@ -11,17 +11,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  postgres_test:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: certificados_test
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_test_data:/var/lib/postgresql/data
-
   app:
     build: .
     ports:
@@ -36,4 +25,3 @@ services:
 
 volumes:
   postgres_data:
-  postgres_test_data:

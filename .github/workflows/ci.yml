@@ -7,28 +7,19 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     services:
-      postgres:
-        image: postgres:13
+      postgres_test:
+        image: postgres:15
         env:
+          POSTGRES_DB: certificados_test
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: senha_segura
-          POSTGRES_DB: certificados_db_test
+          POSTGRES_PASSWORD: password
         ports:
-          - 5432:5432
+          - 5433:5432
         options: >
           --health-cmd "pg_isready -U postgres" --health-interval 10s --health-timeout 5s --health-retries 5
-    env:
-      DB_USER: postgres
-      DB_PASSWORD: senha_segura
-      DB_NAME: certificados_db_test
-      DB_NAME_TEST: certificados_db_test
-      DB_HOST: localhost
-      DB_PORT: 5432
-      DB_PORT_TEST: 5432
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -37,7 +28,9 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: npm install
-      - name: Run migrations
-        run: npx sequelize-cli db:migrate --env test
+      - name: Start test containers
+        run: docker-compose -f docker-compose.test.yml up -d
+      - name: Wait for DB
+        run: sleep 10
       - name: Run tests
         run: npm test

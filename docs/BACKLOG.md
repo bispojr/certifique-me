@@ -45,9 +45,9 @@
 **Por que:** Infraestrutura de testes misturada com produção no mesmo arquivo cria risco operacional.
 
 **Critérios de aceite:**
-- [ ] `docker-compose.yml` contém apenas serviços de produção (`app`, `postgres`)
-- [ ] `docker-compose.test.yml` (ou `docker-compose.override.yml`) contém `postgres_test` e configurações de teste
-- [ ] Script npm `test` ou CI usa o compose correto para subir o banco de testes
+  - [x] `docker-compose.yml` contém apenas serviços de produção (`app`, `postgres`)
+  - [x] `docker-compose.test.yml` (ou `docker-compose.override.yml`) contém `postgres_test` e configurações de teste
+  - [x] Script npm `test` ou CI usa o compose correto para subir o banco de testes
 
 **Estimativa:** 1 ponto  
 **Dependências:** TASK-02

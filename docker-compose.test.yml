@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  postgres_test:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: certificados_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+
+  app_test:
+    build: .
+    ports:
+      - "3001:3000"
+    depends_on:
+      - postgres_test
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres_test:5432/certificados_test
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  postgres_test_data:
