@@ -60,7 +60,13 @@
 
 **Por que:** Sem controllers, toda lógica de negócio seria acumulada nos handlers de rota — violação de SRP e Separation of Concerns.
 
+- [x] Criar `src/controllers/participanteController.js` com `index`, `show`, `create`, `update`, `destroy`, `restore`
+- [x] Criar `src/controllers/eventoController.js` com as mesmas operações
+- [ ] Criar `src/controllers/certificadoController.js` com `index`, `show`, `create`, `cancel`, `restore`
 **Subtarefas:**
+  - [x] Criar `src/controllers/participanteController.js` com `index`, `show`, `create`, `update`, `destroy`, `restore`
+  - [x] Criar `src/controllers/eventoController.js` com as mesmas operações
+  - [x] Criar `src/controllers/certificadoController.js` com `index`, `show`, `create`, `cancel`, `restore`
 - [x] Criar `src/controllers/participanteController.js` com `index`, `show`, `create`, `update`, `destroy`, `restore`
 - [x] Criar `src/controllers/eventoController.js` com as mesmas operações
 - [ ] Criar `src/controllers/certificadoController.js` com `index`, `show`, `create`, `cancel`, `restore`
