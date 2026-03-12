@@ -61,7 +61,7 @@
 **Por que:** Sem controllers, toda lógica de negócio seria acumulada nos handlers de rota — violação de SRP e Separation of Concerns.
 
 **Subtarefas:**
-- [ ] Criar `src/controllers/participanteController.js` com `index`, `show`, `create`, `update`, `destroy`, `restore`
+- [x] Criar `src/controllers/participanteController.js` com `index`, `show`, `create`, `update`, `destroy`, `restore`
 - [ ] Criar `src/controllers/eventoController.js` com as mesmas operações
 - [ ] Criar `src/controllers/certificadoController.js` com `index`, `show`, `create`, `cancel`, `restore`
 - [ ] Criar `src/controllers/tiposCertificadosController.js` com `index`, `show`, `create`, `update`, `destroy`
@@ -97,11 +97,8 @@
 **Por que:** Lógica de negócio como geração de certificado, interpolação de `texto_base`, validações complexas não deve viver nem no controller nem no model.
 
 **Subtarefas:**
- - [x] Criar `src/services/participanteService.js`
- - [x] Criar `src/services/eventoService.js`
- - [x] Criar `src/services/certificadoService.js` — inclui lógica de emissão, cancelamento
-- [ ] Criar `src/services/templateService.js` — interpola `texto_base` com `valores_dinamicos`
-- [ ] Criar `tests/services/templateService.test.js`
+ - [x] Criar `src/services/templateService.js` — interpola `texto_base` com `valores_dinamicos`
+ - [x] Criar `tests/services/templateService.test.js`
 
 **Estimativa:** 8 pontos  
 **Dependências:** TASK-01

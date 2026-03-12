@@ -26,6 +26,12 @@ module.exports = {
       testEnvironment: 'node',
       testMatch: ['<rootDir>/tests/services/**/*.test.js'],
     },
+    {
+      displayName: 'controllers',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/tests/controllers/**/*.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+    },
   ],
   collectCoverageFrom: [
     'models/**/*.js',
