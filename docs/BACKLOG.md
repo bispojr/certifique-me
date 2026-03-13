@@ -142,9 +142,9 @@
 **Por que:** A validação de `campo_destaque` via `this.dados_dinamicos` dentro de um validator de campo é frágil — a ordem de atribuição dos campos em `this` não é garantida pelo Sequelize.
 
 **Critérios de aceite:**
-- [ ] Validação movida para hook `beforeValidate` em `tipos_certificados.js`
-- [ ] Teste existente de `campo_destaque` inválido continua passando
-- [ ] Comportamento documentado com comentário no código
+- [x] Validação movida para hook `beforeValidate` em `tipos_certificados.js` ✅ (13/03/2026)
+- [x] Teste existente de `campo_destaque` inválido continua passando ✅ (13/03/2026)
+- [x] Comportamento documentado com comentário no código ✅ (13/03/2026)
 
 **Estimativa:** 2 pontos  
 **Dependências:** nenhuma

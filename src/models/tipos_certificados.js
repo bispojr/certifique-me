@@ -49,6 +49,8 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: 'deleted_at'
   });
 
+  // Validação cross-field: campo_destaque deve ser "nome" ou uma chave de dados_dinamicos.
+  // Implementado como hook beforeValidate para garantir que todos os campos estejam disponíveis.
   TiposCertificados.addHook('beforeValidate', (instance) => {
     const value = instance.campo_destaque;
     if (value === 'nome') return;
