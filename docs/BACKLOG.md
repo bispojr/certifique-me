@@ -80,7 +80,7 @@
 - [ ] Criar `src/models/usuario.js` com campos `nome`, `email`, `senha` (hash bcrypt), `perfil`, `evento_id`
 - [ ] Criar migration para tabela `usuarios`
   - [x] Criar `src/middlewares/auth.js` — valida JWT e popula `req.user` ✅
-- [ ] Criar `src/middlewares/rbac.js` — verifica perfil em relação à rota
+- [x] Criar `src/middlewares/rbac.js` — verifica perfil em relação à rota ✅
 - [ ] Criar `src/controllers/usuarioController.js` com `login`, `logout`, `me`
 - [ ] Criar `src/routes/usuarios.js`
 - [ ] Proteger todas as rotas de gestão com `auth` + `rbac`
