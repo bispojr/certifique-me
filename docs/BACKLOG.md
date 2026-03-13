@@ -154,9 +154,9 @@
 ### TASK-10 🟡 Corrigir `package.json` com metadados reais
 
 **Critérios de aceite:**
-- [ ] `"name"` alterado para `"certifique-me"`
-- [ ] Campo `"description"` adicionado
-- [ ] Campo `"author"` preenchido
+- [x] `"name"` alterado para `"certifique-me"` ✅ (13/03/2026)
+- [x] Campo `"description"` adicionado ✅ (13/03/2026)
+- [x] Campo `"author"` preenchido ✅ (13/03/2026)
 
 **Estimativa:** 0.5 ponto  
 **Dependências:** nenhuma
