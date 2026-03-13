@@ -4,12 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./src/routes/index');
 // var usersRouter = require('./routes/users');
-var participantesRouter = require('./routes/participantes');
-var eventosRouter = require('./routes/eventos');
-var certificadosRouter = require('./routes/certificados');
-var tiposCertificadosRouter = require('./routes/tipos-certificados');
+var participantesRouter = require('./src/routes/participantes');
+var eventosRouter = require('./src/routes/eventos');
+var certificadosRouter = require('./src/routes/certificados');
+var tiposCertificadosRouter = require('./src/routes/tipos-certificados');
 
 var app = express();
 

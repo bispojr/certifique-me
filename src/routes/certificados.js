@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const certificadoController = require('../src/controllers/certificadoController');
+const certificadoController = require('../controllers/certificadoController');
 
 router.post('/', certificadoController.create);
 router.get('/', certificadoController.findAll);
