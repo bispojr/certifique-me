@@ -196,8 +196,8 @@
 
 **Critérios de aceite:**
 
-- [ ] `GET /health` retorna `{ status: 'ok', db: 'connected', uptime: <segundos> }`
-- [ ] Se o banco estiver indisponível, retorna `503` com `{ status: 'error', db: 'disconnected' }`
+- [x] `GET /health` retorna `{ status: 'ok', db: 'connected', uptime: <segundos> }`
+- [x] Se o banco estiver indisponível, retorna `503` com `{ status: 'error', db: 'disconnected' }` ✅ (13/03/2026)
 
 **Estimativa:** 1 ponto  
 **Dependências:** TASK-07
