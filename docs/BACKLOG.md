@@ -12,12 +12,13 @@
 **Por que:** Sem migrations, o schema só existe via `sync({ force: true })`, que destrói dados a cada execução. Em produção e CI é inaceitável.
 
 **Critérios de aceite:**
-  - [x] Migration de `participantes` criada (`up` e `down` completos)
-  - [x] Migration de `eventos` criada (`up` e `down` completos)
-  - [x] Migration de `tipos_certificados` criada (`up` e `down` completos)
-  - [x] Migration de `certificados` criada com foreign keys (`up` e `down` completos)
-  - [x] Migration de `usuarios` criada (`up` e `down` completos) ✅ _(depende de TASK-05)_
-  - [x] `tests/setup.js` atualizado para rodar `sequelize db:migrate` em vez de `sync({ force: true })`
+
+- [x] Migration de `participantes` criada (`up` e `down` completos)
+- [x] Migration de `eventos` criada (`up` e `down` completos)
+- [x] Migration de `tipos_certificados` criada (`up` e `down` completos)
+- [x] Migration de `certificados` criada com foreign keys (`up` e `down` completos)
+- [x] Migration de `usuarios` criada (`up` e `down` completos) ✅ _(depende de TASK-05)_
+- [x] `tests/setup.js` atualizado para rodar `sequelize db:migrate` em vez de `sync({ force: true })`
 - [x] CI executa migrations antes dos testes
 
 **Estimativa:** 5 pontos  
@@ -30,6 +31,7 @@
 **Por que:** Credenciais fracas hard-coded (`|| 'password'`) expõem o sistema em ambientes mal configurados e violam boas práticas de segurança (OWASP A02 — Cryptographic Failures).
 
 **Critérios de aceite:**
+
 - [x] Arquivo `.env.example` criado na raiz com todas as variáveis necessárias
 - [x] `config/database.js` removido o fallback `|| 'password'` — variáveis obrigatórias lançam erro explícito se ausentes
 - [x] `.env` adicionado ao `.gitignore`
@@ -45,9 +47,10 @@
 **Por que:** Infraestrutura de testes misturada com produção no mesmo arquivo cria risco operacional.
 
 **Critérios de aceite:**
-  - [x] `docker-compose.yml` contém apenas serviços de produção (`app`, `postgres`)
-  - [x] `docker-compose.test.yml` (ou `docker-compose.override.yml`) contém `postgres_test` e configurações de teste
-  - [x] Script npm `test` ou CI usa o compose correto para subir o banco de testes
+
+- [x] `docker-compose.yml` contém apenas serviços de produção (`app`, `postgres`)
+- [x] `docker-compose.test.yml` (ou `docker-compose.override.yml`) contém `postgres_test` e configurações de teste
+- [x] Script npm `test` ou CI usa o compose correto para subir o banco de testes
 
 **Estimativa:** 1 ponto  
 **Dependências:** TASK-02
@@ -77,6 +80,7 @@
 **Por que:** O sistema tem perfis definidos (`admin`, `gestor`, `monitor`) mas nenhuma rota é protegida. Expor endpoints sem autenticação é uma vulnerabilidade crítica (OWASP A01 — Broken Access Control).
 
 **Subtarefas:**
+
 - [x] Criar `src/models/usuario.js` com campos `nome`, `email`, `senha` (hash bcrypt), `perfil`, `evento_id` ✅ (13/03/2026)
 - [x] Criar migration para tabela `usuarios` ✅ (13/03/2026)
   - [x] Criar `src/middlewares/auth.js` — valida JWT e popula `req.user` ✅
@@ -96,8 +100,9 @@
 **Por que:** Lógica de negócio como geração de certificado, interpolação de `texto_base`, validações complexas não deve viver nem no controller nem no model.
 
 **Subtarefas:**
- - [x] Criar `src/services/templateService.js` — interpola `texto_base` com `valores_dinamicos`
- - [x] Criar `tests/services/templateService.test.js`
+
+- [x] Criar `src/services/templateService.js` — interpola `texto_base` com `valores_dinamicos`
+- [x] Criar `tests/services/templateService.test.js`
 
 **Estimativa:** 8 pontos  
 **Dependências:** TASK-01
@@ -109,6 +114,7 @@
 **Por que:** As rotas atuais são apenas stubs — nenhum endpoint real da aplicação está exposto.
 
 **Subtarefas:**
+
 - [x] Criar `src/routes/participantes.js` — CRUD completo
 - [x] Remover `routes/users.js` (stub sem domínio)
 - [x] Criar `src/routes/eventos.js` — CRUD completo
@@ -128,6 +134,7 @@
 **Por que:** `fs.readdirSync` impede análise estática, pode carregar arquivos inesperados e dificulta refatoração.
 
 **Critérios de aceite:**
+
 - [x] Modelos registrados explicitamente em `models/index.js` ✅ (13/03/2026)
 - [x] Nenhum uso de `fs.readdirSync` no loader ✅ (13/03/2026)
 - [x] Todos os testes existentes continuam passando ✅ (13/03/2026)
@@ -142,6 +149,7 @@
 **Por que:** A validação de `campo_destaque` via `this.dados_dinamicos` dentro de um validator de campo é frágil — a ordem de atribuição dos campos em `this` não é garantida pelo Sequelize.
 
 **Critérios de aceite:**
+
 - [x] Validação movida para hook `beforeValidate` em `tipos_certificados.js` ✅ (13/03/2026)
 - [x] Teste existente de `campo_destaque` inválido continua passando ✅ (13/03/2026)
 - [x] Comportamento documentado com comentário no código ✅ (13/03/2026)
@@ -154,6 +162,7 @@
 ### TASK-10 🟡 Corrigir `package.json` com metadados reais
 
 **Critérios de aceite:**
+
 - [x] `"name"` alterado para `"certifique-me"` ✅ (13/03/2026)
 - [x] Campo `"description"` adicionado ✅ (13/03/2026)
 - [x] Campo `"author"` preenchido ✅ (13/03/2026)
@@ -168,14 +177,15 @@
 ### TASK-11 🟡 Criar estrutura de documentação em `/docs`
 
 **Critérios de aceite:**
-- [ ] `docs/overview.md` — descrição do sistema, stakeholders, glossário
-- [ ] `docs/architecture.md` — diagramas C4 (Context, Container, Component) em Mermaid
-- [ ] `docs/modules.md` — descrição de cada entidade, campos e regras de negócio
-- [ ] `docs/development.md` — setup local, variáveis de ambiente, como rodar testes
-- [ ] `docs/deployment.md` — deploy com Docker, processo de migration em produção
-- [ ] `docs/decisions/001-orm-sequelize.md` — ADR: escolha do Sequelize
-- [ ] `docs/decisions/002-soft-delete-paranoid.md` — ADR: soft delete
-- [ ] `docs/decisions/003-jsonb-dados-dinamicos.md` — ADR: uso de JSONB
+
+- [x] `docs/visao-geral.md` — descrição do sistema, stakeholders, glossário
+- [x] `docs/arquitetura.md` — diagramas C4 (Context, Container, Component) em Mermaid
+- [x] `docs/modulos.md` — descrição de cada entidade, campos e regras de negócio
+- [x] `docs/desenvolvimento.md` — setup local, variáveis de ambiente, como rodar testes
+- [x] `docs/deploy.md` — deploy com Docker, processo de migration em produção
+- [x] `docs/decisoes/001-orm-sequelize.md` — ADR: escolha do Sequelize
+- [x] `docs/decisoes/002-soft-delete-paranoid.md` — ADR: soft delete
+- [x] `docs/decisoes/003-jsonb-dados-dinamicos.md` — ADR: uso de JSONB
 
 **Estimativa:** 5 pontos  
 **Dependências:** TASK-04, TASK-05, TASK-07
@@ -185,6 +195,7 @@
 ### TASK-12 🟢 Adicionar health check endpoint
 
 **Critérios de aceite:**
+
 - [ ] `GET /health` retorna `{ status: 'ok', db: 'connected', uptime: <segundos> }`
 - [ ] Se o banco estiver indisponível, retorna `503` com `{ status: 'error', db: 'disconnected' }`
 
@@ -198,6 +209,7 @@
 ### TASK-13 🟢 Adicionar linter (ESLint) e formatter (Prettier)
 
 **Critérios de aceite:**
+
 - [ ] `.eslintrc.js` configurado com `eslint:recommended`
 - [ ] `.prettierrc` configurado (aspas simples, sem ponto-e-vírgula, 2 espaços)
 - [ ] Script `"lint": "eslint src/**"` adicionado ao `package.json`
@@ -214,6 +226,7 @@
 **Por que:** Validações do Sequelize ocorrem na camada de banco — payloads malformados devem ser rejeitados antes de chegar ao controller (defesa em profundidade).
 
 **Critérios de aceite:**
+
 - [ ] Schemas Zod criados em `src/validators/` para cada recurso
 - [ ] Middleware de validação aplicado nas rotas `POST` e `PUT`
 - [ ] Erros de validação retornam `400` com lista de campos inválidos
@@ -226,6 +239,7 @@
 ### TASK-15 🟢 Documentar API com Swagger/OpenAPI
 
 **Critérios de aceite:**
+
 - [ ] `swagger-jsdoc` e `swagger-ui-express` instalados
 - [ ] Anotações JSDoc `@swagger` nas rotas
 - [ ] Interface disponível em `GET /api-docs`
@@ -253,11 +267,11 @@ Sprint 4 (refinamento)
 
 ## Sumário de Pontuação
 
-| Épico | Pontos | Prioridade |
-|---|---|---|
-| Épico 1 — Integridade do Banco | 7 | 🔴 Crítica |
-| Épico 2 — Separação de Responsabilidades | 34 | 🔴/🟡 |
-| Épico 3 — Qualidade e Manutenibilidade | 3.5 | 🟡 Importante |
-| Épico 4 — Documentação | 6 | 🟡/🟢 |
-| Épico 5 — Tooling | 10 | 🟢 Opcional |
-| **Total** | **60.5** | |
+| Épico                                    | Pontos   | Prioridade    |
+| ---------------------------------------- | -------- | ------------- |
+| Épico 1 — Integridade do Banco           | 7        | 🔴 Crítica    |
+| Épico 2 — Separação de Responsabilidades | 34       | 🔴/🟡         |
+| Épico 3 — Qualidade e Manutenibilidade   | 3.5      | 🟡 Importante |
+| Épico 4 — Documentação                   | 6        | 🟡/🟢         |
+| Épico 5 — Tooling                        | 10       | 🟢 Opcional   |
+| **Total**                                | **60.5** |               |
