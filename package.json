@@ -12,7 +12,10 @@
     "test:models": "jest tests/models",
     "test:routes": "jest tests/routes",
     "test:docker": "docker-compose -f docker-compose.test.yml up -d && sleep 5 && npm test",
-    "test:ci": "jest --runInBand --forceExit"
+    "test:ci": "jest --runInBand --forceExit",
+    "lint": "eslint src/**",
+    "format": "prettier --write .",
+    "check": "npm run lint && npm run test:ci"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -28,7 +31,9 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "eslint": "^10.0.3",
     "jest": "^30.2.0",
+    "prettier": "^3.8.1",
     "sequelize-cli": "^6.6.5",
     "sqlite3": "^5.1.7",
     "supertest": "^7.2.2"

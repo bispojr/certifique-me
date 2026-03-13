@@ -3,7 +3,7 @@ const router = express.Router()
 const participanteController = require('../controllers/participanteController')
 const auth = require('../../middleware/auth')
 const rbac = require('../middlewares/rbac')
-const scopedEvento = require('../middlewares/scopedEvento')
+// ...existing code...
 
 router.post('/', auth, rbac('monitor'), participanteController.create)
 router.get('/', auth, rbac('monitor'), participanteController.findAll)

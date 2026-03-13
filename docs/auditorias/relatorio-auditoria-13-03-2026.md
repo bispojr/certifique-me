@@ -521,24 +521,24 @@ docs/
     └── 004-rbac-perfis.md
 ```
 
-| Arquivo           | Conteúdo                                                                                                                            |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `overview.md`     | O que é o sistema, qual problema resolve, contexto do projeto (CBIE/EduComp), stakeholders, glossário de domínio                    |
-| `architecture.md` | Diagrama C4 (Context, Container, Component), decisões arquiteturais, fluxo de dados, camadas do sistema                             |
-| `modules.md`      | Descrição de cada módulo (Participante, Certificado, Evento, TiposCertificados, Usuario), seus campos, relações e regras de negócio |
-| `api.md`          | Documentação de todos os endpoints REST: método, path, body esperado, respostas, exemplos curl                                      |
-| `development.md`  | Como configurar ambiente local, variáveis de ambiente necessárias, como rodar testes, estrutura de branches/commits                 |
-| `deployment.md`   | Como fazer deploy via Docker, variáveis de produção, banco de dados em produção, processo de migration                              |
-| `security.md`     | Modelo de autenticação JWT, perfis RBAC, políticas de acesso por endpoint, considerações OWASP                                      |
-| `decisions/`      | Architecture Decision Records (ADRs) — cada arquivo documenta uma decisão com contexto, alternativas consideradas e consequências   |
+| Arquivo              | Conteúdo                                                                                                                            |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `overview.md`        | O que é o sistema, qual problema resolve, contexto do projeto (CBIE/EduComp), stakeholders, glossário de domínio                    |
+| `architecture.md`    | Diagrama C4 (Context, Container, Component), decisões arquiteturais, fluxo de dados, camadas do sistema                             |
+| `modules.md`         | Descrição de cada módulo (Participante, Certificado, Evento, TiposCertificados, Usuario), seus campos, relações e regras de negócio |
+| `api.md`             | Documentação de todos os endpoints REST: método, path, body esperado, respostas, exemplos curl                                      |
+| `development.md`     | Como configurar ambiente local, variáveis de ambiente necessárias, como rodar testes, estrutura de branches/commits                 |
+| `deployment.md`      | Como fazer deploy via Docker, variáveis de produção, banco de dados em produção, processo de migration                              |
+| `security.md`        | Modelo de autenticação JWT, perfis RBAC, políticas de acesso por endpoint, considerações OWASP                                      |
+| `decisions/`         | Architecture Decision Records (ADRs) — cada arquivo documenta uma decisão com contexto, alternativas consideradas e consequências   |
 | `visao-geral.md`     | O que é o sistema, qual problema resolve, contexto do projeto (CBIE/EduComp), stakeholders, glossário de domínio                    |
-| `arquitetura.md` | Diagrama C4 (Context, Container, Component), decisões arquiteturais, fluxo de dados, camadas do sistema                             |
-| `modulos.md`      | Descrição de cada módulo (Participante, Certificado, Evento, TiposCertificados, Usuario), seus campos, relações e regras de negócio |
-| `api.md`          | Documentação de todos os endpoints REST: método, path, body esperado, respostas, exemplos curl                                      |
-| `desenvolvimento.md`  | Como configurar ambiente local, variáveis de ambiente necessárias, como rodar testes, estrutura de branches/commits                 |
-| `deploy.md`   | Como fazer deploy via Docker, variáveis de produção, banco de dados em produção, processo de migration                              |
-| `security.md`     | Modelo de autenticação JWT, perfis RBAC, políticas de acesso por endpoint, considerações OWASP                                      |
-| `decisoes/`      | Architecture Decision Records (ADRs) — cada arquivo documenta uma decisão com contexto, alternativas consideradas e consequências   |
+| `arquitetura.md`     | Diagrama C4 (Context, Container, Component), decisões arquiteturais, fluxo de dados, camadas do sistema                             |
+| `modulos.md`         | Descrição de cada módulo (Participante, Certificado, Evento, TiposCertificados, Usuario), seus campos, relações e regras de negócio |
+| `api.md`             | Documentação de todos os endpoints REST: método, path, body esperado, respostas, exemplos curl                                      |
+| `desenvolvimento.md` | Como configurar ambiente local, variáveis de ambiente necessárias, como rodar testes, estrutura de branches/commits                 |
+| `deploy.md`          | Como fazer deploy via Docker, variáveis de produção, banco de dados em produção, processo de migration                              |
+| `security.md`        | Modelo de autenticação JWT, perfis RBAC, políticas de acesso por endpoint, considerações OWASP                                      |
+| `decisoes/`          | Architecture Decision Records (ADRs) — cada arquivo documenta uma decisão com contexto, alternativas consideradas e consequências   |
 
 ---
 

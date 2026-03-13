@@ -210,11 +210,11 @@
 
 **Critérios de aceite:**
 
-- [ ] `.eslintrc.js` configurado com `eslint:recommended`
-- [ ] `.prettierrc` configurado (aspas simples, sem ponto-e-vírgula, 2 espaços)
-- [ ] Script `"lint": "eslint src/**"` adicionado ao `package.json`
-- [ ] Script `"format": "prettier --write ."` adicionado
-- [ ] CI executa lint antes dos testes
+- [x] `.eslintrc.js` configurado com `eslint:recommended`
+- [x] `.prettierrc` configurado (aspas simples, sem ponto-e-vírgula, 2 espaços)
+- [x] Script `"lint": "eslint src/**"` adicionado ao `package.json`
+- [x] Script `"format": "prettier --write ."` adicionado
+- [x] CI executa lint antes dos testes
 
 **Estimativa:** 2 pontos  
 **Dependências:** nenhuma

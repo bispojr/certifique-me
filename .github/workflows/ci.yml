@@ -27,7 +27,7 @@ jobs:
         run: docker-compose -f docker-compose.test.yml up -d
       - name: Wait for DB
         run: sleep 10
-      - name: Run tests
+      - name: Run lint and tests (check)
         env:
           DB_USER: postgres
           DB_PASSWORD: password
@@ -36,6 +36,6 @@ jobs:
           DB_PORT: 5432
           DB_NAME_TEST: certificados_test
           DB_PORT_TEST: 5433
-        run: npm run test:docker
+        run: npm run check
       - name: Clean up Docker containers (after)
         run: docker-compose -f docker-compose.test.yml down --remove-orphans || true

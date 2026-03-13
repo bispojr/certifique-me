@@ -25,6 +25,7 @@ graph TD
 ```
 
 ### Container Diagram (Nível 2)
+
 ```mermaid
 graph TD
   Web[Express Web Server] --> API[REST API]
@@ -34,9 +35,10 @@ graph TD
   API --> Eventos[Eventos]
   API --> Participantes[Participantes]
   API --> TiposCertificados[Tipos de Certificados]
-````
+```
 
 ### Component Diagram (Nível 3)
+
 ```mermaid
 graph TD
   API --> Controllers
@@ -44,12 +46,14 @@ graph TD
   Services --> Models
   Controllers --> Middlewares
   API --> Routes
-````
+```
 
 ## Acoplamento e Coesão
+
 - Baixo acoplamento entre camadas
 - Alta coesão nos módulos
 
 ## Dependências
+
 - JWT para autenticação
 - Docker para infraestrutura
