@@ -84,7 +84,7 @@
 - [x] Criar `src/controllers/usuarioController.js` com `login`, `logout`, `me`
 - [x] Criar `src/routes/usuarios.js`
 - [x] Proteger todas as rotas de gestão com `auth` + `rbac` ✅ (13/03/2026)
-- [ ] Adicionar `jsonwebtoken` e `bcryptjs` às dependências ✅ (13/03/2026)
+- [x] Adicionar `jsonwebtoken` e `bcryptjs` às dependências ✅ (13/03/2026)
 
 **Estimativa:** 13 pontos  
 **Dependências:** TASK-01
