@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../app');
-const { Certificado, Participante, Evento, TiposCertificados } = require('../../models');
+const { Certificado, Participante, Evento, TiposCertificados } = require('../../src/models');
 
 let participanteId, eventoId, tipoCertificadoId;
 

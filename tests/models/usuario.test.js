@@ -1,4 +1,4 @@
-const { Usuario, sequelize } = require('../../models');
+const { Usuario, sequelize } = require('../../src/models');
 const bcrypt = require('bcryptjs');
 
 describe('Usuario Model', () => {

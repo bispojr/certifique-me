@@ -1,5 +1,5 @@
 
-const { sequelize } = require('../models');
+const { sequelize } = require('../src/models');
 const { execSync } = require('child_process');
 
 // Configuração global para testes

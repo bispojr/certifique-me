@@ -1,5 +1,5 @@
 // Service para lógica de negócio de Participante
-const { Participante } = require('../../models');
+const { Participante } = require('../../src/models');
 
 module.exports = {
   async findAll() {

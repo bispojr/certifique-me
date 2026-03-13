@@ -1,7 +1,7 @@
 const participanteService = require('../../src/services/participanteService');
-const { Participante } = require('../../models');
+const { Participante } = require('../../src/models');
 
-jest.mock('../../models', () => ({
+jest.mock('../../src/models', () => ({
   Participante: {
     findByPk: jest.fn(),
     destroy: jest.fn(),

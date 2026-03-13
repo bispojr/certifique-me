@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../app');
-const { Participante } = require('../../models');
+const { Participante } = require('../../src/models');
 
 beforeAll(async () => {
   await Participante.destroy({ where: {}, force: true });

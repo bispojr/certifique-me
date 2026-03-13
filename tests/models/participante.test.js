@@ -1,4 +1,4 @@
-const { Participante } = require('../../models');
+const { Participante } = require('../../src/models');
 
 describe('Participante Model', () => {
   beforeEach(async () => {
@@ -110,7 +110,7 @@ describe('Participante Model', () => {
   });
 
   test('deve associar participante a certificados', async () => {
-    const { Certificado, Evento, TiposCertificados } = require('../../models');
+    const { Certificado, Evento, TiposCertificados } = require('../../src/models');
 
     // Limpa TiposCertificados para evitar conflito de código duplicado
     await TiposCertificados.destroy({ where: {}, force: true });

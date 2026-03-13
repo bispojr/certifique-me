@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { Usuario } = require('../models');
+const { Usuario } = require('../src/models');
 
 const secret = process.env.JWT_SECRET || 'segredo-super-seguro';
 

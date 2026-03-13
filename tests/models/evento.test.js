@@ -1,4 +1,4 @@
-const { Evento } = require('../../models');
+const { Evento } = require('../../src/models');
 
 describe('Evento Model', () => {
   beforeEach(async () => {

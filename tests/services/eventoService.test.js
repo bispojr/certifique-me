@@ -1,7 +1,7 @@
 const eventoService = require('../../src/services/eventoService');
-const { Evento } = require('../../models');
+const { Evento } = require('../../src/models');
 
-jest.mock('../../models', () => ({
+jest.mock('../../src/models', () => ({
   Evento: {
     findAll: jest.fn(),
     findByPk: jest.fn(),

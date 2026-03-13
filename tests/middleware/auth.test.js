@@ -1,7 +1,7 @@
 const request = require('supertest');
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { Usuario, sequelize } = require('../../models');
+const { Usuario, sequelize } = require('../../src/models');
 const migrationUsuarios = require('../../migrations/20260312180000-create-usuarios.js');
 const auth = require('../../middleware/auth');
 

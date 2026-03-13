@@ -1,4 +1,4 @@
-const { TiposCertificados } = require('../../models');
+const { TiposCertificados } = require('../../src/models');
 
 describe('TiposCertificados Model', () => {
   beforeEach(async () => {

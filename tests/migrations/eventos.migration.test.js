@@ -1,4 +1,4 @@
-const { sequelize } = require('../../models');
+const { sequelize } = require('../../src/models');
 const migration = require('../../migrations/20260311175950-create-eventos.js');
 
 describe('Migration: eventos', () => {

@@ -1,5 +1,5 @@
 // Service para lógica de negócio de TiposCertificados
-const { TiposCertificados } = require('../../models');
+const { TiposCertificados } = require('../../src/models');
 
 module.exports = {
   async findAll() {

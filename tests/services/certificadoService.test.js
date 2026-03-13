@@ -1,7 +1,7 @@
 const certificadoService = require('../../src/services/certificadoService');
-const { Certificado } = require('../../models');
+const { Certificado } = require('../../src/models');
 
-jest.mock('../../models', () => ({
+jest.mock('../../src/models', () => ({
   Certificado: {
     findAll: jest.fn(),
     findByPk: jest.fn(),

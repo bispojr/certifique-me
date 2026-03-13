@@ -114,7 +114,7 @@
 - [x] Criar `src/routes/eventos.js` — CRUD completo
 - [x] Criar `src/routes/certificados.js` — emissão, consulta, cancelamento, restauração
 - [x] Criar `src/routes/tiposCertificados.js`
-- [ ] Registrar todas as rotas no `app.js`
+- [x] Registrar todas as rotas no `app.js` ✅
 
 **Estimativa:** 5 pontos  
 **Dependências:** TASK-04, TASK-05

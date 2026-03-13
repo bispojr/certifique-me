@@ -1,5 +1,5 @@
 // Service para lógica de negócio de Evento
-const { Evento } = require('../../models');
+const { Evento } = require('../../src/models');
 
 module.exports = {
   async findAll() {

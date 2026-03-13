@@ -1,5 +1,5 @@
 // Service para lógica de negócio de Certificado
-const { Certificado } = require('../../models');
+const { Certificado } = require('../../src/models');
 
 module.exports = {
     async cancel(id) {

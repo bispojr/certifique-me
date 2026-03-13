@@ -1,5 +1,5 @@
 describe('Migration: tipos_certificados', () => {
-const { sequelize } = require('../../models');
+const { sequelize } = require('../../src/models');
 const migration = require('../../migrations/20260311180308-create-tipos-certificados.js');
 
   const queryInterface = sequelize.getQueryInterface();

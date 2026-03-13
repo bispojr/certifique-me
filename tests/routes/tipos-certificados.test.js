@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../app');
-const { TiposCertificados } = require('../../models');
+const { TiposCertificados } = require('../../src/models');
 
 beforeAll(async () => {
   await TiposCertificados.destroy({ where: {}, force: true });
