@@ -1,13 +1,23 @@
 const usuarioSchema = require('../../src/validators/usuario')
 
 describe('Validação Zod - Usuario', () => {
-  it('valida um usuario válido', () => {
+  it('valida um usuario válido sem eventos', () => {
     const valido = {
       nome: 'Maria Silva',
       email: 'maria@email.com',
       senha: '123456',
       perfil: 'admin',
-      evento_id: 1,
+    }
+    expect(() => usuarioSchema.parse(valido)).not.toThrow()
+  })
+
+  it('valida um usuario válido com eventos', () => {
+    const valido = {
+      nome: 'João Eventos',
+      email: 'joao@eventos.com',
+      senha: 'abcdef',
+      perfil: 'monitor',
+      eventos: [1, 2, 3],
     }
     expect(() => usuarioSchema.parse(valido)).not.toThrow()
   })
@@ -42,21 +52,14 @@ describe('Validação Zod - Usuario', () => {
     expect(() => usuarioSchema.parse(invalido)).toThrow()
   })
 
-  it('aceita evento_id ausente ou nulo', () => {
-    const semEvento = {
-      nome: 'Paula',
-      email: 'paula@email.com',
+  it('rejeita eventos não numéricos', () => {
+    const invalido = {
+      nome: 'Lucas',
+      email: 'lucas@email.com',
       senha: 'abcdef',
       perfil: 'monitor',
+      eventos: ['a', 2],
     }
-    const eventoNulo = {
-      nome: 'Paula',
-      email: 'paula@email.com',
-      senha: 'abcdef',
-      perfil: 'monitor',
-      evento_id: null,
-    }
-    expect(() => usuarioSchema.parse(semEvento)).not.toThrow()
-    expect(() => usuarioSchema.parse(eventoNulo)).not.toThrow()
+    expect(() => usuarioSchema.parse(invalido)).toThrow()
   })
 })

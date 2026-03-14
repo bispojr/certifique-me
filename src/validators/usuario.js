@@ -5,7 +5,7 @@ const usuarioSchema = z.object({
   email: z.string().email(),
   senha: z.string().min(6),
   perfil: z.enum(['admin', 'gestor', 'monitor']),
-  evento_id: z.number().int().optional().nullable(),
+  eventos: z.array(z.number().int()).optional(),
 })
 
 module.exports = usuarioSchema

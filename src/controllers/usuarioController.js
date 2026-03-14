@@ -37,4 +37,18 @@ module.exports = {
       perfil: usuario.perfil,
     })
   },
+
+  async create(req, res) {
+    try {
+      const { nome, email, senha, perfil, eventos } = req.body
+      const usuario = await Usuario.create({ nome, email, senha, perfil })
+      if (Array.isArray(eventos) && eventos.length > 0) {
+        await usuario.setEventos(eventos)
+      }
+      const usuarioComEventos = await Usuario.findByPk(usuario.id, { include: 'eventos' })
+      return res.status(201).json(usuarioComEventos)
+    } catch (error) {
+      return res.status(400).json({ error: error.message })
+    }
+  },
 }
