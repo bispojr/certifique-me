@@ -67,6 +67,7 @@ describe('Rotas de Certificados', () => {
         participante_id: participanteId,
         evento_id: eventoId,
         tipo_certificado_id: tipoCertificadoId,
+        status: 'emitido',
         valores_dinamicos: { campo: 'valor' },
       })
     expect(res.status).toBe(201)
@@ -94,7 +95,7 @@ describe('Rotas de Certificados', () => {
     const res = await request(app)
       .put(`/certificados/${certificadoId}`)
       .set('Authorization', `Bearer ${adminToken}`)
-      .send({ nome: 'Certificado Atualizado' })
+      .send({ nome: 'Certificado Atualizado', status: 'emitido' })
     expect(res.status).toBe(200)
     expect(res.body).toHaveProperty('nome', 'Certificado Atualizado')
   })
@@ -127,6 +128,21 @@ describe('Rotas de Certificados', () => {
       .post('/certificados')
       .set('Authorization', `Bearer ${adminToken}`)
       .send({ participante_id: null })
+    expect(res.status).toBe(400)
+    expect(res.body).toHaveProperty('error')
+  })
+
+  it('deve retornar 400 ao emitir certificado sem status', async () => {
+    const res = await request(app)
+      .post('/certificados')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        nome: 'Certificado Teste',
+        participante_id: participanteId,
+        evento_id: eventoId,
+        tipo_certificado_id: tipoCertificadoId,
+        valores_dinamicos: { campo: 'valor' },
+      })
     expect(res.status).toBe(400)
     expect(res.body).toHaveProperty('error')
   })

@@ -4,12 +4,15 @@ const certificadoController = require('../controllers/certificadoController')
 const auth = require('../../middleware/auth')
 const rbac = require('../middlewares/rbac')
 const scopedEvento = require('../middlewares/scopedEvento')
+const validate = require('../../middleware/validate')
+const certificadoSchema = require('../validators/certificado')
 
 router.post(
   '/',
   auth,
   rbac('monitor'),
   scopedEvento,
+  validate(certificadoSchema),
   certificadoController.create,
 )
 router.get(
@@ -31,6 +34,7 @@ router.put(
   auth,
   rbac('monitor'),
   scopedEvento,
+  validate(certificadoSchema.partial()),
   certificadoController.update,
 )
 router.delete(

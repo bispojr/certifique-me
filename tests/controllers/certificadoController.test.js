@@ -32,13 +32,31 @@ describe('CertificadoController', () => {
     certificadoService.create.mockResolvedValue({
       id: 1,
       nome: 'Certificado Teste',
+      status: 'emitido',
+      participante_id: 10,
+      evento_id: 20,
+      tipo_certificado_id: 30,
     })
+    const payload = {
+      nome: 'Certificado Teste',
+      status: 'emitido',
+      participante_id: 10,
+      evento_id: 20,
+      tipo_certificado_id: 30,
+    }
     const res = await request(app)
       .post('/certificados')
       .set('Authorization', `Bearer ${adminToken}`)
-      .send({ nome: 'Certificado Teste' })
+      .send(payload)
     expect(res.statusCode).toBe(201)
-    expect(res.body).toEqual({ id: 1, nome: 'Certificado Teste' })
+    expect(res.body).toEqual({
+      id: 1,
+      nome: 'Certificado Teste',
+      status: 'emitido',
+      participante_id: 10,
+      evento_id: 20,
+      tipo_certificado_id: 30,
+    })
   })
 
   it('deve retornar todos os certificados', async () => {
