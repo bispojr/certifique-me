@@ -5,7 +5,7 @@ describe('Validação Zod - Evento', () => {
     const data = {
       nome: 'Congresso Nacional',
       ano: 2026,
-      codigo_base: 'CN2026'
+      codigo_base: 'ABC'
     }
     expect(() => eventoSchema.parse(data)).not.toThrow()
   })
@@ -14,7 +14,7 @@ describe('Validação Zod - Evento', () => {
     const data = {
       nome: 'Congresso Nacional',
       ano: 1999,
-      codigo_base: 'CN2026'
+      codigo_base: 'ABC'
     }
     expect(() => eventoSchema.parse(data)).toThrow()
   })
@@ -23,7 +23,7 @@ describe('Validação Zod - Evento', () => {
     const data = {
       nome: 'AB',
       ano: 2026,
-      codigo_base: 'CN2026'
+      codigo_base: 'ABC'
     }
     expect(() => eventoSchema.parse(data)).toThrow()
   })

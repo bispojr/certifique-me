@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs')
 describe('Usuario Model', () => {
   beforeEach(async () => {
     await UsuarioEvento.destroy({ where: {}, force: true })
-    await Usuario.destroy({ where: {}, force: true })
     await Evento.destroy({ where: {}, force: true })
+    await Usuario.destroy({ where: {}, force: true })
   })
 
   test('deve criar usuario com dados válidos e hash de senha', async () => {

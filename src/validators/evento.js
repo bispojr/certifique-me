@@ -3,7 +3,7 @@ const { z } = require('zod')
 const eventoSchema = z.object({
   nome: z.string().min(3),
   ano: z.number().int().gte(2000),
-  codigo_base: z.string().min(2),
+  codigo_base: z.string().regex(/^[A-Za-z]{3}$/),
 })
 
 module.exports = eventoSchema
