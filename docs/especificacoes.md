@@ -438,3 +438,197 @@ MS-7: **Importação em lote:** Criar um endpoint ou ferramenta para importaçã
 
 MS-8: **Testes de integração de rotas protegidas:** Expandir a cobertura de testes para incluir cenários de autorização — tentativas de acesso com perfil insuficiente devem retornar HTTP 403.
 
+---
+
+# Funcionalidades Identificadas no Código
+
+> Esta seção foi gerada por análise reversa do repositório em 2026-03-14 e descreve comportamentos implementados que não estavam documentados explicitamente no SRS original.
+
+---
+
+UF-1: **Relacionamento N:N entre Usuário e Evento via tabela de junção.**  
+O modelo de dados original especificava `evento_id` como chave estrangeira simples na tabela `usuarios`. O código implementa uma relação muitos-para-muitos: um usuário pode ser associado a múltiplos eventos através da tabela de junção `usuario_eventos`.  
+**Evidência:** `src/models/usuario.js` (`belongsToMany`), `src/models/usuario_eventos.js`, migration `20260313190000-create-usuario_eventos.js`, migration `20260313195000-remove-evento_id-from-usuarios.js`
+
+---
+
+UF-2: **Endpoint REST para associar/reatribuir eventos a um usuário.**  
+Existe uma rota `PUT /usuarios/:id/eventos` que recebe um array de IDs de eventos e atualiza todas as associações do usuário de uma só vez. A rota valida duplicatas no array e a existência dos eventos antes de persistir.  
+**Evidência:** `src/routes/usuarios.js`, `src/controllers/usuarioController.js` (`updateEventos`)
+
+---
+
+UF-3: **Documentação OpenAPI/Swagger disponível em tempo de execução.**  
+A aplicação serve documentação interativa da API no endpoint `GET /api-docs`, gerada automaticamente a partir de anotações JSDoc nas rotas usando `swagger-jsdoc` e `swagger-ui-express`. Todos os recursos (participantes, eventos, certificados, tipos de certificados, usuários) estão documentados com schemas OpenAPI 3.0.  
+**Evidência:** `app.js` (configuração do `swaggerJsdoc` e `swaggerUi`), comentários `@swagger` em todos os arquivos de rotas em `src/routes/`
+
+---
+
+UF-4: **Validação de corpo de requisição via Zod com retorno estruturado de erros.**  
+Todas as rotas de escrita usam um middleware de validação baseado em Zod. Em caso de erro, a resposta retorna HTTP 400 com o payload `{ "error": "Erro de validação", "detalhes": [...] }`, onde `detalhes` é o array de erros do Zod com campo, mensagem e código.  
+**Evidência:** `middleware/validate.js`, uso de `validate(schema)` nas rotas de `src/routes/`
+
+---
+
+UF-5: **Restrições mínimas de tamanho em campos de validação (não especificadas no SRS).**  
+Os schemas Zod impõem comprimentos mínimos que nunca foram documentados:
+- `nomeCompleto` (participante): mínimo 3 caracteres
+- `nome` (evento, usuário, certificado): mínimo 3 caracteres
+- `senha` (usuário): mínimo 6 caracteres
+- `instituicao` (participante): mínimo 2 caracteres (quando fornecida)
+- `ano` (evento): mínimo 2000
+
+**Evidência:** `src/validators/participante.js`, `src/validators/evento.js`, `src/validators/usuario.js`, `src/validators/certificado.js`
+
+---
+
+UF-6: **Modelo de herança hierárquica de perfis no RBAC.**  
+O middleware `rbac` não verifica permissões discretas por perfil; em vez disso, define uma hierarquia ordenada `['monitor', 'gestor', 'admin']` onde um perfil de rank superior tem acesso a tudo que um perfil inferior tem. Isso significa que gestores podem acessar rotas protegidas para monitor, e admins podem acessar rotas de gestor e monitor.  
+**Evidência:** `src/middlewares/rbac.js` (array `roles`, comparação por índice)
+
+---
+
+UF-7: **O middleware `scopedEvento` injeta automaticamente o filtro de evento nas consultas GET.**  
+Para gestores e monitores, requisições `GET` sem parâmetro de ID têm `req.query.evento_id` automaticamente preenchido com o `evento_id` do usuário autenticado, restringindo os resultados ao evento vinculado sem que o cliente precise informar o filtro explicitamente. Caso o cliente tente forçar um `evento_id` diferente na query string, a requisição é bloqueada com HTTP 403.  
+**Evidência:** `src/middlewares/scopedEvento.js`
+
+---
+
+UF-8: **Autenticação valida a existência do usuário no banco a cada requisição.**  
+O middleware `auth` não apenas verifica a assinatura e a expiração do JWT — ele também consulta o banco de dados para confirmar que o usuário ainda existe. Isso garante que tokens de usuários removidos (soft deleted) sejam rejeitados imediatamente, sem necessidade de aguardar a expiração do token.  
+**Evidência:** `middleware/auth.js` (`Usuario.findByPk(decoded.id)`)
+
+---
+
+UF-9: **JWT com expiração fixa de 1 hora.**  
+Os tokens JWT emitidos no login têm expiração hardcoded de `1h`. Não há suporte a refresh token.  
+**Evidência:** `src/controllers/usuarioController.js` (`expiresIn: '1h'`)
+
+---
+
+UF-10: **Exclusão lógica em cascata de associações `usuario_eventos` ao deletar evento.**  
+O `eventoService.delete()` realiza soft delete do evento e, em seguida, executa `UsuarioEvento.update({ deleted_at: new Date() }, ...)` para marcar como deletadas todas as associações de usuários com aquele evento.  
+**Evidência:** `src/services/eventoService.js` (método `delete`)
+
+---
+
+UF-11: **Formato de interpolação do `templateService` diverge da especificação.**  
+O `templateService` usa a sintaxe `{{variavel}}` (duplas chaves) para interpolação do `texto_base`, enquanto a especificação original descreve a sintaxe `${variavel}`.  
+**Evidência:** `src/services/templateService.js` (`/\{\{(\w+)\}\}/g`)
+
+---
+
+UF-12: **Criação de usuário via `POST /usuarios` não exige autenticação.**  
+A rota de criação de usuários não passa pelo middleware `auth` nem pelo `rbac`, tornando o endpoint público. Qualquer pessoa pode criar um usuário com qualquer perfil, incluindo `admin`.  
+**Evidência:** `src/routes/usuarios.js` (`router.post('/', validate(usuarioSchema), usuarioController.create)` — sem `auth` ou `rbac`)
+
+---
+
+UF-13: **`valores_dinamicos` ausente no schema de validação do certificado.**  
+O Zod schema de `certificado` não inclui o campo `valores_dinamicos`, que é parte central da funcionalidade de campos dinâmicos. O campo pode ser enviado livremente no body sem validação de estrutura.  
+**Evidência:** `src/validators/certificado.js`
+
+---
+
+UF-14: **Inconsistência nos segredos JWT entre `auth.js` e `usuarioController.js`.**  
+O middleware `auth.js` usa `process.env.JWT_SECRET || 'segredo-super-seguro'`, enquanto `usuarioController.js` usa `process.env.JWT_SECRET || 'secret'`. Se `JWT_SECRET` não estiver definido, o token será assinado com `'secret'` mas verificado com `'segredo-super-seguro'`, causando falha de autenticação em todos os logins.  
+**Evidência:** `middleware/auth.js` (linha 4), `src/controllers/usuarioController.js` (linha 5)
+
+---
+
+# Possíveis Lacunas na Especificação
+
+LAC-1: **Modelo de associação Usuário–Evento não documentado.**  
+O SRS descreve `evento_id` como chave estrangeira simples em `usuarios`, mas o código implementa N:N via `usuario_eventos`. A especificação não menciona a tabela de junção, o endpoint `PUT /usuarios/:id/eventos`, nem a possibilidade de um usuário gerenciar múltiplos eventos.  
+**Relacionado a:** UF-1, UF-2
+
+LAC-2: **Documentação Swagger/OpenAPI não mencionada.**  
+A existência de documentação interativa em `/api-docs` não está descrita em nenhuma seção do SRS, incluindo a seção de rotas ou integrações.  
+**Relacionado a:** UF-3
+
+LAC-3: **Regras de comprimento mínimo de campos ausentes.**  
+O SRS descreve os campos e seus tipos, mas omite todas as restrições de comprimento mínimo aplicadas pelos validadores Zod. Isso cria divergência entre especificação e implementação.  
+**Relacionado a:** UF-5
+
+LAC-4: **Comportamento de herança de perfis no RBAC não especificado.**  
+O SRS descreve permissões discretas por perfil (admin, gestor, monitor), mas não define se os perfis são hierárquicos. O código implementa herança ascendente, o que implica que gestores podem exercer todas as ações de monitores e admins podem exercer todas as ações de gestores.  
+**Relacionado a:** UF-6
+
+LAC-5: **Filtragem automática por evento nas listagens não documentada.**  
+O comportamento do `scopedEvento` de injetar automaticamente o filtro de evento nas consultas GET é uma regra de negócio relevante que não consta na especificação.  
+**Relacionado a:** UF-7
+
+LAC-6: **Tempo de expiração do token JWT não especificado.**  
+O SRS menciona autenticação JWT, mas não define a duração de validade do token.  
+**Relacionado a:** UF-9
+
+LAC-7: **Cascade de soft delete ao remover evento não documentado.**  
+O SRS não menciona o que ocorre com as associações de usuários quando um evento é removido.  
+**Relacionado a:** UF-10
+
+LAC-8: **Sintaxe de interpolação do `texto_base` não corresponde ao código.**  
+O SRS usa `${variavel}` como exemplo, mas o código usa `{{variavel}}`. A sintaxe oficial não está definida.  
+**Relacionado a:** UF-11
+
+LAC-9: **Criação de usuário admin é pública e irrestrita.**  
+Não há especificação sobre como o primeiro admin deve ser criado, e o código não restringe a criação de usuários por perfil, permitindo que qualquer pessoa crie um admin via API.  
+**Relacionado a:** UF-12, QA-3 (Questões em Aberto)
+
+---
+
+# Inconsistências Detectadas
+
+INC-1: **`evento_id` vs. N:N — modelo de dados divergente.**  
+- **Especificação:** Tabela `usuarios` possui campo `evento_id` (FK simples) — um usuário pertence a um evento.  
+- **Código:** Não há `evento_id` em `usuarios`; a associação é feita via tabela `usuario_eventos` (N:N) — um usuário pode pertencer a múltiplos eventos.
+
+INC-2: **Sintaxe de interpolação do `texto_base`.**  
+- **Especificação:** Exemplo usa `${nome_completo}`, sugerindo template literals estilo ES6.  
+- **Código:** `templateService.js` usa regex `\{\{(\w+)\}\}`, ou seja, sintaxe `{{nome_completo}}` (estilo Mustache/Handlebars).
+
+INC-3: **Segredos JWT inconsistentes entre módulos.**  
+- **`middleware/auth.js`:** Fallback é `'segredo-super-seguro'`.  
+- **`src/controllers/usuarioController.js`:** Fallback é `'secret'`.  
+- Se `JWT_SECRET` não estiver definido no ambiente, tokens serão assinados e verificados com segredos diferentes, quebrando toda autenticação.
+
+INC-4: **Criação de usuário não protegida por autenticação.**  
+- **Especificação:** Perfil admin gerencia todos os usuários (criação inclusa), implicando que criação de usuários é uma operação restrita.  
+- **Código:** `POST /usuarios` não possui middleware `auth` ou `rbac` — qualquer requisição pode criar usuários com qualquer perfil.
+
+INC-5: **`valores_dinamicos` ausente no validator de certificado.**  
+- **Especificação:** `valores_dinamicos` é descrito como campo central para armazenar os dados dinâmicos de um certificado.  
+- **Código:** O Zod schema em `src/validators/certificado.js` não inclui `valores_dinamicos`, tornando o campo invisível para a camada de validação.
+
+INC-6: **Rota `GET /eventos` exige autenticação; especificação não deixa isso claro.**  
+- **Especificação:** A especificação lista rotas públicas apenas para `/certificado/:id` e `/validar/:codigo`, mas não explicita se listagem de eventos é pública ou protegida.  
+- **Código:** `GET /eventos` usa middleware `auth` + `rbac('monitor')` + `scopedEvento`, sendo portanto uma rota protegida.
+
+---
+
+# Recomendações de Atualização da Especificação
+
+REC-1: **Atualizar o Modelo de Dados — substituir `evento_id` em `usuarios` pela tabela de junção `usuario_eventos`.**  
+Adicionar a entidade `usuario_eventos` com os campos `usuario_id`, `evento_id` e soft delete. Remover `evento_id` da tabela `usuarios`. Documentar o endpoint `PUT /usuarios/:id/eventos`.
+
+REC-2: **Documentar o endpoint `GET /api-docs`** na seção de Integrações ou em uma nova seção "Documentação da API", incluindo que é gerado automaticamente a partir das anotações `@swagger` nas rotas.
+
+REC-3: **Adicionar restrições de comprimento mínimo** na seção de Modelo de Dados e/ou nos Requisitos Funcionais, conforme os validators Zod:
+- `nomeCompleto`, `nome`: ≥ 3 caracteres
+- `senha`: ≥ 6 caracteres
+- `instituicao`: ≥ 2 caracteres (quando informada)
+- `ano`: ≥ 2000
+
+REC-4: **Documentar o modelo de herança de perfis no RBAC** — esclarecer que admin ≥ gestor ≥ monitor em termos de permissões e que não se trata de permissões discretas e isoladas.
+
+REC-5: **Padronizar e documentar a sintaxe de interpolação do `texto_base`** — definir oficialmente se usa `${variavel}` ou `{{variavel}}` e atualizar tanto o código quanto a especificação para usar o mesmo formato.
+
+REC-6: **Corrigir a inconsistência nos segredos JWT** — garantir que `auth.js` e `usuarioController.js` usem a mesma variável de ambiente e o mesmo fallback (ou, preferencialmente, nenhum fallback, lançando erro explícito se `JWT_SECRET` não estiver definido).
+
+REC-7: **Proteger `POST /usuarios` com autenticação e RBAC** — apenas admins devem poder criar usuários com qualquer perfil; ou definir explicitamente na especificação qual é o fluxo de cadastro público (se existir).
+
+REC-8: **Adicionar `valores_dinamicos` ao schema Zod do certificado** — incluir validação do campo na criação e atualização de certificados, definindo o tipo esperado (`object` ou `record`).
+
+REC-9: **Documentar o comportamento de cascade no soft delete de eventos** — incluir na especificação que ao deletar um evento, as associações em `usuario_eventos` também são marcadas como deletadas.
+
+REC-10: **Documentar o tempo de expiração do JWT** (`1h`) como requisito funcional ou não funcional, e avaliar a necessidade de refresh tokens (ver MS-5).
+
