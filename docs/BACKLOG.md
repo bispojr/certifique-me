@@ -282,15 +282,16 @@ Sprint 4 (refinamento)
 
 > Gerado com base na auditoria arquitetural comparativa de 14/03/2026.
 
-### TASK-16 🔴 Corrigir `templateService.js` — formato de interpolação
+
+### TASK-16 🔴 Corrigir `templateService.js` — formato de interpolação — concluído em 2026-03-14 22:32 (BRT)
 
 **Por que:** O `templateService.js` usa `{{chave}}` mas a especificação (FR-13) e o repositório de referência usam `${campo}`. Nenhuma interpolação de certificado funciona atualmente.
 
 **Critérios de aceite:**
 
-- [ ] `src/services/templateService.js` usa regex `\$\{(\w+)\}` para interpolação
-- [ ] Testes de `templateService` atualizados para o formato correto
-- [ ] Certificados existentes continuam sendo processados corretamente
+- [x] `src/services/templateService.js` usa regex `\$\{(\w+)\}` para interpolação
+- [x] Testes de `templateService` atualizados para o formato correto
+- [x] Certificados existentes continuam sendo processados corretamente
 
 **Estimativa:** 1 ponto  
 **Dependências:** nenhuma
