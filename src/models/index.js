@@ -30,7 +30,10 @@ const tipos_certificados = require('./tipos_certificados')(
   Sequelize.DataTypes,
 )
 const usuario = require('./usuario')(sequelize, Sequelize.DataTypes)
-const usuario_eventos = require('./usuario_eventos')(sequelize, Sequelize.DataTypes)
+const usuario_eventos = require('./usuario_eventos')(
+  sequelize,
+  Sequelize.DataTypes,
+)
 
 db.Certificado = certificado
 db.Evento = evento

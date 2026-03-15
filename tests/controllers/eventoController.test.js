@@ -30,13 +30,23 @@ describe('EventoController', () => {
   })
 
   it('deve criar um evento', async () => {
-    eventoService.create.mockResolvedValue({ id: 1, nome: 'Evento Teste', codigo_base: 'ABC', ano: 2026 })
+    eventoService.create.mockResolvedValue({
+      id: 1,
+      nome: 'Evento Teste',
+      codigo_base: 'ABC',
+      ano: 2026,
+    })
     const res = await request(app)
       .post('/eventos')
       .set('Authorization', `Bearer ${adminToken}`)
       .send({ nome: 'Evento Teste', codigo_base: 'ABC', ano: 2026 })
     expect(res.statusCode).toBe(201)
-    expect(res.body).toEqual({ id: 1, nome: 'Evento Teste', codigo_base: 'ABC', ano: 2026 })
+    expect(res.body).toEqual({
+      id: 1,
+      nome: 'Evento Teste',
+      codigo_base: 'ABC',
+      ano: 2026,
+    })
   })
 
   it('deve retornar todos os eventos', async () => {

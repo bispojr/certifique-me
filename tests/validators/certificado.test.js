@@ -7,7 +7,7 @@ describe('Validação Zod - Certificado', () => {
       status: 'emitido',
       participante_id: 1,
       evento_id: 2,
-      tipo_certificado_id: 3
+      tipo_certificado_id: 3,
     }
     expect(() => certificadoSchema.parse(data)).not.toThrow()
   })
@@ -18,7 +18,7 @@ describe('Validação Zod - Certificado', () => {
       status: 'pendente',
       participante_id: 1,
       evento_id: 2,
-      tipo_certificado_id: 3
+      tipo_certificado_id: 3,
     }
     expect(() => certificadoSchema.parse(data)).not.toThrow()
   })
@@ -29,7 +29,7 @@ describe('Validação Zod - Certificado', () => {
       status: 'invalido',
       participante_id: 1,
       evento_id: 2,
-      tipo_certificado_id: 3
+      tipo_certificado_id: 3,
     }
     expect(() => certificadoSchema.parse(data)).toThrow()
   })
@@ -40,7 +40,7 @@ describe('Validação Zod - Certificado', () => {
       status: 'emitido',
       participante_id: 1,
       evento_id: 2,
-      tipo_certificado_id: 3
+      tipo_certificado_id: 3,
     }
     expect(() => certificadoSchema.parse(data)).toThrow()
   })

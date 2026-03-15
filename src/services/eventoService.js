@@ -30,7 +30,7 @@ module.exports = {
     const { UsuarioEvento } = require('../../src/models')
     await UsuarioEvento.update(
       { deleted_at: new Date() },
-      { where: { evento_id: id } }
+      { where: { evento_id: id } },
     )
     return evento
   },

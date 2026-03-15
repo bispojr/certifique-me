@@ -6,7 +6,9 @@ module.exports = (schema) => (req, res, next) => {
     next()
   } catch (err) {
     if (err instanceof ZodError) {
-      return res.status(400).json({ error: 'Erro de validação', detalhes: err.errors })
+      return res
+        .status(400)
+        .json({ error: 'Erro de validação', detalhes: err.errors })
     }
     next(err)
   }

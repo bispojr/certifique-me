@@ -21,18 +21,18 @@
 
 ### 1.1 Repositório Principal — Certifique-me
 
-| Aspecto | Detalhes |
-|---|---|
-| **Linguagem** | JavaScript (Node.js) |
-| **Runtime** | Node.js |
-| **Framework Web** | Express 4 |
-| **ORM** | Sequelize 6 (PostgreSQL) |
-| **Autenticação** | JWT (`jsonwebtoken`) + bcrypt (`bcryptjs`) |
-| **Validação** | Zod (entrada) + Sequelize validators (modelo) |
-| **Documentação** | Swagger/OpenAPI via `swagger-jsdoc` + `swagger-ui-express` |
-| **Testes** | Jest + Supertest |
-| **Containerização** | Docker + docker-compose (prod e test separados) |
-| **View Engine** | Handlebars (hbs) — apenas para página inicial e erro |
+| Aspecto             | Detalhes                                                   |
+| ------------------- | ---------------------------------------------------------- |
+| **Linguagem**       | JavaScript (Node.js)                                       |
+| **Runtime**         | Node.js                                                    |
+| **Framework Web**   | Express 4                                                  |
+| **ORM**             | Sequelize 6 (PostgreSQL)                                   |
+| **Autenticação**    | JWT (`jsonwebtoken`) + bcrypt (`bcryptjs`)                 |
+| **Validação**       | Zod (entrada) + Sequelize validators (modelo)              |
+| **Documentação**    | Swagger/OpenAPI via `swagger-jsdoc` + `swagger-ui-express` |
+| **Testes**          | Jest + Supertest                                           |
+| **Containerização** | Docker + docker-compose (prod e test separados)            |
+| **View Engine**     | Handlebars (hbs) — apenas para página inicial e erro       |
 
 **Organização de diretórios:**
 
@@ -57,14 +57,14 @@ tests/           — testes Jest
 
 ### 1.2 Repositório de Referência — EduComp (educompbrasil-site)
 
-| Aspecto | Detalhes |
-|---|---|
-| **Linguagem** | JavaScript (Node.js) |
-| **Framework Web** | Express + Handlebars (SSR completo) |
-| **Persistência** | Google Sheets API (`google-spreadsheet`) |
-| **Geração de PDF** | PDFKit |
-| **Integração externa** | Google Service Account |
-| **Autenticação** | Nenhuma (sistema público) |
+| Aspecto                | Detalhes                                 |
+| ---------------------- | ---------------------------------------- |
+| **Linguagem**          | JavaScript (Node.js)                     |
+| **Framework Web**      | Express + Handlebars (SSR completo)      |
+| **Persistência**       | Google Sheets API (`google-spreadsheet`) |
+| **Geração de PDF**     | PDFKit                                   |
+| **Integração externa** | Google Service Account                   |
+| **Autenticação**       | Nenhuma (sistema público)                |
 
 **Organização de diretórios:**
 
@@ -78,6 +78,7 @@ resources/         — templates PNG de certificado, fontes, PDFs gerados
 **Padrão arquitetural:** Monolítico de rota única. O arquivo `certificado.js` contém: acesso a dados (Google Sheets), regras de negócio (interpolação, busca por email), geração de PDF (PDFKit), renderização de views (Handlebars) e I/O de arquivo. Não há separação de camadas.
 
 **Funcionamento em alto nível:**
+
 1. Usuário acessa a página de certificados e informa seu email
 2. O sistema conecta ao Google Sheets, percorre todas as abas (tipos de certificado) e busca linhas com o email informado
 3. Retorna uma lista de certificados disponíveis, renderizando uma view SSR
@@ -90,39 +91,39 @@ resources/         — templates PNG de certificado, fontes, PDFs gerados
 
 ### 2.1 Interface de Usuário (SSR)
 
-| Funcionalidade | Objetivo | Módulos | Dependências |
-|---|---|---|---|
-| Página de opções | Exibe links para "obter" e "validar" certificado | `exports.opcoes` | Handlebars view `opcoes` |
-| Formulário de busca por email | Permite ao participante informar o email | `exports.certificado` | view `form-obter` |
-| Lista de certificados encontrados | Exibe todos os certificados vinculados ao email | `exports.obter` | view `obter-lista`, Google Sheets |
-| Formulário de validação | Permite informar código para validar | `exports.formValidar` | view `form-validar` |
-| Resultado da validação | Exibe dados do certificado válido ou mensagem de erro | `exports.validar` | view `validar-resultado`, Google Sheets |
+| Funcionalidade                    | Objetivo                                              | Módulos               | Dependências                            |
+| --------------------------------- | ----------------------------------------------------- | --------------------- | --------------------------------------- |
+| Página de opções                  | Exibe links para "obter" e "validar" certificado      | `exports.opcoes`      | Handlebars view `opcoes`                |
+| Formulário de busca por email     | Permite ao participante informar o email              | `exports.certificado` | view `form-obter`                       |
+| Lista de certificados encontrados | Exibe todos os certificados vinculados ao email       | `exports.obter`       | view `obter-lista`, Google Sheets       |
+| Formulário de validação           | Permite informar código para validar                  | `exports.formValidar` | view `form-validar`                     |
+| Resultado da validação            | Exibe dados do certificado válido ou mensagem de erro | `exports.validar`     | view `validar-resultado`, Google Sheets |
 
 ### 2.2 Integração com Google Sheets (Persistência)
 
-| Funcionalidade | Objetivo | Módulos | Dependências |
-|---|---|---|---|
-| Leitura de planilha | Carrega todas as abas e linhas | `doc.loadInfo()`, `getRows()` | `google-spreadsheet`, Google Service Account env vars |
-| Interpretação de tipos de certificado | Aba "codigos-limpos" mapeia título → código, descrição, campo_destaque | loop sobre `sheetsByIndex` | Planilha estruturada por convenção |
-| Busca por email | Filtra linhas por email e status "liberado" | `forEach` no array de rows | Planilha estruturada por convenção |
-| Busca por código | Filtra linhas por código para validação | `forEach` no array de rows | Planilha estruturada por convenção |
+| Funcionalidade                        | Objetivo                                                               | Módulos                       | Dependências                                          |
+| ------------------------------------- | ---------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------- |
+| Leitura de planilha                   | Carrega todas as abas e linhas                                         | `doc.loadInfo()`, `getRows()` | `google-spreadsheet`, Google Service Account env vars |
+| Interpretação de tipos de certificado | Aba "codigos-limpos" mapeia título → código, descrição, campo_destaque | loop sobre `sheetsByIndex`    | Planilha estruturada por convenção                    |
+| Busca por email                       | Filtra linhas por email e status "liberado"                            | `forEach` no array de rows    | Planilha estruturada por convenção                    |
+| Busca por código                      | Filtra linhas por código para validação                                | `forEach` no array de rows    | Planilha estruturada por convenção                    |
 
 ### 2.3 Regras de Negócio
 
-| Funcionalidade | Objetivo | Módulos | Dependências |
-|---|---|---|---|
-| Interpolação de texto (`${campo}`) | Substitui variáveis no `texto_base` pelos valores do certificado | Loop manual com `indexOf("${")` | Implementação manual inline |
-| Validação de status | Apenas certificados com `status == "liberado"` são exibidos | `if (element.status == "liberado")` | — |
-| Campo destaque | Usa `campo_destaque` da aba de tipos para exibir info principal | `element[campo_destaque]` | Aba "codigos-limpos" |
-| Nome em maiúsculas | O `nome_completo` é convertido para maiúsculas no PDF | `.toUpperCase()` | — |
+| Funcionalidade                     | Objetivo                                                         | Módulos                             | Dependências                |
+| ---------------------------------- | ---------------------------------------------------------------- | ----------------------------------- | --------------------------- |
+| Interpolação de texto (`${campo}`) | Substitui variáveis no `texto_base` pelos valores do certificado | Loop manual com `indexOf("${")`     | Implementação manual inline |
+| Validação de status                | Apenas certificados com `status == "liberado"` são exibidos      | `if (element.status == "liberado")` | —                           |
+| Campo destaque                     | Usa `campo_destaque` da aba de tipos para exibir info principal  | `element[campo_destaque]`           | Aba "codigos-limpos"        |
+| Nome em maiúsculas                 | O `nome_completo` é convertido para maiúsculas no PDF            | `.toUpperCase()`                    | —                           |
 
 ### 2.4 Geração de PDF
 
-| Funcionalidade | Objetivo | Módulos | Dependências |
-|---|---|---|---|
-| Geração de PDF por certificado | Gera um arquivo PDF com template visual, texto interpolado e código | `exports.obterArquivo`, PDFKit | Template PNG, fonte TTF, PDFKit |
-| I/O temporário | Salva o PDF em disco e depois o remove após download | `fs.createWriteStream`, `fs.unlinkSync` | Sistema de arquivos local |
-| Endereço de validação no PDF | Imprime o link de validação com código no rodapé do PDF | `doc.text(...)` | URL hardcoded |
+| Funcionalidade                 | Objetivo                                                            | Módulos                                 | Dependências                    |
+| ------------------------------ | ------------------------------------------------------------------- | --------------------------------------- | ------------------------------- |
+| Geração de PDF por certificado | Gera um arquivo PDF com template visual, texto interpolado e código | `exports.obterArquivo`, PDFKit          | Template PNG, fonte TTF, PDFKit |
+| I/O temporário                 | Salva o PDF em disco e depois o remove após download                | `fs.createWriteStream`, `fs.unlinkSync` | Sistema de arquivos local       |
+| Endereço de validação no PDF   | Imprime o link de validação com código no rodapé do PDF             | `doc.text(...)`                         | URL hardcoded                   |
 
 ### 2.5 Autenticação e Autorização
 
@@ -138,50 +139,50 @@ Inexistente no repositório de referência. A inserção de dados é feita diret
 
 ### ✅ FUNCIONALIDADES JÁ IMPLEMENTADAS
 
-| Funcionalidade | Onde está no projeto atual |
-|---|---|
-| CRUD completo de participantes | `src/routes/participantes.js` + controller + service + model |
-| CRUD completo de eventos | `src/routes/eventos.js` + controller + service + model |
-| CRUD completo de tipos de certificados | `src/routes/tipos-certificados.js` + controller + service + model |
-| Emissão, atualização, cancelamento e restauração de certificados | `src/routes/certificados.js` + controller + service + model |
-| Tipos de certificado parametrizáveis com `dados_dinamicos` (JSONB) | `src/models/tipos_certificados.js` |
-| Soft delete em todos os recursos | `paranoid: true` em todos os models |
-| Autenticação JWT | `middleware/auth.js` + `src/controllers/usuarioController.js` |
-| RBAC por perfil (admin, gestor, monitor) | `src/middlewares/rbac.js` |
-| Validação de entrada (Zod) | `src/validators/` em todas as rotas |
-| Documentação Swagger | `app.js` + anotações JSDoc nas rotas |
-| Health check endpoint | `src/routes/health.js` |
-| Multi-evento por usuário (N:N) | `src/models/usuario_eventos.js` + `src/models/usuario.js` |
+| Funcionalidade                                                     | Onde está no projeto atual                                        |
+| ------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| CRUD completo de participantes                                     | `src/routes/participantes.js` + controller + service + model      |
+| CRUD completo de eventos                                           | `src/routes/eventos.js` + controller + service + model            |
+| CRUD completo de tipos de certificados                             | `src/routes/tipos-certificados.js` + controller + service + model |
+| Emissão, atualização, cancelamento e restauração de certificados   | `src/routes/certificados.js` + controller + service + model       |
+| Tipos de certificado parametrizáveis com `dados_dinamicos` (JSONB) | `src/models/tipos_certificados.js`                                |
+| Soft delete em todos os recursos                                   | `paranoid: true` em todos os models                               |
+| Autenticação JWT                                                   | `middleware/auth.js` + `src/controllers/usuarioController.js`     |
+| RBAC por perfil (admin, gestor, monitor)                           | `src/middlewares/rbac.js`                                         |
+| Validação de entrada (Zod)                                         | `src/validators/` em todas as rotas                               |
+| Documentação Swagger                                               | `app.js` + anotações JSDoc nas rotas                              |
+| Health check endpoint                                              | `src/routes/health.js`                                            |
+| Multi-evento por usuário (N:N)                                     | `src/models/usuario_eventos.js` + `src/models/usuario.js`         |
 
 ### ⚠️ FUNCIONALIDADES PARCIALMENTE IMPLEMENTADAS
 
-| Funcionalidade | Status | O que falta |
-|---|---|---|
-| **Interpolação de texto** | `templateService.js` implementado, mas usa `{{chave}}` em vez de `${campo}` | Corrigir o regex para `\$\{(\w+)\}` conforme spec FR-13 e repositório de referência |
-| **Consulta pública de certificados por email** | Participante existe no modelo, mas não há endpoint público de busca de certif. por email | Criar `GET /public/certificados?email=...` |
-| **Validação pública por código** | FR-24 especificada mas não implementada | Criar `GET /public/validar/:codigo` |
-| **Escopo de evento para gestor/monitor** | `scopedEvento.js` usa `req.usuario.evento_id` que não existe após migração para N:N | Reescrever para carregar `eventos` via associação (`req.usuario.eventos`) |
+| Funcionalidade                                 | Status                                                                                   | O que falta                                                                         |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **Interpolação de texto**                      | `templateService.js` implementado, mas usa `{{chave}}` em vez de `${campo}`              | Corrigir o regex para `\$\{(\w+)\}` conforme spec FR-13 e repositório de referência |
+| **Consulta pública de certificados por email** | Participante existe no modelo, mas não há endpoint público de busca de certif. por email | Criar `GET /public/certificados?email=...`                                          |
+| **Validação pública por código**               | FR-24 especificada mas não implementada                                                  | Criar `GET /public/validar/:codigo`                                                 |
+| **Escopo de evento para gestor/monitor**       | `scopedEvento.js` usa `req.usuario.evento_id` que não existe após migração para N:N      | Reescrever para carregar `eventos` via associação (`req.usuario.eventos`)           |
 
 ### ❌ FUNCIONALIDADES AUSENTES
 
-| Funcionalidade base | Equivalente no projeto atual | Impacto |
-|---|---|---|
-| **Geração de PDF** | Não existe | Alto — funcionalidade core para o participante |
-| **Interface Web SSR** | Apenas stubs em `views/` | Médio — depende da estratégia front/back |
-| **Download de certificado** | Não existe | Alto — bloqueador para o produto |
-| **Filtro por status "liberado"** | Status está no model mas sem lógica de filtro nas consultas públicas | Médio |
+| Funcionalidade base              | Equivalente no projeto atual                                         | Impacto                                        |
+| -------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------- |
+| **Geração de PDF**               | Não existe                                                           | Alto — funcionalidade core para o participante |
+| **Interface Web SSR**            | Apenas stubs em `views/`                                             | Médio — depende da estratégia front/back       |
+| **Download de certificado**      | Não existe                                                           | Alto — bloqueador para o produto               |
+| **Filtro por status "liberado"** | Status está no model mas sem lógica de filtro nas consultas públicas | Médio                                          |
 
 ### 🆕 FUNCIONALIDADES NOVAS (exclusivas do projeto atual)
 
-| Funcionalidade | Valor |
-|---|---|
-| Autenticação e RBAC | Controle de acesso robusto ausente no sistema legado |
-| Gestão de usuários com perfis | Admin, gestor e monitor com escopos diferentes |
-| Multi-evento por usuário (N:N) | Usuário pode gerenciar múltiplos eventos |
-| API REST documentada (Swagger) | Integração com frontends desacoplados |
-| Soft delete com restauração | Rastreabilidade e recuperação de dados |
-| Validação de entrada em camada dedicada (Zod) | Defesa em profundidade |
-| Sistema de migrations | Evolução controlada do schema |
+| Funcionalidade                                | Valor                                                |
+| --------------------------------------------- | ---------------------------------------------------- |
+| Autenticação e RBAC                           | Controle de acesso robusto ausente no sistema legado |
+| Gestão de usuários com perfis                 | Admin, gestor e monitor com escopos diferentes       |
+| Multi-evento por usuário (N:N)                | Usuário pode gerenciar múltiplos eventos             |
+| API REST documentada (Swagger)                | Integração com frontends desacoplados                |
+| Soft delete com restauração                   | Rastreabilidade e recuperação de dados               |
+| Validação de entrada em camada dedicada (Zod) | Defesa em profundidade                               |
+| Sistema de migrations                         | Evolução controlada do schema                        |
 
 ---
 
@@ -207,11 +208,11 @@ O método `delete` do `eventoService.js` faz `UsuarioEvento.update({ deleted_at:
 
 ### 4.3 Novas camadas ou módulos necessários
 
-| Módulo | Justificativa |
-|---|---|
-| `src/services/pdfService.js` | Geração de PDF isolada do controller, testável e substituível |
-| `src/routes/public.js` | Rotas sem autenticação: busca por email, validação por código |
-| `src/services/validacaoService.js` | Lógica de validação de autenticidade de certificado |
+| Módulo                             | Justificativa                                                 |
+| ---------------------------------- | ------------------------------------------------------------- |
+| `src/services/pdfService.js`       | Geração de PDF isolada do controller, testável e substituível |
+| `src/routes/public.js`             | Rotas sem autenticação: busca por email, validação por código |
+| `src/services/validacaoService.js` | Lógica de validação de autenticidade de certificado           |
 
 ---
 
@@ -321,33 +322,33 @@ Se o PostgreSQL ficar indisponível, o `/health` retorna 503 corretamente. Poré
 
 ### 🔴 ALTO RISCO
 
-| Item | Consequência |
-|---|---|
-| **G1 — scopedEvento quebrado** | RBAC por escopo inoperante; gestores/monitores não conseguem trabalhar |
-| **G2 — JWT_SECRET inconsistente** | Autenticação falha em ambientes sem `.env`; difícil de diagnosticar |
-| **G3 — templateService formato errado** | Todos os certificados emitidos têm texto incorreto; rerenderização futura necessária |
-| **Ausência de rota pública de consulta e validação** | Funcionalidade core (FR-23, FR-24) inexistente; bloqueador de produto |
-| **Ausência de geração de PDF** | Principal entregável para o participante inexistente |
+| Item                                                 | Consequência                                                                         |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **G1 — scopedEvento quebrado**                       | RBAC por escopo inoperante; gestores/monitores não conseguem trabalhar               |
+| **G2 — JWT_SECRET inconsistente**                    | Autenticação falha em ambientes sem `.env`; difícil de diagnosticar                  |
+| **G3 — templateService formato errado**              | Todos os certificados emitidos têm texto incorreto; rerenderização futura necessária |
+| **Ausência de rota pública de consulta e validação** | Funcionalidade core (FR-23, FR-24) inexistente; bloqueador de produto                |
+| **Ausência de geração de PDF**                       | Principal entregável para o participante inexistente                                 |
 
 ### 🟡 MÉDIO RISCO
 
-| Item | Consequência |
-|---|---|
-| **G4 — middleware/auth.js fora de src/** | Refatorações futuras quebram imports em locais inesperados |
-| **G5 — sem paginação** | Performance degrada linearmente com volume; migração para paginação exige mudança de API (breaking change) |
-| **G6 — cascata de soft delete inconsistente** | Restauração de eventos pode deixar usuários desvinculados |
-| **G7 — sem validação de valores_dinamicos** | Certificados malformados persistem no banco silenciosamente |
-| **Sem rate limiting** | Endpoint `/login` vulnerável a force brute; demais endpoints expostos a abuso |
-| **Sem logging estruturado** | Diagnóstico de erros em produção depende do `morgan` que não persiste logs |
+| Item                                          | Consequência                                                                                               |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **G4 — middleware/auth.js fora de src/**      | Refatorações futuras quebram imports em locais inesperados                                                 |
+| **G5 — sem paginação**                        | Performance degrada linearmente com volume; migração para paginação exige mudança de API (breaking change) |
+| **G6 — cascata de soft delete inconsistente** | Restauração de eventos pode deixar usuários desvinculados                                                  |
+| **G7 — sem validação de valores_dinamicos**   | Certificados malformados persistem no banco silenciosamente                                                |
+| **Sem rate limiting**                         | Endpoint `/login` vulnerável a force brute; demais endpoints expostos a abuso                              |
+| **Sem logging estruturado**                   | Diagnóstico de erros em produção depende do `morgan` que não persiste logs                                 |
 
 ### 🟢 BAIXO RISCO
 
-| Item | Consequência |
-|---|---|
-| **G8 — destroy/delete duplicados** | Confusão de leitura; sem impacto funcional |
-| **Swagger sem exemplos e sem modelos completos** | Documentação insuficiente para consumo da API por terceiros |
-| **Sem testes de integração end-to-end** | Regressões em fluxos completos (emitir → validar) não são detectadas |
-| **Views Handlebars vazias** | Se o produto incluir SSR, o trabalho de front não está iniciado |
+| Item                                             | Consequência                                                         |
+| ------------------------------------------------ | -------------------------------------------------------------------- |
+| **G8 — destroy/delete duplicados**               | Confusão de leitura; sem impacto funcional                           |
+| **Swagger sem exemplos e sem modelos completos** | Documentação insuficiente para consumo da API por terceiros          |
+| **Sem testes de integração end-to-end**          | Regressões em fluxos completos (emitir → validar) não são detectadas |
+| **Views Handlebars vazias**                      | Se o produto incluir SSR, o trabalho de front não está iniciado      |
 
 ---
 
@@ -360,6 +361,7 @@ As seguintes decisões devem ser formalizadas como ADRs:
 **Questão:** Usar PDFKit (como referência), Puppeteer (HTML→PDF), ou serviço externo (ex.: AWS Lambda com template)?
 
 **Fatores:**
+
 - PDFKit: leve, sem dependências de navegador, mas baixo nível
 - Puppeteer: fácil criação de templates HTML/CSS, mas pesado (Chromium)
 - Externo: desacoplado, mas latência e custo
@@ -434,7 +436,7 @@ module.exports = async function scopedEvento(req, res, next) {
   if (req.usuario.perfil === 'admin') return next()
 
   const eventosDoUsuario = await req.usuario.getEventos()
-  const idsEventos = eventosDoUsuario.map(e => e.id)
+  const idsEventos = eventosDoUsuario.map((e) => e.id)
 
   if (!idsEventos.length) {
     return res.status(403).json({ error: 'Usuário sem evento vinculado.' })
@@ -442,8 +444,13 @@ module.exports = async function scopedEvento(req, res, next) {
 
   // Para listagem: filtrar pelo evento do usuário
   if (req.method === 'GET' && !req.params.id) {
-    if (req.query.evento_id && !idsEventos.includes(Number(req.query.evento_id))) {
-      return res.status(403).json({ error: 'Acesso restrito ao evento vinculado.' })
+    if (
+      req.query.evento_id &&
+      !idsEventos.includes(Number(req.query.evento_id))
+    ) {
+      return res
+        .status(403)
+        .json({ error: 'Acesso restrito ao evento vinculado.' })
     }
     if (!req.query.evento_id) req.query.evento_id = idsEventos[0]
     return next()
@@ -461,7 +468,7 @@ module.exports = async function scopedEvento(req, res, next) {
 ```javascript
 // src/routes/public.js
 router.get('/certificados', publicCertificadoController.findByEmail) // FR-23
-router.get('/validar/:codigo', publicCertificadoController.validate)  // FR-24
+router.get('/validar/:codigo', publicCertificadoController.validate) // FR-24
 ```
 
 ### 🟡 IMPORTANTES
@@ -551,20 +558,20 @@ Todos os épicos 1–5 do backlog foram concluídos. As tasks registradas foram 
 
 ### Novas Tarefas Sugeridas
 
-| Task | Prioridade | Épico | Motivo |
-|---|---|---|---|
-| **TASK-16** 🔴 Corrigir `templateService.js` (formato `${campo}`) | Crítica | Novo: Bugfixes | Bug que impede funcionamento de certificados |
-| **TASK-17** 🔴 Corrigir `JWT_SECRET` inconsistente | Crítica | Novo: Bugfixes | Bug de autenticação em produção |
-| **TASK-18** 🔴 Corrigir `scopedEvento.js` para modelo N:N | Crítica | Novo: Bugfixes | RBAC inoperante para gestores/monitores |
-| **TASK-19** 🔴 Implementar rotas públicas (FR-23, FR-24) | Crítica | Novo: Funcionalidades Core | Bloqueador de produto — validação pública inexistente |
-| **TASK-20** 🔴 Implementar geração de PDF (`pdfService.js`) | Crítica | Novo: Funcionalidades Core | Funcionalidade principal para o participante |
-| **TASK-21** 🟡 Mover `middleware/auth.js` para `src/middlewares/` | Importante | Épico 2 | Consistência arquitetural |
-| **TASK-22** 🟡 Adicionar paginação nas listagens | Importante | Épico 3 | Escalabilidade |
-| **TASK-23** 🟡 Validar `valores_dinamicos` no service | Importante | Épico 2 | Integridade de dados |
-| **TASK-24** 🟡 Corrigir cascata de soft delete em eventos | Importante | Épico 1 | Consistência de dados |
-| **TASK-25** 🟡 Rate limiting em endpoints de auth | Importante | Novo: Segurança | OWASP A07 |
-| **TASK-26** 🟢 Documentar ADR-004 a ADR-008 | Opcional | Épico 4 | Formalizar decisões pendentes |
-| **TASK-27** 🟢 Adicionar índices no banco para certificados/participantes/eventos | Opcional | Épico 1 | Performance |
+| Task                                                                              | Prioridade | Épico                      | Motivo                                                |
+| --------------------------------------------------------------------------------- | ---------- | -------------------------- | ----------------------------------------------------- |
+| **TASK-16** 🔴 Corrigir `templateService.js` (formato `${campo}`)                 | Crítica    | Novo: Bugfixes             | Bug que impede funcionamento de certificados          |
+| **TASK-17** 🔴 Corrigir `JWT_SECRET` inconsistente                                | Crítica    | Novo: Bugfixes             | Bug de autenticação em produção                       |
+| **TASK-18** 🔴 Corrigir `scopedEvento.js` para modelo N:N                         | Crítica    | Novo: Bugfixes             | RBAC inoperante para gestores/monitores               |
+| **TASK-19** 🔴 Implementar rotas públicas (FR-23, FR-24)                          | Crítica    | Novo: Funcionalidades Core | Bloqueador de produto — validação pública inexistente |
+| **TASK-20** 🔴 Implementar geração de PDF (`pdfService.js`)                       | Crítica    | Novo: Funcionalidades Core | Funcionalidade principal para o participante          |
+| **TASK-21** 🟡 Mover `middleware/auth.js` para `src/middlewares/`                 | Importante | Épico 2                    | Consistência arquitetural                             |
+| **TASK-22** 🟡 Adicionar paginação nas listagens                                  | Importante | Épico 3                    | Escalabilidade                                        |
+| **TASK-23** 🟡 Validar `valores_dinamicos` no service                             | Importante | Épico 2                    | Integridade de dados                                  |
+| **TASK-24** 🟡 Corrigir cascata de soft delete em eventos                         | Importante | Épico 1                    | Consistência de dados                                 |
+| **TASK-25** 🟡 Rate limiting em endpoints de auth                                 | Importante | Novo: Segurança            | OWASP A07                                             |
+| **TASK-26** 🟢 Documentar ADR-004 a ADR-008                                       | Opcional   | Épico 4                    | Formalizar decisões pendentes                         |
+| **TASK-27** 🟢 Adicionar índices no banco para certificados/participantes/eventos | Opcional   | Épico 1                    | Performance                                           |
 
 ### Tarefas a Re-priorizar
 
@@ -584,6 +591,7 @@ Todos os épicos 1–5 do backlog foram concluídos. As tasks registradas foram 
 **Objetivo:** Paridade funcional com o repositório de referência, mas com qualidade superior.
 
 **Mudanças necessárias:**
+
 - Corrigir os 3 bugs críticos (C1, C2, C3)
 - Implementar rotas públicas de consulta e validação (TASK-19)
 - Implementar geração de PDF básica (TASK-20)
@@ -602,6 +610,7 @@ Express API (monolito em camadas)
 **Objetivo:** Suportar múltiplos eventos simultâneos com volume médio (~10.000 certificados/evento).
 
 **Mudanças necessárias:**
+
 - Paginação em todas as listagens (TASK-22)
 - Rate limiting (TASK-25)
 - Logging estruturado (O2)
@@ -611,6 +620,7 @@ Express API (monolito em camadas)
 - Processo de CI/CD automatizado com deploy
 
 **Mudanças arquiteturais naturais:**
+
 - Clustering com PM2 (múltiplos workers Node.js)
 - Pool de conexões ajustado
 - Cache Redis para certificados de alta demanda (validação pública)
@@ -628,6 +638,7 @@ Load Balancer (nginx)
 **Objetivo:** Suportar dezenas de eventos simultâneos, alta concorrência, integrações externas (SSO, email).
 
 **Mudanças arquiteturais:**
+
 - Separar geração de PDF em worker assíncrono (fila BullMQ + Redis)
 - Background jobs para envio de email após emissão de certificado
 - Feature flags para rollout progressivo
@@ -737,14 +748,13 @@ graph TD
 
 ## Sumário Executivo
 
-| Categoria | Qtd | Destaques |
-|---|---|---|
-| **Bugs críticos** | 3 | JWT inconsistente, templateService formato errado, scopedEvento quebrado |
-| **Funcionalidades ausentes** | 4 | PDF, rota pública, validação por código, filtro por status |
-| **Funcionalidades parciais** | 4 | Interpolação, busca por email, validação pública, escopo de evento |
-| **Gargalos identificados** | 8 | Ver Etapa 6 |
-| **Novas tarefas sugeridas** | 12 | TASK-16 a TASK-27 |
-| **ADRs pendentes** | 5 | ADR-004 a ADR-008 |
+| Categoria                    | Qtd | Destaques                                                                |
+| ---------------------------- | --- | ------------------------------------------------------------------------ |
+| **Bugs críticos**            | 3   | JWT inconsistente, templateService formato errado, scopedEvento quebrado |
+| **Funcionalidades ausentes** | 4   | PDF, rota pública, validação por código, filtro por status               |
+| **Funcionalidades parciais** | 4   | Interpolação, busca por email, validação pública, escopo de evento       |
+| **Gargalos identificados**   | 8   | Ver Etapa 6                                                              |
+| **Novas tarefas sugeridas**  | 12  | TASK-16 a TASK-27                                                        |
+| **ADRs pendentes**           | 5   | ADR-004 a ADR-008                                                        |
 
 **Prioridade imediata:** Corrigir TASK-16, TASK-17 e TASK-18 antes de qualquer deploy. Essas três correções desbloqueiam autenticação, interpolação e RBAC — as três features mais críticas do sistema.
-

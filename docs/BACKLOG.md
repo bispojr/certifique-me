@@ -225,7 +225,6 @@
 
 **Por que:** Validações do Sequelize ocorrem na camada de banco — payloads malformados devem ser rejeitados antes de chegar ao controller (defesa em profundidade).
 
-
 **Critérios de aceite:**
 
 - [x] Schemas Zod criados em `src/validators/` para cada recurso ✅ (14/03/2026)
@@ -236,7 +235,6 @@
 **Dependências:** TASK-07
 
 ---
-
 
 ### TASK-15 🟢 Documentar API com Swagger/OpenAPI
 
@@ -299,7 +297,6 @@ Sprint 4 (refinamento)
 
 ---
 
-
 ### TASK-17 🔴 Corrigir `JWT_SECRET` inconsistente entre `middleware/auth.js` e `usuarioController.js`
 
 **Por que:** `middleware/auth.js` usa fallback `'segredo-super-seguro'`; `usuarioController.js` usa fallback `'secret'`. Em ambientes sem `.env`, login retorna token mas toda requisição autenticada falha com 401.
@@ -314,7 +311,6 @@ Sprint 4 (refinamento)
 **Dependências:** TASK-02
 
 ---
-
 
 ### TASK-18 🔴 Corrigir `scopedEvento.js` para modelo N:N — concluído em 2026-03-14 22:14 (BRT)
 
@@ -498,17 +494,17 @@ Sprint 10 (documentação e otimização)
 
 ## Sumário de Pontuação Atualizado
 
-| Épico                                         | Pontos   | Prioridade    |
-| --------------------------------------------- | -------- | ------------- |
-| Épico 1 — Integridade do Banco                | 7        | 🔴 Crítica    |
-| Épico 2 — Separação de Responsabilidades      | 34       | 🔴/🟡         |
-| Épico 3 — Qualidade e Manutenibilidade        | 3.5      | 🟡 Importante |
-| Épico 4 — Documentação                        | 6        | 🟡/🟢         |
-| Épico 5 — Tooling                             | 10       | 🟢 Opcional   |
-| Épico 6 — Bugfixes e Core (Auditoria 03)      | 30.5     | 🔴/🟡/🟢      |
-| Épico 7 — Interface Web (Views Handlebars)    | 34       | 🔴/🟡         |
-| Épico 8 — Testes de Interface E2E             | 13       | 🟡/🟢         |
-| **Total**                                     | **138**  |               |
+| Épico                                      | Pontos  | Prioridade    |
+| ------------------------------------------ | ------- | ------------- |
+| Épico 1 — Integridade do Banco             | 7       | 🔴 Crítica    |
+| Épico 2 — Separação de Responsabilidades   | 34      | 🔴/🟡         |
+| Épico 3 — Qualidade e Manutenibilidade     | 3.5     | 🟡 Importante |
+| Épico 4 — Documentação                     | 6       | 🟡/🟢         |
+| Épico 5 — Tooling                          | 10      | 🟢 Opcional   |
+| Épico 6 — Bugfixes e Core (Auditoria 03)   | 30.5    | 🔴/🟡/🟢      |
+| Épico 7 — Interface Web (Views Handlebars) | 34      | 🔴/🟡         |
+| Épico 8 — Testes de Interface E2E          | 13      | 🟡/🟢         |
+| **Total**                                  | **138** |               |
 
 ---
 
@@ -569,12 +565,12 @@ views/
 
 **Detalhes de cada view:**
 
-| View | Dados recebidos pelo template | Comportamento |
-|---|---|---|
-| `opcoes.hbs` | — | Dois botões de navegação para as outras views |
-| `form-obter.hbs` | `mensagem?` (erro) | Form POST para `/certificados/buscar`; spinner ao submeter |
-| `obter-lista.hbs` | `email`, `certificados[]` (nome, descrição, id, campos dinâmicos) | Lista agrupada por tipo; botão de download por certificado |
-| `form-validar.hbs` | `mensagem?` (erro) | Form POST para `/certificados/validar`; campo de código |
+| View                    | Dados recebidos pelo template                                                    | Comportamento                                                     |
+| ----------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `opcoes.hbs`            | —                                                                                | Dois botões de navegação para as outras views                     |
+| `form-obter.hbs`        | `mensagem?` (erro)                                                               | Form POST para `/certificados/buscar`; spinner ao submeter        |
+| `obter-lista.hbs`       | `email`, `certificados[]` (nome, descrição, id, campos dinâmicos)                | Lista agrupada por tipo; botão de download por certificado        |
+| `form-validar.hbs`      | `mensagem?` (erro)                                                               | Form POST para `/certificados/validar`; campo de código           |
 | `validar-resultado.hbs` | `valido` (bool), `dados` (código, evento, data, nome, atividade, campo_destaque) | Painel colorido com dados de autenticidade + link "Validar outro" |
 
 **Critérios de aceite:**
@@ -635,11 +631,11 @@ views/
 
 **Dados exibidos por perfil:**
 
-| Perfil | Conteúdo do dashboard |
-|---|---|
-| **admin** | Total de eventos, participantes, certificados emitidos, usuários; atalhos para todos os módulos |
-| **gestor** | Total de certificados e participantes do seu(s) evento(s); atalhos para certificados e tipos |
-| **monitor** | Total de certificados do seu evento; atalho para emissão de certificados |
+| Perfil      | Conteúdo do dashboard                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| **admin**   | Total de eventos, participantes, certificados emitidos, usuários; atalhos para todos os módulos |
+| **gestor**  | Total de certificados e participantes do seu(s) evento(s); atalhos para certificados e tipos    |
+| **monitor** | Total de certificados do seu evento; atalho para emissão de certificados                        |
 
 **Critérios de aceite:**
 
@@ -832,18 +828,18 @@ views/
 
 **Casos de uso a cobrir:**
 
-| UC | Descrição | Resultado esperado |
-|---|---|---|
-| **UC-P01** | Participante acessa `/certificados` | Página de opções exibida com botões "Obter" e "Validar" |
-| **UC-P02** | Participante clica "Obter" → vai para `/certificados/obter` | Formulário com campo email exibido |
-| **UC-P03** | Participante submete email cadastrado com certificados | Lista de certificados exibida com botão "Baixar PDF" por item |
-| **UC-P04** | Participante submete email não encontrado | Mensagem de erro exibida; formulário mantido |
-| **UC-P05** | Participante submete email com formato inválido | Validação HTML5 impede envio; campo marcado como inválido |
-| **UC-P06** | Participante acessa `/certificados/validar` | Formulário com campo código exibido |
-| **UC-P07** | Participante submete código válido | Painel verde com código, evento, nome, atividade e campo destaque |
-| **UC-P08** | Participante submete código inválido | Painel vermelho com mensagem de código não encontrado |
-| **UC-P09** | Participante clica "Validar outro" na tela de resultado | Redirecionado para `form-validar.hbs` com formulário limpo |
-| **UC-P10** | Participante clica "Baixar PDF" em um certificado | Download iniciado (verifica header `Content-Type: application/pdf`) |
+| UC         | Descrição                                                   | Resultado esperado                                                  |
+| ---------- | ----------------------------------------------------------- | ------------------------------------------------------------------- |
+| **UC-P01** | Participante acessa `/certificados`                         | Página de opções exibida com botões "Obter" e "Validar"             |
+| **UC-P02** | Participante clica "Obter" → vai para `/certificados/obter` | Formulário com campo email exibido                                  |
+| **UC-P03** | Participante submete email cadastrado com certificados      | Lista de certificados exibida com botão "Baixar PDF" por item       |
+| **UC-P04** | Participante submete email não encontrado                   | Mensagem de erro exibida; formulário mantido                        |
+| **UC-P05** | Participante submete email com formato inválido             | Validação HTML5 impede envio; campo marcado como inválido           |
+| **UC-P06** | Participante acessa `/certificados/validar`                 | Formulário com campo código exibido                                 |
+| **UC-P07** | Participante submete código válido                          | Painel verde com código, evento, nome, atividade e campo destaque   |
+| **UC-P08** | Participante submete código inválido                        | Painel vermelho com mensagem de código não encontrado               |
+| **UC-P09** | Participante clica "Validar outro" na tela de resultado     | Redirecionado para `form-validar.hbs` com formulário limpo          |
+| **UC-P10** | Participante clica "Baixar PDF" em um certificado           | Download iniciado (verifica header `Content-Type: application/pdf`) |
 
 **Critérios de aceite:**
 
@@ -863,19 +859,19 @@ views/
 
 **Casos de uso a cobrir:**
 
-| UC | Descrição | Resultado esperado |
-|---|---|---|
-| **UC-A01** | Admin faz login com credenciais válidas | Redirecionado para `/admin/dashboard`; nome exibido na navbar |
-| **UC-A02** | Usuário faz login com senha incorreta | Permanece na tela de login; mensagem de erro exibida |
-| **UC-A03** | Usuário faz login com email não cadastrado | Permanece na tela de login; mensagem de erro exibida |
-| **UC-A04** | Usuário não autenticado acessa `/admin/dashboard` | Redirecionado para `/auth/login` |
-| **UC-A05** | Usuário não autenticado acessa `/admin/eventos` | Redirecionado para `/auth/login` |
-| **UC-A06** | Admin faz logout | Cookie limpo; redirecionado para `/auth/login` |
-| **UC-A07** | Após logout, admin tenta acessar `/admin/dashboard` | Redirecionado para `/auth/login` (cookie inválido) |
-| **UC-A08** | Monitor tenta acessar `/admin/usuarios` | Recebe resposta 403 ou redirecionamento para tela de acesso negado |
-| **UC-A09** | Monitor tenta acessar `/admin/eventos` | Recebe 403 ou redirecionamento |
-| **UC-A10** | Gestor acessa `/admin/certificados` do seu evento | Lista exibida apenas com certificados do seu evento |
-| **UC-A11** | Gestor tenta acessar certificados de outro evento via URL | Recebe 403 |
+| UC         | Descrição                                                 | Resultado esperado                                                 |
+| ---------- | --------------------------------------------------------- | ------------------------------------------------------------------ |
+| **UC-A01** | Admin faz login com credenciais válidas                   | Redirecionado para `/admin/dashboard`; nome exibido na navbar      |
+| **UC-A02** | Usuário faz login com senha incorreta                     | Permanece na tela de login; mensagem de erro exibida               |
+| **UC-A03** | Usuário faz login com email não cadastrado                | Permanece na tela de login; mensagem de erro exibida               |
+| **UC-A04** | Usuário não autenticado acessa `/admin/dashboard`         | Redirecionado para `/auth/login`                                   |
+| **UC-A05** | Usuário não autenticado acessa `/admin/eventos`           | Redirecionado para `/auth/login`                                   |
+| **UC-A06** | Admin faz logout                                          | Cookie limpo; redirecionado para `/auth/login`                     |
+| **UC-A07** | Após logout, admin tenta acessar `/admin/dashboard`       | Redirecionado para `/auth/login` (cookie inválido)                 |
+| **UC-A08** | Monitor tenta acessar `/admin/usuarios`                   | Recebe resposta 403 ou redirecionamento para tela de acesso negado |
+| **UC-A09** | Monitor tenta acessar `/admin/eventos`                    | Recebe 403 ou redirecionamento                                     |
+| **UC-A10** | Gestor acessa `/admin/certificados` do seu evento         | Lista exibida apenas com certificados do seu evento                |
+| **UC-A11** | Gestor tenta acessar certificados de outro evento via URL | Recebe 403                                                         |
 
 **Critérios de aceite:**
 
@@ -895,18 +891,18 @@ views/
 
 **Casos de uso a cobrir:**
 
-| UC | Descrição | Resultado esperado |
-|---|---|---|
-| **UC-AD01** | Admin cria evento com dados válidos | Evento aparece na tabela; flash "Evento criado com sucesso" |
-| **UC-AD02** | Admin edita evento existente | Dados atualizados na tabela; flash de sucesso |
-| **UC-AD03** | Admin remove evento | Evento some da tabela ativa; aparece em "Arquivados" com botão Restaurar |
-| **UC-AD04** | Admin restaura evento arquivado | Evento volta à tabela ativa |
-| **UC-AD05** | Admin cria participante com email duplicado | Permanece no formulário; mensagem de erro com campo inválido |
-| **UC-AD06** | Gestor cria tipo de certificado com campos dinâmicos | Tipo aparece na listagem com campos corretos |
-| **UC-AD07** | Gestor emite certificado para participante | Certificado aparece na listagem com status "emitido" |
-| **UC-AD08** | Gestor cancela certificado emitido | Status muda para "cancelado"; botão "Restaurar" aparece |
-| **UC-AD09** | Admin cria usuário gestor e vincula a evento | Usuário aparece na listagem com evento correto |
-| **UC-AD10** | Admin tenta criar usuário com email duplicado | Permanece no formulário; mensagem de erro |
+| UC          | Descrição                                            | Resultado esperado                                                       |
+| ----------- | ---------------------------------------------------- | ------------------------------------------------------------------------ |
+| **UC-AD01** | Admin cria evento com dados válidos                  | Evento aparece na tabela; flash "Evento criado com sucesso"              |
+| **UC-AD02** | Admin edita evento existente                         | Dados atualizados na tabela; flash de sucesso                            |
+| **UC-AD03** | Admin remove evento                                  | Evento some da tabela ativa; aparece em "Arquivados" com botão Restaurar |
+| **UC-AD04** | Admin restaura evento arquivado                      | Evento volta à tabela ativa                                              |
+| **UC-AD05** | Admin cria participante com email duplicado          | Permanece no formulário; mensagem de erro com campo inválido             |
+| **UC-AD06** | Gestor cria tipo de certificado com campos dinâmicos | Tipo aparece na listagem com campos corretos                             |
+| **UC-AD07** | Gestor emite certificado para participante           | Certificado aparece na listagem com status "emitido"                     |
+| **UC-AD08** | Gestor cancela certificado emitido                   | Status muda para "cancelado"; botão "Restaurar" aparece                  |
+| **UC-AD09** | Admin cria usuário gestor e vincula a evento         | Usuário aparece na listagem com evento correto                           |
+| **UC-AD10** | Admin tenta criar usuário com email duplicado        | Permanece no formulário; mensagem de erro                                |
 
 **Critérios de aceite:**
 
@@ -917,4 +913,3 @@ views/
 
 **Estimativa:** 5 pontos  
 **Dependências:** TASK-37, TASK-31, TASK-32, TASK-33, TASK-34, TASK-35, TASK-36
-

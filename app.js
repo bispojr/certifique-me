@@ -1,4 +1,3 @@
-
 var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
@@ -18,7 +17,6 @@ var tiposCertificadosRouter = require('./src/routes/tipos-certificados')
 var usuariosRouter = require('./src/routes/usuarios')
 var healthRouter = require('./src/routes/health')
 
-
 var app = express()
 
 // view engine setup
@@ -30,7 +28,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
-
 
 // Swagger config
 
@@ -78,12 +75,21 @@ const swaggerDefinition = {
         type: 'object',
         properties: {
           nome: { type: 'string', minLength: 3 },
-          status: { type: 'string', enum: ['emitido', 'pendente', 'cancelado'] },
+          status: {
+            type: 'string',
+            enum: ['emitido', 'pendente', 'cancelado'],
+          },
           participante_id: { type: 'integer' },
           evento_id: { type: 'integer' },
           tipo_certificado_id: { type: 'integer' },
         },
-        required: ['nome', 'status', 'participante_id', 'evento_id', 'tipo_certificado_id'],
+        required: [
+          'nome',
+          'status',
+          'participante_id',
+          'evento_id',
+          'tipo_certificado_id',
+        ],
       },
       TipoCertificado: {
         type: 'object',

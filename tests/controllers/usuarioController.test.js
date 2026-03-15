@@ -67,8 +67,16 @@ describe('UsuarioController', () => {
 
   it('deve criar usuário com múltiplos eventos', async () => {
     // Cria eventos para associar
-    const evento1 = await sequelize.models.Evento.create({ nome: 'Evento A', codigo_base: 'AAA', ano: 2026 })
-    const evento2 = await sequelize.models.Evento.create({ nome: 'Evento B', codigo_base: 'BBB', ano: 2026 })
+    const evento1 = await sequelize.models.Evento.create({
+      nome: 'Evento A',
+      codigo_base: 'AAA',
+      ano: 2026,
+    })
+    const evento2 = await sequelize.models.Evento.create({
+      nome: 'Evento B',
+      codigo_base: 'BBB',
+      ano: 2026,
+    })
     const res = await request(app)
       .post('/usuarios')
       .send({
@@ -81,6 +89,8 @@ describe('UsuarioController', () => {
     expect(res.status).toBe(201)
     expect(res.body.nome).toBe('MultiEvento')
     expect(res.body.eventos.length).toBe(2)
-    expect(res.body.eventos.map(e => e.nome)).toEqual(expect.arrayContaining(['Evento A', 'Evento B']))
+    expect(res.body.eventos.map((e) => e.nome)).toEqual(
+      expect.arrayContaining(['Evento A', 'Evento B']),
+    )
   })
 })

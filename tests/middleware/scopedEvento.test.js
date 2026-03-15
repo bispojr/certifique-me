@@ -11,7 +11,7 @@ app.use(express.json())
 function usuarioComEventos(perfil, eventosIds = []) {
   return {
     perfil,
-    getEventos: async () => eventosIds.map(id => ({ id })),
+    getEventos: async () => eventosIds.map((id) => ({ id })),
   }
 }
 

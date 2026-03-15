@@ -5,7 +5,7 @@ describe('Validação Zod - Participante', () => {
     const data = {
       nomeCompleto: 'João Silva',
       email: 'joao@email.com',
-      instituicao: 'Universidade'
+      instituicao: 'Universidade',
     }
     expect(() => participanteSchema.parse(data)).not.toThrow()
   })
@@ -14,7 +14,7 @@ describe('Validação Zod - Participante', () => {
     const data = {
       nomeCompleto: 'João Silva',
       email: 'email-invalido',
-      instituicao: 'Universidade'
+      instituicao: 'Universidade',
     }
     expect(() => participanteSchema.parse(data)).toThrow()
   })
@@ -23,7 +23,7 @@ describe('Validação Zod - Participante', () => {
     const data = {
       nomeCompleto: 'Jo',
       email: 'joao@email.com',
-      instituicao: 'Universidade'
+      instituicao: 'Universidade',
     }
     expect(() => participanteSchema.parse(data)).toThrow()
   })

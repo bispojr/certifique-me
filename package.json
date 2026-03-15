@@ -15,7 +15,7 @@
     "test:ci": "jest --runInBand --forceExit",
     "lint": "eslint src/**",
     "format": "prettier --write .",
-    "check": "npm run lint && npm run test:ci"
+    "check": "npm run format && npm run lint && npm run test:ci"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

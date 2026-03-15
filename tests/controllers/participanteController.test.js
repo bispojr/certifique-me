@@ -30,13 +30,21 @@ describe('ParticipanteController', () => {
   })
 
   it('deve criar um participante', async () => {
-    participanteService.create.mockResolvedValue({ id: 1, nomeCompleto: 'Teste', email: 'teste@teste.com' })
+    participanteService.create.mockResolvedValue({
+      id: 1,
+      nomeCompleto: 'Teste',
+      email: 'teste@teste.com',
+    })
     const res = await request(app)
       .post('/participantes')
       .set('Authorization', `Bearer ${adminToken}`)
       .send({ nomeCompleto: 'Teste', email: 'teste@teste.com' })
     expect(res.statusCode).toBe(201)
-    expect(res.body).toEqual({ id: 1, nomeCompleto: 'Teste', email: 'teste@teste.com' })
+    expect(res.body).toEqual({
+      id: 1,
+      nomeCompleto: 'Teste',
+      email: 'teste@teste.com',
+    })
   })
 
   it('deve retornar todos os participantes', async () => {

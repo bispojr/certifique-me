@@ -3,21 +3,27 @@ module.exports = async function scopedEvento(req, res, next) {
 
   // Carrega eventos vinculados ao usuário (N:N)
   if (typeof req.usuario.getEventos !== 'function') {
-    return res.status(500).json({ error: 'Usuário sem método getEventos (modelo N:N)' })
+    return res
+      .status(500)
+      .json({ error: 'Usuário sem método getEventos (modelo N:N)' })
   }
   const eventos = await req.usuario.getEventos()
-  const eventosIds = eventos.map(e => Number(e.id))
+  const eventosIds = eventos.map((e) => Number(e.id))
 
   // Se não houver eventos vinculados, bloqueia
   if (!eventosIds.length) {
-    return res.status(403).json({ error: 'Acesso restrito: nenhum evento vinculado.' })
+    return res
+      .status(403)
+      .json({ error: 'Acesso restrito: nenhum evento vinculado.' })
   }
 
   // Para rotas de listagem (GET sem id), força filtro pelo(s) evento(s) do usuário
   if (req.method === 'GET' && !req.params.id) {
     if (req.query.evento_id) {
       if (!eventosIds.includes(Number(req.query.evento_id))) {
-        return res.status(403).json({ error: 'Acesso restrito ao evento vinculado.' })
+        return res
+          .status(403)
+          .json({ error: 'Acesso restrito ao evento vinculado.' })
       }
     } else {
       req.query.evento_id = eventosIds.length === 1 ? eventosIds[0] : eventosIds

@@ -28,13 +28,13 @@ O público em geral pode consultar e validar certificados sem necessidade de aut
 
 # Stakeholders
 
-| Stakeholder | Papel no sistema |
-|---|---|
-| **Administrador** | Gerencia todo o sistema: usuários, eventos, certificados e relatórios. |
-| **Gestor de Evento** | Gerencia tipos de certificados, certificados e participantes de um evento específico. |
-| **Monitor de Evento** | Insere dados de certificados de um evento específico. |
-| **Participante** | Pessoa que recebe certificados; pode consultá-los publicamente pelo código ou ID. |
-| **Equipe técnica** | Responsável pela implantação, manutenção e evolução do sistema. |
+| Stakeholder           | Papel no sistema                                                                      |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| **Administrador**     | Gerencia todo o sistema: usuários, eventos, certificados e relatórios.                |
+| **Gestor de Evento**  | Gerencia tipos de certificados, certificados e participantes de um evento específico. |
+| **Monitor de Evento** | Insere dados de certificados de um evento específico.                                 |
+| **Participante**      | Pessoa que recebe certificados; pode consultá-los publicamente pelo código ou ID.     |
+| **Equipe técnica**    | Responsável pela implantação, manutenção e evolução do sistema.                       |
 
 ---
 
@@ -210,14 +210,14 @@ Expõe um endpoint `/health` para verificação do status da aplicação e da co
 
 **Rotas exclusivas:**
 
-| Rota | Descrição |
-|---|---|
-| `GET /admin/dashboard` | Painel administrativo global |
-| `GET/POST /admin/usuarios` | Gerenciar todos os usuários |
-| `GET/POST /admin/eventos` | Gerenciar todos os eventos |
-| `GET/POST /admin/certificados` | Gerenciar todos os certificados |
+| Rota                                 | Descrição                                |
+| ------------------------------------ | ---------------------------------------- |
+| `GET /admin/dashboard`               | Painel administrativo global             |
+| `GET/POST /admin/usuarios`           | Gerenciar todos os usuários              |
+| `GET/POST /admin/eventos`            | Gerenciar todos os eventos               |
+| `GET/POST /admin/certificados`       | Gerenciar todos os certificados          |
 | `GET/POST /admin/tipos-certificados` | Gerenciar todos os tipos de certificados |
-| `GET /admin/relatorios` | Visualizar relatórios e estatísticas |
+| `GET /admin/relatorios`              | Visualizar relatórios e estatísticas     |
 
 ---
 
@@ -231,13 +231,13 @@ Expõe um endpoint `/health` para verificação do status da aplicação e da co
 
 **Rotas disponíveis:**
 
-| Rota | Descrição |
-|---|---|
-| `GET /dashboard` | Painel do evento |
-| `GET/POST /evento/:eventoId/tipos-certificados` | Gerenciar tipos de certificados (P1) |
-| `GET/POST /evento/:eventoId/certificados` | Listar, criar, editar e deletar certificados (P2) |
-| `GET/POST /evento/:eventoId/participantes` | Gerenciar participantes |
-| `GET/POST /evento/:eventoId/monitor` | Gerenciar monitores e permissões |
+| Rota                                            | Descrição                                         |
+| ----------------------------------------------- | ------------------------------------------------- |
+| `GET /dashboard`                                | Painel do evento                                  |
+| `GET/POST /evento/:eventoId/tipos-certificados` | Gerenciar tipos de certificados (P1)              |
+| `GET/POST /evento/:eventoId/certificados`       | Listar, criar, editar e deletar certificados (P2) |
+| `GET/POST /evento/:eventoId/participantes`      | Gerenciar participantes                           |
+| `GET/POST /evento/:eventoId/monitor`            | Gerenciar monitores e permissões                  |
 
 ---
 
@@ -251,9 +251,9 @@ Expõe um endpoint `/health` para verificação do status da aplicação e da co
 
 **Rotas disponíveis:**
 
-| Rota | Descrição |
-|---|---|
-| `POST /evento/:eventoId/certificados` | Inserir dados de certificados (P2) |
+| Rota                                  | Descrição                               |
+| ------------------------------------- | --------------------------------------- |
+| `POST /evento/:eventoId/certificados` | Inserir dados de certificados (P2)      |
 | `GET /evento/:eventoId/participantes` | Visualizar participantes (se permitido) |
 
 ---
@@ -265,10 +265,10 @@ Expõe um endpoint `/health` para verificação do status da aplicação e da co
 
 **Rotas disponíveis:**
 
-| Rota | Descrição |
-|---|---|
+| Rota                   | Descrição                                    |
+| ---------------------- | -------------------------------------------- |
 | `GET /certificado/:id` | Visualizar ou validar um certificado pelo ID |
-| `GET /validar/:codigo` | Validar um certificado por código |
+| `GET /validar/:codigo` | Validar um certificado por código            |
 
 ---
 
@@ -278,78 +278,78 @@ Expõe um endpoint `/health` para verificação do status da aplicação e da co
 
 ### `participantes`
 
-| Campo | Tipo | Restrições |
-|---|---|---|
-| `id` | UUID / Integer | PK, obrigatório |
-| `nomeCompleto` | String | Obrigatório |
-| `email` | String | Obrigatório, único, formato válido |
-| `instituicao` | String | Opcional |
-| `created_at` | Timestamp | Automático |
-| `updated_at` | Timestamp | Automático |
-| `deleted_at` | Timestamp | Soft delete (paranoid) |
+| Campo          | Tipo           | Restrições                         |
+| -------------- | -------------- | ---------------------------------- |
+| `id`           | UUID / Integer | PK, obrigatório                    |
+| `nomeCompleto` | String         | Obrigatório                        |
+| `email`        | String         | Obrigatório, único, formato válido |
+| `instituicao`  | String         | Opcional                           |
+| `created_at`   | Timestamp      | Automático                         |
+| `updated_at`   | Timestamp      | Automático                         |
+| `deleted_at`   | Timestamp      | Soft delete (paranoid)             |
 
 ---
 
 ### `eventos`
 
-| Campo | Tipo | Restrições |
-|---|---|---|
-| `id` | UUID / Integer | PK, obrigatório |
-| `nome` | String | Obrigatório |
-| `ano` | Integer | Obrigatório |
-| `codigo_base` | String(3) | Obrigatório, único, exatamente 3 letras alfabéticas |
-| `created_at` | Timestamp | Automático |
-| `updated_at` | Timestamp | Automático |
-| `deleted_at` | Timestamp | Soft delete (paranoid) |
+| Campo         | Tipo           | Restrições                                          |
+| ------------- | -------------- | --------------------------------------------------- |
+| `id`          | UUID / Integer | PK, obrigatório                                     |
+| `nome`        | String         | Obrigatório                                         |
+| `ano`         | Integer        | Obrigatório                                         |
+| `codigo_base` | String(3)      | Obrigatório, único, exatamente 3 letras alfabéticas |
+| `created_at`  | Timestamp      | Automático                                          |
+| `updated_at`  | Timestamp      | Automático                                          |
+| `deleted_at`  | Timestamp      | Soft delete (paranoid)                              |
 
 ---
 
 ### `tipos_certificados`
 
-| Campo | Tipo | Restrições |
-|---|---|---|
-| `id` | UUID / Integer | PK, obrigatório |
-| `codigo` | String(2) | Obrigatório, único, exatamente 2 letras alfabéticas |
-| `descricao` | String | Obrigatório |
-| `campo_destaque` | String | Obrigatório; deve ser `"nome"` ou chave de `dados_dinamicos` |
-| `texto_base` | Text | Obrigatório; pode conter `${variavel}` |
-| `dados_dinamicos` | JSONB | Opcional; define campos específicos do tipo |
-| `created_at` | Timestamp | Automático |
-| `updated_at` | Timestamp | Automático |
-| `deleted_at` | Timestamp | Soft delete (paranoid) |
+| Campo             | Tipo           | Restrições                                                   |
+| ----------------- | -------------- | ------------------------------------------------------------ |
+| `id`              | UUID / Integer | PK, obrigatório                                              |
+| `codigo`          | String(2)      | Obrigatório, único, exatamente 2 letras alfabéticas          |
+| `descricao`       | String         | Obrigatório                                                  |
+| `campo_destaque`  | String         | Obrigatório; deve ser `"nome"` ou chave de `dados_dinamicos` |
+| `texto_base`      | Text           | Obrigatório; pode conter `${variavel}`                       |
+| `dados_dinamicos` | JSONB          | Opcional; define campos específicos do tipo                  |
+| `created_at`      | Timestamp      | Automático                                                   |
+| `updated_at`      | Timestamp      | Automático                                                   |
+| `deleted_at`      | Timestamp      | Soft delete (paranoid)                                       |
 
 ---
 
 ### `certificados`
 
-| Campo | Tipo | Restrições |
-|---|---|---|
-| `id` | UUID / Integer | PK, obrigatório |
-| `participante_id` | FK | Referência a `participantes.id` |
-| `evento_id` | FK | Referência a `eventos.id` |
-| `tipo_certificado_id` | FK | Referência a `tipos_certificados.id` |
-| `nome` | String | Obrigatório |
-| `status` | Enum | `"emitido"`, `"pendente"` ou `"cancelado"` |
-| `valores_dinamicos` | JSONB | Valores dos campos de `dados_dinamicos` |
-| `created_at` | Timestamp | Automático |
-| `updated_at` | Timestamp | Automático |
-| `deleted_at` | Timestamp | Soft delete (paranoid) |
+| Campo                 | Tipo           | Restrições                                 |
+| --------------------- | -------------- | ------------------------------------------ |
+| `id`                  | UUID / Integer | PK, obrigatório                            |
+| `participante_id`     | FK             | Referência a `participantes.id`            |
+| `evento_id`           | FK             | Referência a `eventos.id`                  |
+| `tipo_certificado_id` | FK             | Referência a `tipos_certificados.id`       |
+| `nome`                | String         | Obrigatório                                |
+| `status`              | Enum           | `"emitido"`, `"pendente"` ou `"cancelado"` |
+| `valores_dinamicos`   | JSONB          | Valores dos campos de `dados_dinamicos`    |
+| `created_at`          | Timestamp      | Automático                                 |
+| `updated_at`          | Timestamp      | Automático                                 |
+| `deleted_at`          | Timestamp      | Soft delete (paranoid)                     |
 
 ---
 
 ### `usuarios`
 
-| Campo | Tipo | Restrições |
-|---|---|---|
-| `id` | UUID / Integer | PK, obrigatório |
-| `nome` | String | Obrigatório |
-| `email` | String | Obrigatório, único, formato válido |
-| `senha` | String | Obrigatório; armazenado como hash bcrypt |
-| `perfil` | Enum | `"admin"`, `"gestor"` ou `"monitor"` |
-| `evento_id` | FK | Referência a `eventos.id`; nulo para admins |
-| `created_at` | Timestamp | Automático |
-| `updated_at` | Timestamp | Automático |
-| `deleted_at` | Timestamp | Soft delete (paranoid) |
+| Campo        | Tipo           | Restrições                                  |
+| ------------ | -------------- | ------------------------------------------- |
+| `id`         | UUID / Integer | PK, obrigatório                             |
+| `nome`       | String         | Obrigatório                                 |
+| `email`      | String         | Obrigatório, único, formato válido          |
+| `senha`      | String         | Obrigatório; armazenado como hash bcrypt    |
+| `perfil`     | Enum           | `"admin"`, `"gestor"` ou `"monitor"`        |
+| `evento_id`  | FK             | Referência a `eventos.id`; nulo para admins |
+| `created_at` | Timestamp      | Automático                                  |
+| `updated_at` | Timestamp      | Automático                                  |
+| `deleted_at` | Timestamp      | Soft delete (paranoid)                      |
 
 ---
 
@@ -368,12 +368,12 @@ eventos        1 ──< N  usuarios (gestor/monitor)
 
 Atualmente, o sistema não depende de APIs ou serviços externos.
 
-| Integração | Tipo | Status |
-|---|---|---|
-| **PostgreSQL** | Banco de dados relacional | Em uso |
-| **Docker** | Containerização da aplicação e banco | Em uso |
-| **JWT (jsonwebtoken)** | Autenticação stateless | Em uso |
-| **bcryptjs** | Hash de senhas | Em uso |
+| Integração             | Tipo                                 | Status |
+| ---------------------- | ------------------------------------ | ------ |
+| **PostgreSQL**         | Banco de dados relacional            | Em uso |
+| **Docker**             | Containerização da aplicação e banco | Em uso |
+| **JWT (jsonwebtoken)** | Autenticação stateless               | Em uso |
+| **bcryptjs**           | Hash de senhas                       | Em uso |
 
 > **Questão em aberto:** Geração de PDFs dos certificados foi mencionada como item planejado, porém nenhuma biblioteca foi especificada (ver seção [Questões em Aberto](#questões-em-aberto)).
 
@@ -472,6 +472,7 @@ Todas as rotas de escrita usam um middleware de validação baseado em Zod. Em c
 
 UF-5: **Restrições mínimas de tamanho em campos de validação (não especificadas no SRS).**  
 Os schemas Zod impõem comprimentos mínimos que nunca foram documentados:
+
 - `nomeCompleto` (participante): mínimo 3 caracteres
 - `nome` (evento, usuário, certificado): mínimo 3 caracteres
 - `senha` (usuário): mínimo 6 caracteres
@@ -578,29 +579,35 @@ Não há especificação sobre como o primeiro admin deve ser criado, e o códig
 
 # Inconsistências Detectadas
 
-INC-1: **`evento_id` vs. N:N — modelo de dados divergente.**  
-- **Especificação:** Tabela `usuarios` possui campo `evento_id` (FK simples) — um usuário pertence a um evento.  
+INC-1: **`evento_id` vs. N:N — modelo de dados divergente.**
+
+- **Especificação:** Tabela `usuarios` possui campo `evento_id` (FK simples) — um usuário pertence a um evento.
 - **Código:** Não há `evento_id` em `usuarios`; a associação é feita via tabela `usuario_eventos` (N:N) — um usuário pode pertencer a múltiplos eventos.
 
-INC-2: **Sintaxe de interpolação do `texto_base`.**  
-- **Especificação:** Exemplo usa `${nome_completo}`, sugerindo template literals estilo ES6.  
+INC-2: **Sintaxe de interpolação do `texto_base`.**
+
+- **Especificação:** Exemplo usa `${nome_completo}`, sugerindo template literals estilo ES6.
 - **Código:** `templateService.js` usa regex `\{\{(\w+)\}\}`, ou seja, sintaxe `{{nome_completo}}` (estilo Mustache/Handlebars).
 
-INC-3: **Segredos JWT inconsistentes entre módulos.**  
-- **`middleware/auth.js`:** Fallback é `'segredo-super-seguro'`.  
-- **`src/controllers/usuarioController.js`:** Fallback é `'secret'`.  
+INC-3: **Segredos JWT inconsistentes entre módulos.**
+
+- **`middleware/auth.js`:** Fallback é `'segredo-super-seguro'`.
+- **`src/controllers/usuarioController.js`:** Fallback é `'secret'`.
 - Se `JWT_SECRET` não estiver definido no ambiente, tokens serão assinados e verificados com segredos diferentes, quebrando toda autenticação.
 
-INC-4: **Criação de usuário não protegida por autenticação.**  
-- **Especificação:** Perfil admin gerencia todos os usuários (criação inclusa), implicando que criação de usuários é uma operação restrita.  
+INC-4: **Criação de usuário não protegida por autenticação.**
+
+- **Especificação:** Perfil admin gerencia todos os usuários (criação inclusa), implicando que criação de usuários é uma operação restrita.
 - **Código:** `POST /usuarios` não possui middleware `auth` ou `rbac` — qualquer requisição pode criar usuários com qualquer perfil.
 
-INC-5: **`valores_dinamicos` ausente no validator de certificado.**  
-- **Especificação:** `valores_dinamicos` é descrito como campo central para armazenar os dados dinâmicos de um certificado.  
+INC-5: **`valores_dinamicos` ausente no validator de certificado.**
+
+- **Especificação:** `valores_dinamicos` é descrito como campo central para armazenar os dados dinâmicos de um certificado.
 - **Código:** O Zod schema em `src/validators/certificado.js` não inclui `valores_dinamicos`, tornando o campo invisível para a camada de validação.
 
-INC-6: **Rota `GET /eventos` exige autenticação; especificação não deixa isso claro.**  
-- **Especificação:** A especificação lista rotas públicas apenas para `/certificado/:id` e `/validar/:codigo`, mas não explicita se listagem de eventos é pública ou protegida.  
+INC-6: **Rota `GET /eventos` exige autenticação; especificação não deixa isso claro.**
+
+- **Especificação:** A especificação lista rotas públicas apenas para `/certificado/:id` e `/validar/:codigo`, mas não explicita se listagem de eventos é pública ou protegida.
 - **Código:** `GET /eventos` usa middleware `auth` + `rbac('monitor')` + `scopedEvento`, sendo portanto uma rota protegida.
 
 ---
@@ -613,6 +620,7 @@ Adicionar a entidade `usuario_eventos` com os campos `usuario_id`, `evento_id` e
 REC-2: **Documentar o endpoint `GET /api-docs`** na seção de Integrações ou em uma nova seção "Documentação da API", incluindo que é gerado automaticamente a partir das anotações `@swagger` nas rotas.
 
 REC-3: **Adicionar restrições de comprimento mínimo** na seção de Modelo de Dados e/ou nos Requisitos Funcionais, conforme os validators Zod:
+
 - `nomeCompleto`, `nome`: ≥ 3 caracteres
 - `senha`: ≥ 6 caracteres
 - `instituicao`: ≥ 2 caracteres (quando informada)
@@ -631,4 +639,3 @@ REC-8: **Adicionar `valores_dinamicos` ao schema Zod do certificado** — inclui
 REC-9: **Documentar o comportamento de cascade no soft delete de eventos** — incluir na especificação que ao deletar um evento, as associações em `usuario_eventos` também são marcadas como deletadas.
 
 REC-10: **Documentar o tempo de expiração do JWT** (`1h`) como requisito funcional ou não funcional, e avaliar a necessidade de refresh tokens (ver MS-5).
-

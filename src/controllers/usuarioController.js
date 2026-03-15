@@ -9,14 +9,22 @@ module.exports = {
   async updateEventos(req, res) {
     try {
       const usuario = await Usuario.findByPk(req.params.id)
-      if (!usuario) return res.status(404).json({ error: 'Usuário não encontrado' })
+      if (!usuario)
+        return res.status(404).json({ error: 'Usuário não encontrado' })
       const { eventos } = req.body
-      if (!Array.isArray(eventos)) return res.status(400).json({ error: 'Eventos deve ser um array' })
+      if (!Array.isArray(eventos))
+        return res.status(400).json({ error: 'Eventos deve ser um array' })
       // Checa duplicidade
-      if (new Set(eventos).size !== eventos.length) return res.status(400).json({ error: 'Eventos duplicados não são permitidos' })
+      if (new Set(eventos).size !== eventos.length)
+        return res
+          .status(400)
+          .json({ error: 'Eventos duplicados não são permitidos' })
       // Checa existência dos eventos
-      const eventosExistentes = await usuario.sequelize.models.Evento.findAll({ where: { id: eventos } })
-      if (eventosExistentes.length !== eventos.length) return res.status(400).json({ error: 'Um ou mais eventos não existem' })
+      const eventosExistentes = await usuario.sequelize.models.Evento.findAll({
+        where: { id: eventos },
+      })
+      if (eventosExistentes.length !== eventos.length)
+        return res.status(400).json({ error: 'Um ou mais eventos não existem' })
       await usuario.setEventos(eventos)
       await usuario.reload({ include: 'eventos' })
       return res.status(200).json(usuario)
@@ -63,12 +71,18 @@ module.exports = {
       if (Array.isArray(eventos)) {
         // Checa duplicidade
         if (new Set(eventos).size !== eventos.length) {
-          return res.status(400).json({ error: 'Eventos duplicados não são permitidos' })
+          return res
+            .status(400)
+            .json({ error: 'Eventos duplicados não são permitidos' })
         }
         // Checa existência dos eventos
-        const eventosExistentes = await Usuario.sequelize.models.Evento.findAll({ where: { id: eventos } })
+        const eventosExistentes = await Usuario.sequelize.models.Evento.findAll(
+          { where: { id: eventos } },
+        )
         if (eventosExistentes.length !== eventos.length) {
-          return res.status(400).json({ error: 'Um ou mais eventos não existem' })
+          return res
+            .status(400)
+            .json({ error: 'Um ou mais eventos não existem' })
         }
       }
       const usuario = await Usuario.create({ nome, email, senha, perfil })

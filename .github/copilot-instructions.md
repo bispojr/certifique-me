@@ -121,17 +121,15 @@ After implementing a change, check the file:
 
 `docs/backlog.md`
 
-
 If the implemented work corresponds to a backlog item:
 
 - Mark it as completed using:
 
 `[x]`
 
-
 Example:
-- [x] Implementar feature X ✅ (13/03/2026, 14:00, BRT)
 
+- [x] Implementar feature X ✅ (13/03/2026, 14:00, BRT)
 
 Do not mark items as completed unless the implementation is actually finished.
 

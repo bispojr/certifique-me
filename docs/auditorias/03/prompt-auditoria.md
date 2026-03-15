@@ -2,11 +2,11 @@ Você é um arquiteto de software sênior especializado em análise arquitetural
 
 Este projeto possui:
 
-* um repositório principal (o projeto atual: @workspace)
-* parte de um repositório que serviu como referência ou ponto de partida (arquivo raiz é esse https://github.com/EduCompBR/educompbrasil-site/blob/master/routes/simposio/2025/educomp/pt-BR/certificado.js, podendo acessar os demais arquivos dentro do repositório. Enquanto o repositório de referência usou Google Sheets, esse repositório usa banco de dados)
-* backlog técnico
-* especificações funcionais
-* algumas decisões arquiteturais iniciais
+- um repositório principal (o projeto atual: @workspace)
+- parte de um repositório que serviu como referência ou ponto de partida (arquivo raiz é esse https://github.com/EduCompBR/educompbrasil-site/blob/master/routes/simposio/2025/educomp/pt-BR/certificado.js, podendo acessar os demais arquivos dentro do repositório. Enquanto o repositório de referência usou Google Sheets, esse repositório usa banco de dados)
+- backlog técnico
+- especificações funcionais
+- algumas decisões arquiteturais iniciais
 
 Sua tarefa é realizar uma **auditoria arquitetural profunda com Architecture Stress Test**, incluindo **extração de funcionalidades do repositório base** para identificar lacunas funcionais e riscos arquiteturais.
 
@@ -23,11 +23,11 @@ Analise:
 
 Para cada um, identifique:
 
-* tecnologias utilizadas
-* frameworks principais
-* organização de diretórios
-* principais módulos ou componentes
-* padrão arquitetural aparente (MVC, camadas, hexagonal, clean architecture, etc.)
+- tecnologias utilizadas
+- frameworks principais
+- organização de diretórios
+- principais módulos ou componentes
+- padrão arquitetural aparente (MVC, camadas, hexagonal, clean architecture, etc.)
 
 Explique como cada sistema parece funcionar em alto nível.
 
@@ -39,21 +39,21 @@ Realize engenharia reversa do repositório base para identificar as funcionalida
 
 Liste as funcionalidades do sistema base organizadas por categorias, por exemplo:
 
-* autenticação e autorização
-* gestão de usuários
-* regras de negócio
-* APIs ou endpoints
-* integração com serviços externos
-* processamento de dados
-* interface do usuário
-* persistência de dados
-* rotinas administrativas
+- autenticação e autorização
+- gestão de usuários
+- regras de negócio
+- APIs ou endpoints
+- integração com serviços externos
+- processamento de dados
+- interface do usuário
+- persistência de dados
+- rotinas administrativas
 
 Para cada funcionalidade, descreva:
 
-* objetivo
-* principais módulos envolvidos
-* dependências importantes
+- objetivo
+- principais módulos envolvidos
+- dependências importantes
 
 ---
 
@@ -78,10 +78,10 @@ Analise se a arquitetura atual do novo projeto suporta bem as funcionalidades id
 
 Verifique:
 
-* se os módulos atuais suportam essas responsabilidades
-* se existem riscos de acoplamento excessivo
-* se novas camadas ou módulos deveriam ser criados
-* se há risco de centralização excessiva de lógica
+- se os módulos atuais suportam essas responsabilidades
+- se existem riscos de acoplamento excessivo
+- se novas camadas ou módulos deveriam ser criados
+- se há risco de centralização excessiva de lógica
 
 Sugira melhorias arquiteturais quando necessário.
 
@@ -109,14 +109,14 @@ ETAPA 6 — Gargalos Arquiteturais
 
 Identifique possíveis gargalos como:
 
-* componentes com responsabilidade excessiva
-* módulos altamente acoplados
-* dependências frágeis
-* camadas mal separadas
-* infraestrutura misturada com lógica de domínio
-* duplicação de lógica de negócio
-* dificuldades para testes automatizados
-* problemas de escalabilidade futura
+- componentes com responsabilidade excessiva
+- módulos altamente acoplados
+- dependências frágeis
+- camadas mal separadas
+- infraestrutura misturada com lógica de domínio
+- duplicação de lógica de negócio
+- dificuldades para testes automatizados
+- problemas de escalabilidade futura
 
 Explique por que cada ponto pode se tornar um problema.
 
@@ -164,10 +164,10 @@ Analise o backlog existente.
 
 Sugira:
 
-* novas tarefas técnicas
-* tarefas que deveriam ser re-priorizadas
-* tarefas que podem ser simplificadas
-* tarefas necessárias para implementar funcionalidades ainda ausentes
+- novas tarefas técnicas
+- tarefas que deveriam ser re-priorizadas
+- tarefas que podem ser simplificadas
+- tarefas necessárias para implementar funcionalidades ainda ausentes
 
 Explique o motivo.
 
@@ -189,9 +189,9 @@ ETAPA 12 — Atualização do C4 Model
 
 Revise ou proponha um C4 Model para o sistema contendo:
 
-* Context Diagram
-* Container Diagram
-* Component Diagram
+- Context Diagram
+- Container Diagram
+- Component Diagram
 
 Descreva os elementos principais de cada nível.
 
