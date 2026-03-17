@@ -353,7 +353,8 @@ Sprint 4 (refinamento)
 
 ---
 
-**[TASK-020-A] Instalar dependência pdfkit**
+
+**[TASK-020-A] Instalar dependência pdfkit** — concluído em 2026-03-16 21:20 (BRT)
 
 - Arquivos: `package.json`
 - Passos: executar `npm install pdfkit`; verificar que `"pdfkit"` aparece em `dependencies`
