@@ -3,7 +3,7 @@ services:
   postgres_test:
     image: postgres:15
     environment:
-      POSTGRES_DB: certificados_db_test
+      POSTGRES_DB: certificados_test
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
