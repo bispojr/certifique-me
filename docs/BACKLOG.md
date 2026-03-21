@@ -1108,7 +1108,6 @@ Sprint 10 (documentação e otimização)
 
 ---
 
-
 - [x] Instalar `connect-flash` e `express-session` — concluído em 2026-03-19 06:05 (BRT)
   - Arquivo: `package.json`
   - Passos: executar `npm install connect-flash express-session`; verificar que ambos aparecem em `dependencies`
@@ -1117,7 +1116,7 @@ Sprint 10 (documentação e otimização)
 
 ---
 
-**[TASK-028-B] Configurar `express-session` e `connect-flash` em `app.js`**
+**[TASK-028-B] Configurar `express-session` e `connect-flash` em `app.js`** — concluído em 2026-03-21 17:11 (BRT)
 
 - Arquivo: `app.js` (MODIFICAR)
 - Contexto: `connect-flash` requer que `express-session` seja registrado antes. A `SESSION_SECRET` deve vir de `process.env.SESSION_SECRET`. O `flash` deve ser registrado após a sessão. Para que as mensagens flash fiquem disponíveis nos templates, adicionar um middleware que popula `res.locals.flash`

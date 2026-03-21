@@ -3,6 +3,8 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+const session = require('express-session')
+const flash = require('connect-flash')
 
 // Swagger/OpenAPI
 const swaggerJsdoc = require('swagger-jsdoc')
@@ -28,7 +30,26 @@ app.set('view engine', 'hbs')
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+
 app.use(cookieParser())
+
+// Configuração de sessão e flash (TASK-028-B)
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'sessao-certifique-me',
+    resave: false,
+    saveUninitialized: false,
+  }),
+)
+app.use(flash())
+app.use((req, res, next) => {
+  res.locals.flash = {
+    success: req.flash('success'),
+    error: req.flash('error'),
+  }
+  next()
+})
+
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Swagger config

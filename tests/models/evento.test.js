@@ -7,10 +7,25 @@ const {
 
 describe('Evento Model', () => {
   beforeEach(async () => {
-    // Ordem correta: primeiro as tabelas de associação, depois Usuario, depois Evento
-    await UsuarioEvento.destroy({ where: {}, force: true })
-    await Usuario.destroy({ where: {}, force: true })
-    await Evento.destroy({ where: {}, force: true })
+    // Limpeza total das tabelas com truncate e cascade para evitar resíduos
+    await UsuarioEvento.destroy({
+      where: {},
+      truncate: true,
+      cascade: true,
+      force: true,
+    })
+    await Usuario.destroy({
+      where: {},
+      truncate: true,
+      cascade: true,
+      force: true,
+    })
+    await Evento.destroy({
+      where: {},
+      truncate: true,
+      cascade: true,
+      force: true,
+    })
   })
 
   test('deve criar evento com dados válidos', async () => {
