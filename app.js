@@ -166,11 +166,13 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+  // Sempre passa status e mensagem para o template
   res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-  // render the error page
+  // Garante que error.status estará disponível no template
+  res.locals.error = {
+    status: err.status || 500,
+    stack: req.app.get('env') === 'development' ? err.stack : undefined,
+  }
   res.status(err.status || 500)
   res.render('error')
 })

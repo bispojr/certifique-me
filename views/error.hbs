@@ -1,3 +1,7 @@
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+{{!< layout}}
+<div class='text-center mt-5'>
+  <h1 class='display-1'>{{error.status}}</h1>
+  <h2>{{message}}</h2>
+  <p class='text-muted'>{{#if error.stack}}{{error.stack}}{{/if}}</p>
+  <a href='/' class='btn btn-primary mt-3'>Voltar ao início</a>
+</div>

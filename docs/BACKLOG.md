@@ -1270,7 +1270,7 @@ Sprint 10 (documentação e otimização)
 
 ---
 
-**[TASK-028-E] Atualizar `views/error.hbs` com Bootstrap**
+**[TASK-028-E] Atualizar `views/error.hbs` com Bootstrap** — concluído em 2026-03-22 08:28 (BRT)
 
 - Arquivo: `views/error.hbs` (MODIFICAR)
 - Contexto: o arquivo atual exibe apenas tags `<h1>` e `<pre>` sem estilo. Deve ser atualizado para usar o `layout.hbs` e exibir o erro de forma amigável com link "Voltar ao início"
