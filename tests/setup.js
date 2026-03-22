@@ -8,9 +8,8 @@ if (!process.env.JWT_SECRET) {
 const { sequelize } = require('../src/models')
 const { execSync } = require('child_process')
 
-// Configuração global para testes
+// Sempre roda migrations antes dos testes
 beforeAll(async () => {
-  // Executa todas as migrations antes dos testes
   execSync('npx sequelize-cli db:migrate --env test', { stdio: 'inherit' })
 })
 

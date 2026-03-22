@@ -1150,7 +1150,7 @@ Sprint 10 (documentação e otimização)
 
 ---
 
-**[TASK-028-C] Atualizar `views/layout.hbs` com Bootstrap 5 e navbar pública** — concluído em 2026-03-21 17:11 (BRT)
+**[TASK-028-C] Atualizar `views/layout.hbs` com Bootstrap 5 e navbar pública** — concluído em 2026-03-22 07:30 (BRT)
 
 - Arquivo: `views/layout.hbs` (MODIFICAR)
 - Contexto: o layout atual é um esqueleto mínimo sem CSS. Deve incluir Bootstrap 5 via CDN, barra de navegação pública com link para `/certificados` e slot `{{{body}}}`
@@ -1199,7 +1199,7 @@ Sprint 10 (documentação e otimização)
 
 ---
 
-**[TASK-028-D] Criar `views/layouts/admin.hbs`**
+**[TASK-028-D] Criar `views/layouts/admin.hbs`** — concluído em 2026-03-22 08:02 (BRT)
 
 - Arquivo: `views/layouts/admin.hbs` (CRIAR)
 - Contexto: layout para todas as páginas do painel administrativo. O template recebe `usuario` (nome e perfil) via `res.locals` (populado pelo middleware `authSSR` a ser criado em TASK-030-A). A navbar deve exibir links condicionais por perfil usando helpers Handlebars, botão de logout via POST e o slot `{{{body}}}`
