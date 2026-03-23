@@ -182,3 +182,7 @@ Criar as duas views Handlebars para a gestão de eventos no painel admin: listag
 - `index.hbs`: botão "Remover" abre `confirm()` antes de submeter
 - `index.hbs`: seção de arquivados usa `<details>` e só aparece quando `arquivados.length > 0`
 - `index.hbs`: `{{else}}` do `{{#each}}` exibe mensagem quando lista vazia
+
+## Metadados
+
+- Completado em: 22/03/2026 21:17 ✅
