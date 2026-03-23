@@ -7,6 +7,9 @@ const {
 const bcrypt = require('bcryptjs')
 
 describe('Usuario Model', () => {
+  beforeAll(async () => {
+    await sequelize.sync({ force: true })
+  })
   beforeEach(async () => {
     await UsuarioEvento.destroy({ where: {}, force: true })
     await Evento.destroy({ where: {}, force: true })
