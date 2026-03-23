@@ -7,6 +7,18 @@ const eventoSSRController = require('../controllers/eventoSSRController')
 // Todas as rotas admin exigem sessão SSR válida
 router.use(authSSR)
 
+// Dashboard admin
+router.get('/dashboard', (req, res) => {
+  if (!req.usuario) {
+    return res.redirect('/auth/login')
+  }
+  res.render('admin/dashboard', {
+    layout: 'layouts/admin',
+    title: 'Dashboard',
+    usuario: req.usuario,
+  })
+})
+
 // Gestão de eventos (somente admin)
 router.get('/eventos', rbac('admin'), eventoSSRController.index)
 router.get('/eventos/novo', rbac('admin'), eventoSSRController.novo)

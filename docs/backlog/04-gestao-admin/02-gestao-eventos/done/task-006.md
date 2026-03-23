@@ -112,3 +112,7 @@ describe('findAll', () => {
 - `var adminRouter = require('./src/routes/admin')` presente em `app.js`
 - `Evento.findAndCountAll` no mock e 3 novos testes de `findAll` passando
 - Nenhum teste existente removido
+
+## Metadados
+
+- Completado em: 22/03/2026 23:16 ✅

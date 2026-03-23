@@ -4,6 +4,7 @@ const { Evento } = require('../../src/models')
 jest.mock('../../src/models', () => ({
   Evento: {
     findAll: jest.fn(),
+    findAndCountAll: jest.fn(),
     findByPk: jest.fn(),
     create: jest.fn(),
     update: jest.fn(),
@@ -65,9 +66,34 @@ describe('eventoService', () => {
     jest.clearAllMocks()
   })
 
-  it('findAll chama Evento.findAll', async () => {
-    await eventoService.findAll()
-    expect(Evento.findAll).toHaveBeenCalled()
+  describe('findAll', () => {
+    it('chama findAndCountAll com offset e limit corretos', async () => {
+      Evento.findAndCountAll.mockResolvedValue({ count: 10, rows: [] })
+      await eventoService.findAll({ page: 2, perPage: 5 })
+      expect(Evento.findAndCountAll).toHaveBeenCalledWith({
+        offset: 5,
+        limit: 5,
+      })
+    })
+
+    it('retorna { data, meta } com estrutura correta', async () => {
+      const rows = [{ id: 1 }, { id: 2 }]
+      Evento.findAndCountAll.mockResolvedValue({ count: 8, rows })
+      const result = await eventoService.findAll({ page: 1, perPage: 10 })
+      expect(result).toEqual({
+        data: rows,
+        meta: { total: 8, page: 1, perPage: 10, totalPages: 1 },
+      })
+    })
+
+    it('usa page=1 e perPage=20 como defaults', async () => {
+      Evento.findAndCountAll.mockResolvedValue({ count: 0, rows: [] })
+      await eventoService.findAll()
+      expect(Evento.findAndCountAll).toHaveBeenCalledWith({
+        offset: 0,
+        limit: 20,
+      })
+    })
   })
 
   it('findById chama Evento.findByPk', async () => {

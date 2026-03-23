@@ -19,6 +19,7 @@ var tiposCertificadosRouter = require('./src/routes/tipos-certificados')
 var usuariosRouter = require('./src/routes/usuarios')
 
 var healthRouter = require('./src/routes/health')
+var adminRouter = require('./src/routes/admin')
 var publicRouter = require('./src/routes/public')
 
 var app = express()
@@ -156,6 +157,7 @@ app.use('/eventos', eventosRouter)
 app.use('/certificados', certificadosRouter)
 app.use('/tipos-certificados', tiposCertificadosRouter)
 app.use('/usuarios', usuariosRouter)
+app.use('/admin', adminRouter)
 app.use('/public', publicRouter)
 app.use(healthRouter)
 
