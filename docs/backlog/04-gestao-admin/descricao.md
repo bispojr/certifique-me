@@ -39,10 +39,10 @@ TASKS:
 - ⬜ Adicionar paginação em `eventoService.findAll` (`findAndCountAll`, resposta `{ data, meta }`)
 - ⬜ Propagar paginação no `eventoController.findAll`
 - ⬜ Atualizar testes de `eventoService.delete` e `restore` para as correções de cascata
-- ⬜ Criar `src/controllers/eventoSSRController.js` com listagem de ativos e arquivados separados
+- ✅ Criar `src/controllers/eventoSSRController.js` com listagem de ativos e arquivados separados
 - ✅ Criar `views/admin/eventos/index.hbs` — tabela com ações e seção `<details>` de arquivados
 - ✅ Criar `views/admin/eventos/form.hbs` — campos `nome`, `codigo_base` (`pattern="[A-Za-z]{3}"`), `ano`
-- ⬜ Criar `src/routes/admin.js` e adicionar rotas de eventos protegidas por `rbac('admin')`
+- ✅ Criar `src/routes/admin.js` e adicionar rotas de eventos protegidas por `rbac('admin')`
 
 ---
 

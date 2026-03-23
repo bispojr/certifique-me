@@ -175,3 +175,7 @@ module.exports = router
 ## Observação
 
 Após criar este arquivo, é necessário registrar `adminRouter` em `app.js`. Isso será feito na próxima task (ADMIN-EVT-006) via CONTINUAR FEATURE.
+
+## Metadados
+
+- Completado em: 22/03/2026 21:55 ✅
