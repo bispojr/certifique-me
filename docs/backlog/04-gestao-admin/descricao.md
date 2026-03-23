@@ -34,8 +34,8 @@ TASKS:
 - ✅ eventoService.js com `findAll`, `findById`, `create`, `update`, `delete`, `restore`
 - ✅ eventoController.js com os métodos REST
 - ✅ eventos.js com rotas REST completas
-- ⬜ Corrigir `eventoService.delete` — substituir `UsuarioEvento.update({ deleted_at })` por `UsuarioEvento.destroy(...)` (respeita `paranoid`)
-- ⬜ Corrigir `eventoService.restore` — adicionar `UsuarioEvento.restore({ where: { evento_id: id } })` após restaurar o evento
+- ✅ Corrigir `eventoService.delete` — substituir `UsuarioEvento.update({ deleted_at })` por `UsuarioEvento.destroy(...)` (respeita `paranoid`)
+- ✅ Corrigir `eventoService.restore` — adicionar `UsuarioEvento.restore({ where: { evento_id: id } })` após restaurar o evento
 - ⬜ Adicionar paginação em `eventoService.findAll` (`findAndCountAll`, resposta `{ data, meta }`)
 - ⬜ Propagar paginação no `eventoController.findAll`
 - ⬜ Atualizar testes de `eventoService.delete` e `restore` para as correções de cascata

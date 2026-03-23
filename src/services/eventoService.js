@@ -22,21 +22,19 @@ module.exports = {
     return evento.destroy()
   },
   async delete(id) {
-    // Soft delete do evento
     const evento = await Evento.findByPk(id)
     if (!evento) return null
     await evento.destroy()
-    // Soft delete das associações N:N
     const { UsuarioEvento } = require('../../src/models')
-    await UsuarioEvento.update(
-      { deleted_at: new Date() },
-      { where: { evento_id: id } },
-    )
+    await UsuarioEvento.destroy({ where: { evento_id: id } })
     return evento
   },
   async restore(id) {
     const evento = await Evento.findByPk(id, { paranoid: false })
     if (!evento) return null
-    return evento.restore()
+    await evento.restore()
+    const { UsuarioEvento } = require('../../src/models')
+    await UsuarioEvento.restore({ where: { evento_id: id } })
+    return evento
   },
 }

@@ -88,3 +88,7 @@ async restore(id) {
 - `eventoService.delete` NÃO usa `UsuarioEvento.update` com `deleted_at` manual
 - `eventoService.restore` chama `UsuarioEvento.restore` após restaurar o evento
 - `npm run check` passa (os testes existentes quebrarão — serão corrigidos em ADMIN-EVT-002)
+
+## Metadados
+
+- Completado em: 22/03/2026 21:09 ✅

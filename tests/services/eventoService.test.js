@@ -12,17 +12,24 @@ jest.mock('../../src/models', () => ({
   },
   UsuarioEvento: {
     update: jest.fn(),
+    destroy: jest.fn(),
+    restore: jest.fn(),
   },
 }))
 
 describe('eventoService', () => {
   describe('delete', () => {
-    it('deve deletar um evento existente', async () => {
+    it('deve deletar um evento existente e soft-delete nas associações', async () => {
       const eventoMock = { destroy: jest.fn() }
+      const { UsuarioEvento } = require('../../src/models')
+      UsuarioEvento.destroy.mockResolvedValue(1)
       Evento.findByPk.mockResolvedValue(eventoMock)
       await eventoService.delete(1)
       expect(Evento.findByPk).toHaveBeenCalledWith(1)
       expect(eventoMock.destroy).toHaveBeenCalled()
+      expect(UsuarioEvento.destroy).toHaveBeenCalledWith({
+        where: { evento_id: 1 },
+      })
     })
 
     it('deve retornar null se evento não existir', async () => {
@@ -30,6 +37,28 @@ describe('eventoService', () => {
       const result = await eventoService.delete(999)
       expect(result).toBeNull()
       expect(Evento.findByPk).toHaveBeenCalledWith(999)
+    })
+  })
+
+  describe('restore', () => {
+    it('deve restaurar um evento e as associações', async () => {
+      const eventoMock = { restore: jest.fn() }
+      const { UsuarioEvento } = require('../../src/models')
+      UsuarioEvento.restore.mockResolvedValue(1)
+      Evento.findByPk.mockResolvedValue(eventoMock)
+      await eventoService.restore(1)
+      expect(Evento.findByPk).toHaveBeenCalledWith(1, { paranoid: false })
+      expect(eventoMock.restore).toHaveBeenCalled()
+      expect(UsuarioEvento.restore).toHaveBeenCalledWith({
+        where: { evento_id: 1 },
+      })
+    })
+
+    it('deve retornar null se evento não existir', async () => {
+      Evento.findByPk.mockResolvedValue(null)
+      const result = await eventoService.restore(999)
+      expect(result).toBeNull()
+      expect(Evento.findByPk).toHaveBeenCalledWith(999, { paranoid: false })
     })
   })
   beforeEach(() => {
