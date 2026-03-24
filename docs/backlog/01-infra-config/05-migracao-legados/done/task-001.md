@@ -99,3 +99,7 @@ module.exports = (schema) => (req, res, next) => {
 - `src/middlewares/auth.js` existe e contém `require('../models')` (sem `../src/`)
 - `src/middlewares/validate.js` existe e contém `ZodError`
 - `npm run check` ainda passa (imports dos routes ainda apontam para o legado nesta etapa)
+
+## Metadados
+
+- Completado em: 2026-03-24 19:36 (BRT) ✅
