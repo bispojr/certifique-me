@@ -89,3 +89,7 @@ Arquivo de migration criado em `/migrations/` com timestamp único, que ao rodar
 - Contém exatamente 5 `addIndex` no `up` com os nomes corretos
 - Contém exatamente 5 `removeIndex` no `down` na ordem inversa
 - `npm run check` passa sem erros após a criação
+
+## Metadados
+
+- Completado em: 24/03/2026 12:43 ✅
