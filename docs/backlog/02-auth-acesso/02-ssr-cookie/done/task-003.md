@@ -109,3 +109,7 @@ module.exports = router
 - Cookie `token` setado com `httpOnly: true`
 - Não expõe detalhes do erro (mensagem genérica "Credenciais inválidas")
 - `npm run check` passa sem erros
+
+## Metadados
+
+- Completado em: 26/03/2026 14:21 ✅

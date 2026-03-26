@@ -152,6 +152,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/', indexRouter)
 // app.use('/users', usersRouter);
 
+const authRouter = require('./src/routes/auth')
+app.use('/auth', authRouter)
 app.use('/participantes', participantesRouter)
 app.use('/eventos', eventosRouter)
 app.use('/certificados', certificadosRouter)
