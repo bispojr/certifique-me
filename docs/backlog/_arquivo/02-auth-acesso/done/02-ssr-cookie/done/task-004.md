@@ -60,3 +60,8 @@ O `authRouter` deve ser adicionado seguindo o mesmo padrão, preferencialmente j
 - `app.js` contém `require('./src/routes/auth')`
 - `app.js` contém `app.use('/auth', authRouter)`
 - `npm run check` passa sem erros
+
+## Metadados
+
+- Completado em: 26/03/2026 14:36 ✅
+
