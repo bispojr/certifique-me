@@ -111,3 +111,7 @@ Dashboard com 4 cards coloridos para admin e 2 cards para gestor/monitor, todos 
 - Gestor/monitor vê 2 cards escopados com subtítulo "(seus eventos)"
 - Cards são links para as respectivas listagens
 - Nenhum card exibe valores de outros perfis (condicional `{{#if usuario.isAdmin}}` isola os blocos)
+
+## Metadados
+
+- Completado em: 2026-03-25 23:05 (BRT) ✅

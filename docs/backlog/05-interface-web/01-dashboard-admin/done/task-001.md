@@ -100,4 +100,3 @@ Controller sem erros de importação que diferencia admin de gestor/monitor.
 ## Metadados
 
 - Completado em: 2026-03-25 22:42 (BRT) ✅
-

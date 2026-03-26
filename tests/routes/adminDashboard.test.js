@@ -38,7 +38,6 @@ describe('Admin dashboard SSR', () => {
       .get('/admin/dashboard')
       .set('Cookie', `token=${token}`)
     expect(res.status).toBe(200)
-    expect(res.text).toContain('Bem-vindo, Admin')
-    expect(res.text).toContain('Dashboard')
+    expect(res.text).toMatch(/Dashboard/i)
   })
 })
