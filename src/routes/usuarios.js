@@ -4,6 +4,15 @@ const usuarioController = require('../controllers/usuarioController')
 const auth = require('../middlewares/auth')
 const validate = require('../middlewares/validate')
 const usuarioSchema = require('../validators/usuario')
+const rateLimit = require('express-rate-limit')
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 10,
+  message: { error: 'Muitas tentativas. Tente novamente em 15 minutos.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+})
 
 /**
  * @swagger
@@ -113,7 +122,7 @@ const usuarioSchema = require('../validators/usuario')
  *         description: Usuário não encontrado
  */
 
-router.post('/login', usuarioController.login)
+router.post('/login', loginLimiter, usuarioController.login)
 router.post('/logout', usuarioController.logout)
 router.get('/me', auth, usuarioController.me)
 router.post('/', validate(usuarioSchema), usuarioController.create)

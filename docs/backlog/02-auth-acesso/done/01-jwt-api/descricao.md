@@ -14,7 +14,7 @@ Login/logout via endpoint JSON com geração e validação de tokens JWT para co
 
 ## Tasks pendentes
 
-- ⬜ [TASK-001] Aplicar rate limiting (`express-rate-limit`) em `POST /usuarios/login`
+- ✅ [TASK-001] Aplicar rate limiting (`express-rate-limit`) em `POST /usuarios/login`
 
 ## Dependências
 
