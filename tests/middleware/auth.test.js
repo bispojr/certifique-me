@@ -36,6 +36,10 @@ describe('Middleware auth', () => {
     })
   })
 
+  afterAll(async () => {
+    await sequelize.close()
+  })
+
   it('deve permitir acesso com token válido', async () => {
     const token = jwt.sign({ id: usuario.id }, secret)
     const res = await request(app)

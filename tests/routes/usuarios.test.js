@@ -201,7 +201,9 @@ global.adminToken = null
 
 describe('Rotas de Usuários', () => {
   beforeAll(async () => {
-    await sequelize.sync({ force: true })
+    await sequelize.query(
+      'TRUNCATE TABLE usuario_eventos, certificados, participantes, usuarios, eventos, tipos_certificados RESTART IDENTITY CASCADE',
+    )
     const admin = await Usuario.create({
       nome: 'Admin',
       email: 'admin@email.com',
@@ -216,7 +218,9 @@ describe('Rotas de Usuários', () => {
   })
 
   beforeEach(async () => {
-    await sequelize.sync({ force: true })
+    await sequelize.query(
+      'TRUNCATE TABLE usuario_eventos, certificados, participantes, usuarios, eventos, tipos_certificados RESTART IDENTITY CASCADE',
+    )
     const admin = await Usuario.create({
       nome: 'Admin',
       email: 'admin@email.com',
