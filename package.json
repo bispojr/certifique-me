@@ -13,9 +13,9 @@
     "test:routes": "jest tests/routes",
     "test:docker": "docker-compose -f docker-compose.test.yml up -d && sleep 5 && npm test",
     "test:ci": "jest --runInBand --detectOpenHandles",
-    "lint": "eslint src/**",
+    "lint": "eslint src/** --fix",
     "format": "prettier --write .",
-    "check": "npm run format && npm run lint && npm run test:ci"
+    "check": "npm run lint && npm run format && npm run test:ci"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -39,6 +39,8 @@
   "devDependencies": {
     "cheerio": "^1.2.0",
     "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "jest": "^30.2.0",
     "node-mocks-http": "^1.17.2",
     "prettier": "^3.8.1",

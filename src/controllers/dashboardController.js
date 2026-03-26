@@ -1,30 +1,3 @@
-# TASK ID: DASH-001
-
-## Título
-
-Criar `src/controllers/dashboardController.js`
-
-## Objetivo
-
-Implementar controller que busca contagens de entidades e renderiza `views/admin/dashboard`, adaptando os dados ao perfil do usuário autenticado.
-
-## Contexto
-
-- `req.usuario` vem de `authSSR.js`: `{ id, nome, email, perfil, isAdmin, isGestor }`
-- **admin**: conta todos os registros ativos em `Evento`, `TiposCertificados`, `Participante`, `Usuario`
-- **gestor/monitor**: re-busca o usuário do DB com `include: [Evento as 'eventos']` para obter `eventoIds`; conta `Certificado` e participantes distintos filtrados por `evento_id: eventoIds`
-- Contagens usam `Model.count()` do Sequelize (ignora `deleted_at` automaticamente)
-- Participantes de gestor/monitor: contagem distinta via `Certificado.count({ distinct: true, col: 'participante_id' })`
-
-## Arquivos envolvidos
-
-- `src/controllers/dashboardController.js` ← CRIAR
-
-## Passos
-
-### Criar `src/controllers/dashboardController.js`
-
-```js
 const {
   Evento,
   TiposCertificados,
@@ -84,15 +57,3 @@ async function dashboard(req, res) {
 }
 
 module.exports = { dashboard }
-```
-
-## Resultado esperado
-
-Controller sem erros de importação que diferencia admin de gestor/monitor.
-
-## Critério de aceite
-
-- admin recebe `{ totalEventos, totalTipos, totalParticipantes, totalUsuarios }`
-- gestor/monitor recebe `{ totalCertificados, totalParticipantes }` filtrados pelos seus eventos
-- Se `eventoIds` for vazio: `[0, 0]` (sem chamar `Certificado.count` desnecessariamente)
-- Erros renderizam `error` com status 500
