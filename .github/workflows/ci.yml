@@ -36,6 +36,7 @@ jobs:
           DB_PORT: 5432
           DB_NAME_TEST: certificados_test
           DB_PORT_TEST: 5433
+          JWT_SECRET: jwt_secret_teste
         run: npm run check
       - name: Clean up Docker containers (after)
         run: docker-compose -f docker-compose.test.yml down --remove-orphans || true
