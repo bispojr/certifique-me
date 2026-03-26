@@ -4,6 +4,7 @@ const { Certificado } = require('../../src/models')
 jest.mock('../../src/models', () => ({
   Certificado: {
     findAll: jest.fn(),
+    findAndCountAll: jest.fn(),
     findByPk: jest.fn(),
     create: jest.fn(),
     update: jest.fn(),
@@ -51,38 +52,34 @@ describe('certificadoService', () => {
     jest.clearAllMocks()
   })
 
-  it('findAll chama findAndCountAll com offset/limit padrão', async () => {
-    Certificado.findAndCountAll = jest
-      .fn()
-      .mockResolvedValue({ count: 12, rows: [{ id: 1 }, { id: 2 }] })
-    const result = await certificadoService.findAll()
-    expect(Certificado.findAndCountAll).toHaveBeenCalledWith({
-      offset: 0,
-      limit: 10,
+  describe('findAll', () => {
+    it('chama findAndCountAll com offset e limit corretos', async () => {
+      Certificado.findAndCountAll.mockResolvedValue({ count: 20, rows: [] })
+      await certificadoService.findAll({ page: 2, perPage: 5 })
+      expect(Certificado.findAndCountAll).toHaveBeenCalledWith({
+        offset: 5,
+        limit: 5,
+      })
     })
-    expect(result).toEqual({
-      data: [{ id: 1 }, { id: 2 }],
-      meta: { total: 12, page: 1, perPage: 10, totalPages: 2 },
-    })
-  })
 
-  it('findAll chama findAndCountAll com page/perPage customizados', async () => {
-    Certificado.findAndCountAll = jest
-      .fn()
-      .mockResolvedValue({ count: 42, rows: Array(5).fill({ id: 99 }) })
-    const result = await certificadoService.findAll({ page: 2, perPage: 5 })
-    expect(Certificado.findAndCountAll).toHaveBeenCalledWith({
-      offset: 5,
-      limit: 5,
+    it('retorna { data, meta } com estrutura correta', async () => {
+      const rows = [{ id: 1 }, { id: 2 }]
+      Certificado.findAndCountAll.mockResolvedValue({ count: 12, rows })
+      const result = await certificadoService.findAll({ page: 1, perPage: 10 })
+      expect(result).toEqual({
+        data: rows,
+        meta: { total: 12, page: 1, perPage: 10, totalPages: 2 },
+      })
     })
-    expect(result.meta).toEqual({
-      total: 42,
-      page: 2,
-      perPage: 5,
-      totalPages: 9,
+
+    it('usa page=1 e perPage=10 como defaults', async () => {
+      Certificado.findAndCountAll.mockResolvedValue({ count: 0, rows: [] })
+      await certificadoService.findAll()
+      expect(Certificado.findAndCountAll).toHaveBeenCalledWith({
+        offset: 0,
+        limit: 10,
+      })
     })
-    expect(Array.isArray(result.data)).toBe(true)
-    expect(result.data.length).toBe(5)
   })
 
   it('findById chama Certificado.findByPk', async () => {

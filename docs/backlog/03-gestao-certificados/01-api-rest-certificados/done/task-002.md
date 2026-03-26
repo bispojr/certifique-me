@@ -93,3 +93,7 @@ describe('findAll', () => {
 
 - Nenhum teste usa `Certificado.findAll` para testar `findAll` do service
 - 3 casos cobertos: paginação com parâmetros, estrutura de resposta, defaults
+
+## Metadados
+
+- Completado em: 26/03/2026 16:01 ✅
