@@ -1,6 +1,9 @@
 <div class='row justify-content-center mt-5'>
   <div class='col-md-6'>
     <h2>Obter meus certificados</h2>
+    {{#if mensagem}}
+      <div class='alert alert-danger'>{{mensagem}}</div>
+    {{/if}}
     <form method='GET' action='/public/certificados'>
       <div class='mb-3'>
         <label for='email' class='form-label'>E-mail</label>

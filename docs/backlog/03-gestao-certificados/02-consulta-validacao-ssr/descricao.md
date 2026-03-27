@@ -12,7 +12,8 @@ As views de formulário e opções já existem; faltam os resultados, as rotas S
 ✅ Criar `views/certificados/validar-resultado.hbs` — painel verde/vermelho de resultado
 
 ✅ Adicionar rotas SSR GET em `src/routes/public.js` (páginas opcoes, obter, validar)
-- Adicionar rotas SSR POST em `src/routes/public.js` (POST buscar e POST validar com lógica)
+
+✅ Adicionar rotas SSR POST em `src/routes/public.js` (POST buscar e POST validar com lógica)
 - Atualizar form actions nas views existentes (`form-obter.hbs`, `form-validar.hbs`, `opcoes.hbs`) e registrar redirect `/certificados` → `/public/pagina/opcoes` no `app.js`
 
 ## Arquivos base

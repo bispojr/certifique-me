@@ -85,4 +85,57 @@ router.get('/pagina/validar', (req, res) => {
   res.render('certificados/form-validar')
 })
 
+// POST /public/pagina/buscar
+router.post('/pagina/buscar', async (req, res) => {
+  const { email } = req.body
+  if (!email) {
+    return res.render('certificados/form-obter', {
+      mensagem: 'Informe um e-mail válido.',
+    })
+  }
+  try {
+    const participante = await Participante.findOne({ where: { email } })
+    if (!participante) {
+      return res.render('certificados/form-obter', {
+        mensagem: 'Nenhum participante encontrado com este e-mail.',
+      })
+    }
+    const certificados = await Certificado.findAll({
+      where: { participante_id: participante.id },
+    })
+    return res.render('certificados/obter-lista', { email, certificados })
+  } catch (_) {
+    return res.render('certificados/form-obter', {
+      mensagem: 'Erro ao buscar certificados. Tente novamente.',
+    })
+  }
+})
+
+// POST /public/pagina/validar
+router.post('/pagina/validar', async (req, res) => {
+  const { codigo } = req.body
+  if (!codigo) {
+    return res.render('certificados/form-validar', {
+      mensagem: 'Informe o código do certificado.',
+    })
+  }
+  try {
+    const certificado = await Certificado.findOne({
+      where: { codigo },
+      include: [{ model: Participante }, { model: Evento }],
+    })
+    if (!certificado) {
+      return res.render('certificados/validar-resultado', { valido: false })
+    }
+    return res.render('certificados/validar-resultado', {
+      valido: true,
+      certificado,
+    })
+  } catch (_) {
+    return res.render('certificados/form-validar', {
+      mensagem: 'Erro ao validar certificado. Tente novamente.',
+    })
+  }
+})
+
 module.exports = router

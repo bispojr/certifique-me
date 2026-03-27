@@ -90,3 +90,7 @@ router.post('/pagina/validar', async (req, res) => {
 - Nenhuma rota JSON existente modificada
 - Re-renderiza o formulário com `mensagem` em caso de erro de validação ou busca vazia
 - Inclui `Participante` e `Evento` no resultado de validação (necessário para a view)
+
+## Metadados
+
+- Completado em: 2026-03-26 22:21 (BRT) ✅

@@ -1,5 +1,8 @@
 <div class='row justify-content-center mt-5'>
   <div class='col-md-6'>
+    {{#if mensagem}}
+      <div class='alert alert-danger'>{{mensagem}}</div>
+    {{/if}}
     <h2>Validar certificado</h2>
     <form method='GET' action='/public/validar'>
       <div class='mb-3'>
