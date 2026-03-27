@@ -71,4 +71,18 @@ router.get('/validar/:codigo', async (req, res) => {
   }
 })
 
+// ─── SSR: páginas públicas ────────────────────────────────────────────────────
+
+router.get('/pagina/opcoes', (req, res) => {
+  res.render('certificados/opcoes')
+})
+
+router.get('/pagina/obter', (req, res) => {
+  res.render('certificados/form-obter')
+})
+
+router.get('/pagina/validar', (req, res) => {
+  res.render('certificados/form-validar')
+})
+
 module.exports = router
