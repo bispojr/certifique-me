@@ -1,31 +1,3 @@
-# TASK ID: ADMIN-PART-002
-
-## Título
-
-Criar `src/controllers/participanteSSRController.js`
-
-## Objetivo
-
-Criar o controller SSR com 7 métodos que gerenciam o CRUD de participantes no painel admin, incluindo busca por nome/email via `Op.iLike` e contagem de certificados por participante.
-
-## Contexto
-
-- `src/models/participante.js`: campos `nomeCompleto` (field: `nome_completo`), `email`, `instituicao`; `paranoid: true`; `hasMany(Certificado, { as: 'certificados' })`
-- `src/models/certificado.js`: `belongsTo(Participante, { foreignKey: 'participante_id' })`
-- `src/services/participanteService.js`: `findById`, `create`, `update`, `delete`, `restore` já existem
-- `req.flash` disponível via `connect-flash` configurado em `app.js`
-- Busca: `?q=` filtra por `nomeCompleto` ou `email` com `Op.iLike` (case-insensitive no PostgreSQL)
-- Contagem de certificados via `include` com `Certificado`; `numCertificados` é derivado do length do array
-
-## Arquivos envolvidos
-
-- `src/controllers/participanteSSRController.js` (CRIAR)
-
-## Passos
-
-Criar o arquivo com o conteúdo:
-
-```js
 const participanteService = require('../services/participanteService')
 const { Participante, Certificado } = require('../models')
 const { Op } = require('sequelize')
@@ -144,17 +116,3 @@ module.exports = {
     }
   },
 }
-```
-
-## Resultado esperado
-
-- `GET /admin/participantes` renderiza lista com contagem de certificados por participante
-- `GET /admin/participantes?q=joao` filtra por nome ou email contendo "joao"
-- Participantes arquivados aparecem na seção separada
-
-## Critério de aceite
-
-- Controller exporta os 7 métodos: `index`, `novo`, `editar`, `criar`, `atualizar`, `deletar`, `restaurar`
-- `index` com `?q=` aplica `Op.iLike` no `nomeCompleto` e no `email`
-- `criar` re-renderiza o form com `participante: req.body` em caso de erro (preserva os valores digitados)
-- `numCertificados` é calculado via `p.certificados.length`

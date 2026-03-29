@@ -3,6 +3,7 @@ const router = express.Router()
 const authSSR = require('../middlewares/authSSR')
 const rbac = require('../middlewares/rbac')
 const eventoSSRController = require('../controllers/eventoSSRController')
+const participanteSSRController = require('../controllers/participanteSSRController')
 
 const dashboardController = require('../controllers/dashboardController')
 
@@ -23,6 +24,31 @@ router.post(
   '/eventos/:id/restaurar',
   rbac('admin'),
   eventoSSRController.restaurar,
+)
+
+// Gestão de participantes (somente admin)
+router.get('/participantes', rbac('admin'), participanteSSRController.index)
+router.get('/participantes/novo', rbac('admin'), participanteSSRController.novo)
+router.get(
+  '/participantes/:id/editar',
+  rbac('admin'),
+  participanteSSRController.editar,
+)
+router.post('/participantes', rbac('admin'), participanteSSRController.criar)
+router.post(
+  '/participantes/:id',
+  rbac('admin'),
+  participanteSSRController.atualizar,
+)
+router.post(
+  '/participantes/:id/deletar',
+  rbac('admin'),
+  participanteSSRController.deletar,
+)
+router.post(
+  '/participantes/:id/restaurar',
+  rbac('admin'),
+  participanteSSRController.restaurar,
 )
 
 module.exports = router
