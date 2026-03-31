@@ -86,3 +86,7 @@ Criar o arquivo com o conteúdo:
 - Campo `instituicao` NÃO tem `required`
 - `action` é dinâmico via `{{action}}`
 - Botão "Cancelar" aponta para `/admin/participantes`
+
+## Metadados
+
+- Completado em: 31/03/2026 11:25 ✅

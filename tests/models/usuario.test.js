@@ -143,12 +143,12 @@ describe('Usuario Model', () => {
     const evento1 = await Evento.create({
       nome: 'Evento 1',
       ano: 2026,
-      codigo_base: 'ABC',
+      codigo_base: 'UMD',
     })
     const evento2 = await Evento.create({
       nome: 'Evento 2',
       ano: 2026,
-      codigo_base: 'DEF',
+      codigo_base: 'UME',
     })
     await usuario.addEventos([evento1, evento2])
     const eventos = await usuario.getEventos()

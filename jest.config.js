@@ -1,5 +1,6 @@
 module.exports = {
   verbose: true,
+  maxWorkers: 1, // força serial entre projetos
   projects: [
     {
       displayName: 'middleware',

@@ -12,7 +12,7 @@ async function setupDb() {
   await sequelize.models.Evento.create({
     id: 1,
     nome: 'Evento Teste',
-    codigo_base: 'ABC',
+    codigo_base: 'PSR',
     ano: 2026,
   })
 

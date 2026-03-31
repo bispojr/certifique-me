@@ -32,12 +32,12 @@ describe('Proteção das rotas de gestão', () => {
     // Cria eventos necessários
     const evento1 = await Evento.create({
       nome: 'Evento 1',
-      codigo_base: 'ABC',
+      codigo_base: 'PMR',
       ano: 2026,
     })
     const evento2 = await Evento.create({
       nome: 'Evento 2',
-      codigo_base: 'DEF',
+      codigo_base: 'PMD',
       ano: 2026,
     })
     evento1Id = evento1.id

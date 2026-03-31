@@ -1,0 +1,47 @@
+<h2>{{title}}</h2>
+<div class='row mt-3'>
+  <div class='col-md-6'>
+    <form method='POST' action='{{action}}'>
+      <div class='mb-3'>
+        <label for='nomeCompleto' class='form-label'>
+          Nome completo
+          <span class='text-danger'>*</span>
+        </label>
+        <input
+          type='text'
+          class='form-control'
+          name='nomeCompleto'
+          id='nomeCompleto'
+          value='{{participante.nomeCompleto}}'
+          required
+        />
+      </div>
+      <div class='mb-3'>
+        <label for='email' class='form-label'>
+          E-mail
+          <span class='text-danger'>*</span>
+        </label>
+        <input
+          type='email'
+          class='form-control'
+          name='email'
+          id='email'
+          value='{{participante.email}}'
+          required
+        />
+      </div>
+      <div class='mb-3'>
+        <label for='instituicao' class='form-label'>Instituição</label>
+        <input
+          type='text'
+          class='form-control'
+          name='instituicao'
+          id='instituicao'
+          value='{{participante.instituicao}}'
+        />
+      </div>
+      <button type='submit' class='btn btn-primary'>Salvar</button>
+      <a href='/admin/participantes' class='btn btn-secondary ms-2'>Cancelar</a>
+    </form>
+  </div>
+</div>

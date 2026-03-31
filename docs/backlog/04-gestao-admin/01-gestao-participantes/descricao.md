@@ -11,7 +11,8 @@ CRUD de participantes com paginação na listagem REST e painel SSR administrati
 ✅ Criar `src/controllers/participanteSSRController.js` com busca `?q=` (`Op.iLike`) e contagem de certificados por participante
 
 ✅ Criar `views/admin/participantes/index.hbs` — tabela com busca, coluna `numCertificados` e seção colapsável de arquivados
-- Criar `views/admin/participantes/form.hbs` — formulário criar/editar compartilhado
+
+✅ Criar `views/admin/participantes/form.hbs` — formulário criar/editar compartilhado
 - Adicionar rotas SSR de participantes em `src/routes/admin.js` protegidas por `authSSR`
 
 ## Arquivos base

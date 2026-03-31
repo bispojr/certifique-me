@@ -28,7 +28,7 @@ describe('Rotas de Eventos', () => {
     const res = await request(app)
       .post('/eventos')
       .set('Authorization', `Bearer ${adminToken}`)
-      .send({ nome: 'Evento Teste', codigo_base: 'ABC', ano: 2026 })
+      .send({ nome: 'Evento Teste', codigo_base: 'EVR', ano: 2026 })
     expect(res.status).toBe(201)
     expect(res.body).toHaveProperty('id')
     eventoId = res.body.id

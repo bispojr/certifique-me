@@ -57,21 +57,18 @@ it('não permite criar usuário com eventos duplicados', async () => {
 })
 
 it('retorna eventos associados ao buscar usuário', async () => {
-  // Limpa eventos para evitar conflitos de código_base
-  await sequelize.models.Evento.destroy({
-    where: {},
-    truncate: true,
-    cascade: true,
-    restartIdentity: true,
-  })
+  // Limpa eventos via SQL direto para garantir isolamento
+  await sequelize.query(
+    'TRUNCATE TABLE usuario_eventos, eventos RESTART IDENTITY CASCADE',
+  )
   const evento1 = await sequelize.models.Evento.create({
     nome: 'Evento Consulta 1',
-    codigo_base: 'ABC',
+    codigo_base: 'UCO',
     ano: 2026,
   })
   const evento2 = await sequelize.models.Evento.create({
     nome: 'Evento Consulta 2',
-    codigo_base: 'DEF',
+    codigo_base: 'UCD',
     ano: 2026,
   })
   const resCriacao = await request(app)
