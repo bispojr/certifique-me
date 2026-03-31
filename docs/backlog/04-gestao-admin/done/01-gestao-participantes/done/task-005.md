@@ -54,3 +54,7 @@ router.post('/participantes/:id/restaurar', participanteSSRController.restaurar)
 - 7 rotas adicionadas no arquivo sem duplicar a linha `router.use(authSSR)`
 - Rota de edição declarada antes de qualquer rota genérica `/:id`
 - Nenhuma rota existente (dashboard, eventos) foi alterada
+
+## Metadados
+
+- Completado em: 31/03/2026 11:56 ✅

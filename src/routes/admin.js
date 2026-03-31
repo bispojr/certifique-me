@@ -26,29 +26,13 @@ router.post(
   eventoSSRController.restaurar,
 )
 
-// Gestão de participantes (somente admin)
-router.get('/participantes', rbac('admin'), participanteSSRController.index)
-router.get('/participantes/novo', rbac('admin'), participanteSSRController.novo)
-router.get(
-  '/participantes/:id/editar',
-  rbac('admin'),
-  participanteSSRController.editar,
-)
-router.post('/participantes', rbac('admin'), participanteSSRController.criar)
-router.post(
-  '/participantes/:id',
-  rbac('admin'),
-  participanteSSRController.atualizar,
-)
-router.post(
-  '/participantes/:id/deletar',
-  rbac('admin'),
-  participanteSSRController.deletar,
-)
-router.post(
-  '/participantes/:id/restaurar',
-  rbac('admin'),
-  participanteSSRController.restaurar,
-)
+// Gestão de participantes (todos os perfis autenticados)
+router.get('/participantes', participanteSSRController.index)
+router.get('/participantes/novo', participanteSSRController.novo)
+router.get('/participantes/:id/editar', participanteSSRController.editar)
+router.post('/participantes', participanteSSRController.criar)
+router.post('/participantes/:id', participanteSSRController.atualizar)
+router.post('/participantes/:id/deletar', participanteSSRController.deletar)
+router.post('/participantes/:id/restaurar', participanteSSRController.restaurar)
 
 module.exports = router

@@ -1,12 +1,12 @@
 const participanteService = require('../services/participanteService')
-const { Participante, Certificado } = require('../models')
+const { Participante, Certificado, Usuario } = require('../models')
 const { Op } = require('sequelize')
 
 module.exports = {
   async index(req, res) {
     try {
       const { q } = req.query
-      const where = q
+      const textWhere = q
         ? {
             [Op.or]: [
               { nomeCompleto: { [Op.iLike]: `%${q}%` } },
@@ -15,13 +15,41 @@ module.exports = {
           }
         : {}
 
+      // Filtra por eventos vinculados ao usuário (exceto admin)
+      let eventoIds = null
+      if (req.usuario && req.usuario.perfil !== 'admin') {
+        const usuarioComEventos = await Usuario.findByPk(req.usuario.id, {
+          include: 'eventos',
+        })
+        eventoIds = (usuarioComEventos?.eventos || []).map((e) => e.id)
+      }
+
+      const certWhere = eventoIds ? { evento_id: { [Op.in]: eventoIds } } : {}
+
       const participantes = await Participante.findAll({
-        where,
-        include: [{ model: Certificado, as: 'certificados' }],
+        where: textWhere,
+        include: [
+          {
+            model: Certificado,
+            as: 'certificados',
+            where: eventoIds ? certWhere : undefined,
+            required: eventoIds ? true : false,
+          },
+        ],
       })
       const arquivados = await Participante.findAll({
         paranoid: false,
         where: { deleted_at: { [Op.ne]: null } },
+        include: eventoIds
+          ? [
+              {
+                model: Certificado,
+                as: 'certificados',
+                where: certWhere,
+                required: true,
+              },
+            ]
+          : [],
       })
 
       return res.render('admin/participantes/index', {
