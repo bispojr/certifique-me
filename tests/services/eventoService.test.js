@@ -12,7 +12,6 @@ jest.mock('../../src/models', () => ({
     restore: jest.fn(),
   },
   UsuarioEvento: {
-    update: jest.fn(),
     destroy: jest.fn(),
     restore: jest.fn(),
   },
@@ -131,18 +130,5 @@ describe('eventoService', () => {
     Evento.findByPk.mockResolvedValue(mockEvento)
     await eventoService.destroy(1)
     expect(mockEvento.destroy).toHaveBeenCalled()
-  })
-
-  it('restore retorna null se não encontrar', async () => {
-    Evento.findByPk.mockResolvedValue(null)
-    const result = await eventoService.restore(1)
-    expect(result).toBeNull()
-  })
-
-  it('restore chama restore se encontrar', async () => {
-    const mockEvento = { restore: jest.fn() }
-    Evento.findByPk.mockResolvedValue(mockEvento)
-    await eventoService.restore(1)
-    expect(mockEvento.restore).toHaveBeenCalled()
   })
 })

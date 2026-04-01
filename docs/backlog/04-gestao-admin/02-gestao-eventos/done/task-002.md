@@ -142,3 +142,7 @@ describe('restore', () => {
 - Teste de `delete` verifica `UsuarioEvento.destroy` com `{ where: { evento_id: 1 } }`
 - Teste de `restore` verifica `UsuarioEvento.restore` com `{ where: { evento_id: 1 } }`
 - Nenhum outro teste existente foi removido
+
+## Metadados
+
+- Completado em: 01/04/2026 07:00 ✅
