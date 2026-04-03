@@ -40,6 +40,8 @@ jobs:
         run: npm run check:docker
       - name: Run tests with coverage (docker)
         run: docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run test:coverage'
+      - name: Remove coverage do host se existir
+        run: rm -rf ./coverage
       - name: Copy coverage from container
         run: docker cp $(docker-compose -f docker-compose.test.yml ps -q app_test):/app/coverage ./coverage
       - name: Upload coverage to Codecov
