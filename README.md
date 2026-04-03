@@ -1,6 +1,7 @@
 # certifique-me
 
-[![Build Status](https://github.com/bispojr/certifique-me/actions/workflows/node-ci.yml/badge.svg)](https://github.com/bispojr/certifique-me/actions)
+[![Build Status](https://github.com/bispojr/certifique-me/actions/workflows/ci.yml/badge.svg)](https://github.com/bispojr/certifique-me/actions) [![codecov](https://codecov.io/github/bispojr/certifique-me/graph/badge.svg?token=6QENAQ10EH)](https://codecov.io/github/bispojr/certifique-me)
+
 
 ## Configuração de ambiente
 
