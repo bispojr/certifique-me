@@ -53,10 +53,8 @@ module.exports = {
     },
   ],
   collectCoverageFrom: [
-    'models/**/*.js',
-    'routes/**/*.js',
-    'controllers/**/*.js',
-    '!models/index.js',
+    'src/**/*.js',
+    '!src/models/index.js',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
