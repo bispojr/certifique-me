@@ -38,5 +38,13 @@ jobs:
           DB_PORT_TEST: 5433
           JWT_SECRET: jwt_secret_teste
         run: npm run check:docker
+      - name: Run tests with coverage (docker)
+        run: docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run test:coverage'
+      - name: Copy coverage from container
+        run: docker cp $(docker-compose -f docker-compose.test.yml ps -q app_test):/app/coverage ./coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Clean up Docker containers (after)
         run: docker-compose -f docker-compose.test.yml down --remove-orphans || true
