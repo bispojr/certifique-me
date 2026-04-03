@@ -17,7 +17,8 @@
     "lint": "eslint src/** --fix",
     "format": "prettier --write .",
     "check": "npm run lint && npm run format && npm run test:ci",
-    "check:docker": "docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run lint && npm run format && npm test'"
+    "check:docker": "docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run lint && npm run format && npm test'",
+    "check:docker:coverage": "docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run lint && npm run format && npm run test:coverage'"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

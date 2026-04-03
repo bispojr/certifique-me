@@ -27,7 +27,7 @@ jobs:
         run: docker-compose -f docker-compose.test.yml up -d
       - name: Wait for DB
         run: sleep 10
-      - name: Run lint and tests (check)
+      - name: Run lint, tests and coverage (check)
         env:
           DB_USER: postgres
           DB_PASSWORD: password
@@ -37,9 +37,7 @@ jobs:
           DB_NAME_TEST: certificados_test
           DB_PORT_TEST: 5433
           JWT_SECRET: jwt_secret_teste
-        run: npm run check:docker
-      - name: Run tests with coverage (docker)
-        run: docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run test:coverage'
+        run: npm run check:docker:coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
