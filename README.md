@@ -1,5 +1,7 @@
 # certifique-me
 
+[![Build Status](https://github.com/bispojr/certifique-me/actions/workflows/node-ci.yml/badge.svg)](https://github.com/bispojr/certifique-me/actions)
+
 ## Configuração de ambiente
 
 1. Copie o arquivo `.env.example` para `.env`:
