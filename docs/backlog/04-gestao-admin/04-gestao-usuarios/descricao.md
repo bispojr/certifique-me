@@ -31,7 +31,7 @@ Interface SSR no painel admin para CRUD completo de usuários do sistema, com as
 
 ✅ task-001: Criar `src/controllers/usuarioSSRController.js` (7 métodos)
 ✅ task-002: Criar `views/admin/usuarios/index.hbs`
-- task-003: Criar `views/admin/usuarios/form.hbs` com multi-select de eventos
+✅ task-003: Criar `views/admin/usuarios/form.hbs` com multi-select de eventos
 - task-004: Adicionar 7 rotas em `src/routes/admin.js` com `rbac('admin')`
 
 ## Dependências
