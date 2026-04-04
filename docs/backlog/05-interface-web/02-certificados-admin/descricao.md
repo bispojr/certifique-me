@@ -30,7 +30,7 @@ Interface SSR no painel admin para visualizar, criar, editar, cancelar e restaur
 
 ## Tasks
 
-- task-001: Criar `src/controllers/certificadoSSRController.js` (7 métodos)
+✅ task-001: Criar `src/controllers/certificadoSSRController.js` (7 métodos)
 - task-002: Criar `views/admin/certificados/index.hbs` com filtros e modal de cancelamento
 - task-003: Criar `views/admin/certificados/detalhe.hbs` com texto interpolado e link de PDF
 - task-004: Criar `views/admin/certificados/form.hbs` com campos dinâmicos via `fetch`

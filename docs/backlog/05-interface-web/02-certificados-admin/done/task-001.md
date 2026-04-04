@@ -258,3 +258,7 @@ Controller com 8 métodos sem erros de importação.
 - `cancelar`: `update({ status: 'cancelado' })` — não é soft delete
 - `restaurar`: `findByPk({ paranoid: false })` + `restore()`
 - `getEventoIds` retorna `null` para admin (sem filtro de evento)
+
+## Metadados
+
+- Completado em: 04/04/2026 18:10 ✅
