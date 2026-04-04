@@ -15,6 +15,14 @@ hbs.registerHelper('ifSelected', function (val) {
   return val ? 'selected' : ''
 })
 
+hbs.registerHelper('toString', function (val) {
+  return String(val ?? '')
+})
+
+hbs.registerHelper('isSelected', function (a, b) {
+  return String(a) === String(b) ? 'selected' : ''
+})
+
 // Adicione outros helpers aqui se necessário
 hbs.registerHelper('getPerfilBadgeClass', function (perfil) {
   if (perfil === 'admin') return 'bg-danger'
