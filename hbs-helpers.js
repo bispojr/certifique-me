@@ -1,4 +1,8 @@
+
 const hbs = require('hbs')
+hbs.registerHelper('json', function (context) {
+  return JSON.stringify(context || {})
+})
 
 hbs.registerHelper('eq', function (a, b) {
   return a === b

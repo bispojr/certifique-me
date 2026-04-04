@@ -1,14 +1,53 @@
+
 const express = require('express')
 const router = express.Router()
 const authSSR = require('../middlewares/authSSR')
 const rbac = require('../middlewares/rbac')
 const eventoSSRController = require('../controllers/eventoSSRController')
 const participanteSSRController = require('../controllers/participanteSSRController')
-
 const dashboardController = require('../controllers/dashboardController')
+const tiposCertificadosSSRController = require('../controllers/tiposCertificadosSSRController')
+
 
 // Todas as rotas admin exigem sessão SSR válida
 router.use(authSSR)
+
+// Tipos de Certificados (após autenticação SSR)
+router.get(
+  '/tipos-certificados',
+  rbac('gestor'),
+  tiposCertificadosSSRController.index,
+)
+router.get(
+  '/tipos-certificados/novo',
+  rbac('gestor'),
+  tiposCertificadosSSRController.novo,
+)
+router.post(
+  '/tipos-certificados',
+  rbac('gestor'),
+  tiposCertificadosSSRController.criar,
+)
+router.get(
+  '/tipos-certificados/:id/editar',
+  rbac('gestor'),
+  tiposCertificadosSSRController.editar,
+)
+router.post(
+  '/tipos-certificados/:id',
+  rbac('gestor'),
+  tiposCertificadosSSRController.atualizar,
+)
+router.post(
+  '/tipos-certificados/:id/deletar',
+  rbac('gestor'),
+  tiposCertificadosSSRController.deletar,
+)
+router.post(
+  '/tipos-certificados/:id/restaurar',
+  rbac('gestor'),
+  tiposCertificadosSSRController.restaurar,
+)
 
 // Dashboard
 router.get('/dashboard', dashboardController.dashboard)

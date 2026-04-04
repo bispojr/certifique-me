@@ -83,3 +83,7 @@ router.post(
 - `GET /admin/tipos-certificados/novo` NÃO é capturado como `/:id/editar`
 - `POST /admin/tipos-certificados/:id/deletar` e `/:id/restaurar` funcionam corretamente
 - Nenhuma rota de eventos é alterada
+
+## Metadados
+
+- Completado em: 04/04/2026 08:43 (BRT) ✅
