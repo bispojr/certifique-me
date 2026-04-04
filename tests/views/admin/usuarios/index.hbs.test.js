@@ -6,22 +6,42 @@ const cheerio = require('cheerio')
 describe('views/admin/usuarios/index.hbs', () => {
   let template
   beforeAll(() => {
-    const filePath = path.join(
-      process.cwd(),
-      'views/admin/usuarios/index.hbs',
-    )
+    const filePath = path.join(process.cwd(), 'views/admin/usuarios/index.hbs')
     const source = fs.readFileSync(filePath, 'utf8')
     // Helper eq para badge
     Handlebars.registerHelper('eq', (a, b) => a === b)
+    Handlebars.registerHelper('getPerfilBadgeClass', function (perfil) {
+      if (perfil === 'admin') return 'bg-danger'
+      if (perfil === 'gestor') return 'bg-warning text-dark'
+      return 'bg-info text-dark'
+    })
     template = Handlebars.compile(source)
   })
 
   it('renderiza lista de usuários com badge de perfil e eventos', () => {
     const html = template({
       usuarios: [
-        { id: 1, nome: 'Admin', email: 'a@a.com', perfil: 'admin', eventos: [{}, {}] },
-        { id: 2, nome: 'Gestor', email: 'g@g.com', perfil: 'gestor', eventos: [{}] },
-        { id: 3, nome: 'Monitor', email: 'm@m.com', perfil: 'monitor', eventos: [] },
+        {
+          id: 1,
+          nome: 'Admin',
+          email: 'a@a.com',
+          perfil: 'admin',
+          eventos: [{}, {}],
+        },
+        {
+          id: 2,
+          nome: 'Gestor',
+          email: 'g@g.com',
+          perfil: 'gestor',
+          eventos: [{}],
+        },
+        {
+          id: 3,
+          nome: 'Monitor',
+          email: 'm@m.com',
+          perfil: 'monitor',
+          eventos: [],
+        },
       ],
       arquivados: [],
       flash: {},
@@ -32,9 +52,15 @@ describe('views/admin/usuarios/index.hbs', () => {
     expect($('.badge.bg-warning').text()).toContain('gestor')
     expect($('.badge.bg-info').text()).toContain('monitor')
     // Contagem de eventos
-    expect($('td').filter((i, el) => $(el).text() === '2').length).toBeGreaterThan(0)
-    expect($('td').filter((i, el) => $(el).text() === '1').length).toBeGreaterThan(0)
-    expect($('td').filter((i, el) => $(el).text() === '0').length).toBeGreaterThan(0)
+    expect(
+      $('td').filter((i, el) => $(el).text() === '2').length,
+    ).toBeGreaterThan(0)
+    expect(
+      $('td').filter((i, el) => $(el).text() === '1').length,
+    ).toBeGreaterThan(0)
+    expect(
+      $('td').filter((i, el) => $(el).text() === '0').length,
+    ).toBeGreaterThan(0)
     // Botão de arquivar
     expect($('form[action="/admin/usuarios/1/deletar"]').length).toBe(1)
     expect($('form[action="/admin/usuarios/2/deletar"]').length).toBe(1)
@@ -47,7 +73,12 @@ describe('views/admin/usuarios/index.hbs', () => {
     const html = template({
       usuarios: [],
       arquivados: [
-        { id: 10, nome: 'Usuário Arquivado', email: 'x@x.com', perfil: 'monitor' },
+        {
+          id: 10,
+          nome: 'Usuário Arquivado',
+          email: 'x@x.com',
+          perfil: 'monitor',
+        },
       ],
       flash: {},
     })
@@ -63,7 +94,11 @@ describe('views/admin/usuarios/index.hbs', () => {
   })
 
   it('exibe mensagem de sucesso e erro', () => {
-    const html = template({ usuarios: [], arquivados: [], flash: { success: 'ok', error: 'fail' } })
+    const html = template({
+      usuarios: [],
+      arquivados: [],
+      flash: { success: 'ok', error: 'fail' },
+    })
     const $ = cheerio.load(html)
     expect($('.alert-success').text()).toContain('ok')
     expect($('.alert-danger').text()).toContain('fail')

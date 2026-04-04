@@ -29,11 +29,14 @@ async function index(req, res) {
 async function novo(_req, res) {
   try {
     // eslint-disable-next-line no-console
-    console.log('DEBUG tiposCertificadosSSRController.novo: renderizando form', {
-      tipo: null,
-      actionUrl: '/admin/tipos-certificados',
-      opcoesCampoDestaque: [{ value: 'nome', selected: true }],
-    })
+    console.log(
+      'DEBUG tiposCertificadosSSRController.novo: renderizando form',
+      {
+        tipo: null,
+        actionUrl: '/admin/tipos-certificados',
+        opcoesCampoDestaque: [{ value: 'nome', selected: true }],
+      },
+    )
     return res.render('admin/tipos-certificados/form', {
       tipo: null,
       actionUrl: '/admin/tipos-certificados',
@@ -42,9 +45,15 @@ async function novo(_req, res) {
   } catch (error) {
     // Log detalhado para debug
     // eslint-disable-next-line no-console
-    console.error('ERRO tiposCertificadosSSRController.novo:', error, error.stack)
+    console.error(
+      'ERRO tiposCertificadosSSRController.novo:',
+      error,
+      error.stack,
+    )
     req.flash('error', error.message)
-    return res.status(500).send('Erro ao renderizar formulário: ' + error.message)
+    return res
+      .status(500)
+      .send('Erro ao renderizar formulário: ' + error.message)
   }
 }
 

@@ -1,10 +1,6 @@
 const request = require('supertest')
 const app = require('../../../app')
-const {
-  Usuario,
-  TiposCertificados,
-  sequelize,
-} = require('../../../src/models')
+const { Usuario, TiposCertificados, sequelize } = require('../../../src/models')
 const jwt = require('jsonwebtoken')
 
 process.env.JWT_SECRET = 'jwt_secret_teste'

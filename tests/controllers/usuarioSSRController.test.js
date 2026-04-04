@@ -15,6 +15,7 @@ function mockRes() {
 describe('usuarioSSRController', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    jest.resetAllMocks()
   })
 
   describe('index', () => {
@@ -45,13 +46,23 @@ describe('usuarioSSRController', () => {
 
   describe('novo', () => {
     it('deve renderizar form com usuario null e eventos', async () => {
-      Evento.findAll = jest.fn().mockResolvedValue([{ id: 1, nome: 'E1' }])
+      Evento.findAll = jest.fn().mockResolvedValue([
+        {
+          id: 1,
+          nome: 'E1',
+          toJSON() {
+            return { id: 1, nome: 'E1' }
+          },
+        },
+      ])
       const req = httpMocks.createRequest()
       const res = mockRes()
       await usuarioSSRController.novo(req, res)
       expect(res.render).toHaveBeenCalledWith('admin/usuarios/form', {
         usuario: null,
-        eventos: [{ id: 1, nome: 'E1' }],
+        eventos: expect.arrayContaining([
+          expect.objectContaining({ id: 1, nome: 'E1' }),
+        ]),
       })
     })
   })
@@ -59,17 +70,27 @@ describe('usuarioSSRController', () => {
   describe('editar', () => {
     it('deve renderizar form com usuario e eventoIds', async () => {
       Usuario.findByPk = jest.fn().mockResolvedValue({
-        toJSON: () => ({ id: 1 }),
+        toJSON: () => ({ id: 1, eventos: [{ id: 10 }, { id: 20 }] }),
         eventos: [{ id: 10 }, { id: 20 }],
       })
-      Evento.findAll = jest.fn().mockResolvedValue([{ id: 1, nome: 'E1' }])
+      Evento.findAll = jest.fn().mockResolvedValue([
+        {
+          id: 1,
+          nome: 'E1',
+          toJSON() {
+            return { id: 1, nome: 'E1' }
+          },
+        },
+      ])
       const req = httpMocks.createRequest({ params: { id: 1 } })
       req.flash = jest.fn()
       const res = mockRes()
       await usuarioSSRController.editar(req, res)
       expect(res.render).toHaveBeenCalledWith('admin/usuarios/form', {
         usuario: expect.objectContaining({ id: 1, eventoIds: [10, 20] }),
-        eventos: [{ id: 1, nome: 'E1' }],
+        eventos: expect.arrayContaining([
+          expect.objectContaining({ id: 1, nome: 'E1' }),
+        ]),
       })
     })
     it('deve redirecionar se usuario não encontrado', async () => {
@@ -113,7 +134,10 @@ describe('usuarioSSRController', () => {
         senha: '123',
         perfil: 'admin',
       })
-      expect(req.flash).toHaveBeenCalledWith('success', 'Usuário criado com sucesso.')
+      expect(req.flash).toHaveBeenCalledWith(
+        'success',
+        'Usuário criado com sucesso.',
+      )
       expect(res.redirect).toHaveBeenCalledWith('/admin/usuarios')
     })
     it('deve redirecionar para novo em caso de erro', async () => {
@@ -151,7 +175,10 @@ describe('usuarioSSRController', () => {
         senha: '123',
       })
       expect(usuario.setEventos).toHaveBeenCalled()
-      expect(req.flash).toHaveBeenCalledWith('success', 'Usuário atualizado com sucesso.')
+      expect(req.flash).toHaveBeenCalledWith(
+        'success',
+        'Usuário atualizado com sucesso.',
+      )
       expect(res.redirect).toHaveBeenCalledWith('/admin/usuarios')
     })
     it('não inclui senha se campo vazio', async () => {

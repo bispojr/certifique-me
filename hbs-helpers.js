@@ -1,4 +1,3 @@
-
 const hbs = require('hbs')
 hbs.registerHelper('json', function (context) {
   return JSON.stringify(context || {})
@@ -17,3 +16,8 @@ hbs.registerHelper('ifSelected', function (val) {
 })
 
 // Adicione outros helpers aqui se necessário
+hbs.registerHelper('getPerfilBadgeClass', function (perfil) {
+  if (perfil === 'admin') return 'bg-danger'
+  if (perfil === 'gestor') return 'bg-warning text-dark'
+  return 'bg-info text-dark'
+})

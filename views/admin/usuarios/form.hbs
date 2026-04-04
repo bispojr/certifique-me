@@ -1,54 +1,132 @@
-{{#> layouts/admin}}
-  <h2>{{#if usuario}}Editar{{else}}Novo{{/if}} Usuário</h2>
+<h2>{{#if usuario}}Editar{{else}}Novo{{/if}} Usuário</h2>
 
-  {{#if flash.error}}
-    <div class="alert alert-danger">{{flash.error}}</div>
-  {{/if}}
+{{#if flash.error}}
+  <div class='alert alert-danger'>{{flash.error}}</div>
+{{/if}}
 
-  <form method="POST"
-        action="{{#if usuario}}/admin/usuarios/{{usuario.id}}{{else}}/admin/usuarios{{/if}}">
-
-    <div class="mb-3">
-      <label class="form-label">Nome</label>
-      <input type="text" name="nome" class="form-control" value="{{usuario.nome}}" required>
+{{#if usuario}}
+  <form method='POST' action='/admin/usuarios/{{usuario.id}}'>
+    <div class='mb-3'>
+      <label class='form-label'>Nome</label>
+      <input
+        type='text'
+        name='nome'
+        class='form-control'
+        value='{{usuario.nome}}'
+        required
+      />
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">E-mail</label>
-      <input type="email" name="email" class="form-control" value="{{usuario.email}}" required>
+    <div class='mb-3'>
+      <label class='form-label'>E-mail</label>
+      <input
+        type='email'
+        name='email'
+        class='form-control'
+        value='{{usuario.email}}'
+        required
+      />
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Senha</label>
-      <input type="password" name="senha" class="form-control"
-             placeholder="{{#if usuario}}Deixe em branco para não alterar{{else}}Senha{{/if}}"
-             {{#unless usuario}}required{{/unless}}>
+    <div class='mb-3'>
+      <label class='form-label'>Senha</label>
+      <input
+        type='password'
+        name='senha'
+        class='form-control'
+        placeholder='Deixe em branco para não alterar'
+      />
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Perfil</label>
-      <select name="perfil" class="form-select" required>
-        <option value="admin"   {{#if (eq usuario.perfil 'admin')}}selected{{/if}}>admin</option>
-        <option value="gestor"  {{#if (eq usuario.perfil 'gestor')}}selected{{/if}}>gestor</option>
-        <option value="monitor" {{#if (eq usuario.perfil 'monitor')}}selected{{/if}}>monitor</option>
+    <div class='mb-3'>
+      <label class='form-label'>Perfil</label>
+      <select name='perfil' class='form-select' required>
+        <option value='admin' {{selected usuario.perfil 'admin'}}>admin</option>
+        <option
+          value='gestor'
+          {{selected usuario.perfil 'gestor'}}
+        >gestor</option>
+        <option
+          value='monitor'
+          {{selected usuario.perfil 'monitor'}}
+        >monitor</option>
       </select>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Eventos <small class="text-muted">(Ctrl+clique para múltiplos)</small></label>
-      <select name="eventos" id="eventos" class="form-select" multiple size="6">
+    <div class='mb-3'>
+      <label class='form-label'>Eventos
+        <small class='text-muted'>(Ctrl+clique para múltiplos)</small></label>
+      <select name='eventos' id='eventos' class='form-select' multiple size='6'>
         {{#each eventos}}
-          <option value="{{id}}"
-            {{#if ../usuario}}
-              {{#if (includes ../usuario.eventoIds id)}}selected{{/if}}
-            {{/if}}>
-            {{nome}}
-          </option>
+          <option value='{{id}}' {{ifSelected selected}}>{{nome}}</option>
         {{/each}}
       </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a href="/admin/usuarios" class="btn btn-secondary">Cancelar</a>
+    <button type='submit' class='btn btn-primary'>Salvar</button>
+    <a href='/admin/usuarios' class='btn btn-secondary'>Cancelar</a>
   </form>
-{{/layouts/admin}}
+{{else}}
+  <form method='POST' action='/admin/usuarios'>
+    <div class='mb-3'>
+      <label class='form-label'>Nome</label>
+      <input
+        type='text'
+        name='nome'
+        class='form-control'
+        value='{{usuario.nome}}'
+        required
+      />
+    </div>
+
+    <div class='mb-3'>
+      <label class='form-label'>E-mail</label>
+      <input
+        type='email'
+        name='email'
+        class='form-control'
+        value='{{usuario.email}}'
+        required
+      />
+    </div>
+
+    <div class='mb-3'>
+      <label class='form-label'>Senha</label>
+      <input
+        type='password'
+        name='senha'
+        class='form-control'
+        placeholder='Senha'
+        required
+      />
+    </div>
+
+    <div class='mb-3'>
+      <label class='form-label'>Perfil</label>
+      <select name='perfil' class='form-select' required>
+        <option value='admin' {{selected usuario.perfil 'admin'}}>admin</option>
+        <option
+          value='gestor'
+          {{selected usuario.perfil 'gestor'}}
+        >gestor</option>
+        <option
+          value='monitor'
+          {{selected usuario.perfil 'monitor'}}
+        >monitor</option>
+      </select>
+    </div>
+
+    <div class='mb-3'>
+      <label class='form-label'>Eventos
+        <small class='text-muted'>(Ctrl+clique para múltiplos)</small></label>
+      <select name='eventos' id='eventos' class='form-select' multiple size='6'>
+        {{#each eventos}}
+          <option value='{{id}}' {{ifSelected selected}}>{{nome}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <button type='submit' class='btn btn-primary'>Salvar</button>
+    <a href='/admin/usuarios' class='btn btn-secondary'>Cancelar</a>
+  </form>
+{{/if}}

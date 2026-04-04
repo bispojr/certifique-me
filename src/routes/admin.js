@@ -1,4 +1,3 @@
-
 const express = require('express')
 const router = express.Router()
 const authSSR = require('../middlewares/authSSR')
@@ -7,7 +6,6 @@ const eventoSSRController = require('../controllers/eventoSSRController')
 const participanteSSRController = require('../controllers/participanteSSRController')
 const dashboardController = require('../controllers/dashboardController')
 const tiposCertificadosSSRController = require('../controllers/tiposCertificadosSSRController')
-
 
 // Todas as rotas admin exigem sessão SSR válida
 router.use(authSSR)

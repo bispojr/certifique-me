@@ -12,6 +12,7 @@ async function index(req, res) {
     })
     return res.render('admin/usuarios/index', { usuarios, arquivados })
   } catch (error) {
+    console.error('ERRO editar usuarioSSRController:', error)
     req.flash('error', error.message)
     return res.redirect('/admin/usuarios')
   }
@@ -31,9 +32,14 @@ async function editar(req, res) {
       req.flash('error', 'Usuário não encontrado.')
       return res.redirect('/admin/usuarios')
     }
-    const eventos = await Evento.findAll({ attributes: ['id', 'nome'] })
+    const todosEventos = await Evento.findAll({ attributes: ['id', 'nome'] })
     const usuarioJson = usuario.toJSON()
-    usuarioJson.eventoIds = usuario.eventos.map((e) => e.id)
+    const eventoIds = usuario.eventos.map((e) => e.id)
+    usuarioJson.eventoIds = eventoIds
+    const eventos = todosEventos.map((e) => ({
+      ...e.toJSON(),
+      selected: eventoIds.includes(e.id),
+    }))
     return res.render('admin/usuarios/form', { usuario: usuarioJson, eventos })
   } catch (error) {
     req.flash('error', error.message)
@@ -45,7 +51,10 @@ async function criar(req, res) {
   try {
     const { nome, email, senha, perfil, eventos } = req.body
     const usuario = await Usuario.create({ nome, email, senha, perfil })
-    const eventoIds = [].concat(eventos || []).map(Number).filter(Boolean)
+    const eventoIds = []
+      .concat(eventos || [])
+      .map(Number)
+      .filter(Boolean)
     if (eventoIds.length > 0) {
       await usuario.setEventos(eventoIds)
     }
@@ -68,7 +77,10 @@ async function atualizar(req, res) {
     const campos = { nome, email, perfil }
     if (senha && senha.trim() !== '') campos.senha = senha
     await usuario.update(campos)
-    const eventoIds = [].concat(eventos || []).map(Number).filter(Boolean)
+    const eventoIds = []
+      .concat(eventos || [])
+      .map(Number)
+      .filter(Boolean)
     await usuario.setEventos(eventoIds)
     req.flash('success', 'Usuário atualizado com sucesso.')
     return res.redirect('/admin/usuarios')

@@ -47,9 +47,7 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     const html = template({
       tipo: null,
       flash: {},
-      opcoesCampoDestaque: [
-        { value: 'nome', selected: true },
-      ],
+      opcoesCampoDestaque: [{ value: 'nome', selected: true }],
     })
     const $ = cheerio.load(html)
     expect($('form#tipoForm').length).toBe(1)
@@ -72,7 +70,7 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     const campoDestaque = tipo.campo_destaque || 'nome'
     const opcoesCampoDestaque = [
       { value: 'nome', selected: campoDestaque === 'nome' },
-      ...Object.keys(tipo.dados_dinamicos).map(key => ({
+      ...Object.keys(tipo.dados_dinamicos).map((key) => ({
         value: key,
         selected: key === campoDestaque,
       })),
@@ -82,7 +80,9 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     expect($('input[name="codigo"]').val()).toBe('cert2026')
     expect($('input[name="descricao"]').val()).toBe('Certificado de Teste')
     expect($('#campo_destaque').find('option[value="cpf"]').length).toBe(1)
-    expect($('#campo_destaque').find('option[value="matricula"]').length).toBe(1)
+    expect($('#campo_destaque').find('option[value="matricula"]').length).toBe(
+      1,
+    )
     // O selected pode não ser refletido no DOM do cheerio, então testamos o atributo
     expect($('#campo_destaque').html()).toContain('value="cpf" selected')
     expect($('#texto_base').text()).toContain('${nome}')
@@ -92,9 +92,7 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     const html = template({
       tipo: null,
       flash: { error: 'Erro!' },
-      opcoesCampoDestaque: [
-        { value: 'nome', selected: true },
-      ],
+      opcoesCampoDestaque: [{ value: 'nome', selected: true }],
     })
     const $ = cheerio.load(html)
     expect($('.alert-danger').text()).toContain('Erro!')
