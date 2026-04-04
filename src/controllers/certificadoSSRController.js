@@ -45,6 +45,7 @@ async function index(req, res) {
     })
 
     return res.render('admin/certificados/index', {
+      layout: 'layouts/admin',
       certificados,
       arquivados,
       eventos,
@@ -72,6 +73,7 @@ async function detalhe(req, res) {
       certificado.valores_dinamicos || {},
     )
     return res.render('admin/certificados/detalhe', {
+      layout: 'layouts/admin',
       certificado,
       textoInterpolado,
     })
@@ -90,6 +92,7 @@ async function novo(req, res) {
     attributes: ['id', 'descricao', 'dados_dinamicos'],
   })
   return res.render('admin/certificados/form', {
+    layout: 'layouts/admin',
     certificado: null,
     participantes,
     eventos,
@@ -114,6 +117,7 @@ async function editar(req, res) {
       attributes: ['id', 'descricao', 'dados_dinamicos'],
     })
     return res.render('admin/certificados/form', {
+      layout: 'layouts/admin',
       certificado: certificado.toJSON(),
       participantes,
       eventos,

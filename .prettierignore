@@ -1,0 +1,2 @@
+# Handlebars templates — usa sintaxe HBS padrão, não Glimmer/Ember
+views/**/*.hbs
