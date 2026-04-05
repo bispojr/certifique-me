@@ -13,6 +13,11 @@ function requiredEnv(varName, opts = {}) {
   return value
 }
 
+
+function requiredEnvTest(varName) {
+  return requiredEnv(varName, { optionalInProd: true })
+}
+
 module.exports = {
   development: {
     username: requiredEnv('DB_USER'),
@@ -26,9 +31,9 @@ module.exports = {
   test: {
     username: requiredEnv('DB_USER'),
     password: requiredEnv('DB_PASSWORD'),
-    database: requiredEnv('DB_NAME_TEST', { optionalInProd: true }),
+    database: requiredEnvTest('DB_NAME_TEST'),
     host: requiredEnv('DB_HOST'),
-    port: parseInt(requiredEnv('DB_PORT_TEST'), 10),
+    port: parseInt(requiredEnvTest('DB_PORT_TEST')), // agora opcional em prod
     dialect: 'postgres',
     logging: false,
   },
