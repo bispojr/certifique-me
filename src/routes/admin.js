@@ -7,6 +7,7 @@ const participanteSSRController = require('../controllers/participanteSSRControl
 const dashboardController = require('../controllers/dashboardController')
 const tiposCertificadosSSRController = require('../controllers/tiposCertificadosSSRController')
 const usuarioSSRController = require('../controllers/usuarioSSRController')
+const certificadoSSRController = require('../controllers/certificadoSSRController')
 
 // Todas as rotas admin exigem sessão SSR válida
 router.use(authSSR)
@@ -88,6 +89,36 @@ router.post(
   '/usuarios/:id/restaurar',
   rbac('admin'),
   usuarioSSRController.restaurar,
+)
+
+// Certificados
+router.get('/certificados', rbac('monitor'), certificadoSSRController.index)
+router.get('/certificados/novo', rbac('gestor'), certificadoSSRController.novo)
+router.post('/certificados', rbac('gestor'), certificadoSSRController.criar)
+router.get(
+  '/certificados/:id',
+  rbac('monitor'),
+  certificadoSSRController.detalhe,
+)
+router.get(
+  '/certificados/:id/editar',
+  rbac('gestor'),
+  certificadoSSRController.editar,
+)
+router.post(
+  '/certificados/:id',
+  rbac('gestor'),
+  certificadoSSRController.atualizar,
+)
+router.post(
+  '/certificados/:id/cancelar',
+  rbac('gestor'),
+  certificadoSSRController.cancelar,
+)
+router.post(
+  '/certificados/:id/restaurar',
+  rbac('admin'),
+  certificadoSSRController.restaurar,
 )
 
 module.exports = router

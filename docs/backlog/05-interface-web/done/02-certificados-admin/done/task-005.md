@@ -80,3 +80,7 @@ Router admin com rotas de dashboard + eventos + tipos + usuários + certificados
 - `POST /admin/certificados/:id/restaurar` bloqueado para gestor e monitor (403)
 - `GET /admin/certificados/novo` não é capturado como `/:id`
 - Nenhuma rota existente é alterada
+
+## Metadados
+
+- Completado em: 05/04/2026 15:00 ✅

@@ -36,7 +36,7 @@ Interface SSR no painel admin para visualizar, criar, editar, cancelar e restaur
 ✅ task-003: Criar `views/admin/certificados/detalhe.hbs` com texto interpolado e link de PDF
 ✅ task-004: Criar `views/admin/certificados/form.hbs` com campos dinâmicos via `fetch`
 
-- task-005: Adicionar rotas SSR de certificados em `src/routes/admin.js`
+✅ task-005: Adicionar rotas SSR de certificados em `src/routes/admin.js`
 
 ## Dependências
 
