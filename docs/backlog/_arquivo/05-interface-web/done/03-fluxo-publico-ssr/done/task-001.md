@@ -81,3 +81,7 @@ Ao submeter o formulário de validação, o botão é desabilitado e o spinner a
 - `id="spinner-validar"` na div com `style="display:none"`
 - Script desabilita botão e exibe spinner no evento `submit`
 - Action do form permanece `/certificados/validar` (será corrigida por CERT-SSR-005 em Domínio 3)
+
+## Metadados
+
+- Completado em: 06/04/2026 20:01 (BRT) ✅

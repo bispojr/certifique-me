@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-
 function requiredEnv(varName, opts = {}) {
   const value = process.env[varName]
   if (!value) {
@@ -12,7 +11,6 @@ function requiredEnv(varName, opts = {}) {
   }
   return value
 }
-
 
 function requiredEnvTest(varName) {
   return requiredEnv(varName, { optionalInProd: true })

@@ -16,8 +16,18 @@
           placeholder='Digite o código do certificado'
         />
       </div>
-      <button type='submit' class='btn btn-primary'>Validar</button>
+      <button type='submit' class='btn btn-primary' id='btn-validar'>Validar</button>
     </form>
+    <div id='spinner-validar' class='text-center mt-3' style='display:none'>
+      <div class='spinner-border' role='status'></div>
+      <p>Validando certificado...</p>
+    </div>
     <a href='/public/pagina/opcoes' class='btn btn-link mt-3'>← Voltar</a>
+    <script>
+      document.getElementById('form-validar').addEventListener('submit', function () {
+        document.getElementById('btn-validar').disabled = true;
+        document.getElementById('spinner-validar').style.display = 'block';
+      });
+    </script>
   </div>
 </div>

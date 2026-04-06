@@ -28,7 +28,7 @@ Views e rotas SSR para o participante buscar seus certificados por e-mail e vali
 
 ## Tasks
 
-- task-001: Adicionar spinner de loading em `views/certificados/form-validar.hbs`
+✅ task-001: Adicionar spinner de loading em `views/certificados/form-validar.hbs`
 
 ## Dependências
 
