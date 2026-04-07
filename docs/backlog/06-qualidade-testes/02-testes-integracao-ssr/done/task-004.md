@@ -157,3 +157,7 @@ describe('POST /admin/certificados/:id/restaurar', () => {
 - `POST /:id/cancelar` com gestor → 302 (redirect após ação)
 - `POST /:id/restaurar` com gestor → 403
 - `POST /:id/restaurar` com admin → 302 (redirect após ação)
+
+## Metadados
+
+- Completado em: 07/04/2026 02:50 ✅

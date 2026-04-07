@@ -3,6 +3,7 @@ const {
   Participante,
   Evento,
   TiposCertificados,
+  UsuarioEvento,
 } = require('../models')
 
 const INCLUDES = [
@@ -16,8 +17,10 @@ const INCLUDES = [
 
 async function getEventoIds(req) {
   if (req.usuario.perfil === 'admin') return null // null = sem filtro
-  const eventos = await req.usuario.getEventos()
-  return eventos.map((e) => e.id)
+  const associacoes = await UsuarioEvento.findAll({
+    where: { usuario_id: req.usuario.id },
+  })
+  return associacoes.map((a) => a.evento_id)
 }
 
 async function index(req, res) {
