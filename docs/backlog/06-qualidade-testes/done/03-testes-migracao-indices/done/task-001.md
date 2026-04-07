@@ -106,3 +106,7 @@ describe('Migration: performance indexes', () => {
 - `up`: `showIndex` nas 3 tabelas contém os 5 nomes de índice esperados
 - `down`: `showIndex` nas 3 tabelas não contém nenhum dos 5 nomes
 - Teste isolado: `beforeEach` dropa e recria schema inteiro para não vazar estado
+
+## Metadados
+
+- Completado em: 07/04/2026 03:36 ✅
