@@ -126,3 +126,7 @@ module.exports = { seedE2E, cleanE2E }
 - `cleanE2E()` remove todos os dados sem erros
 - Certificado tem `codigo: 'E2E-2026-001'` para uso nos testes de validação pública
 - Senhas criadas como hash bcrypt — login SSR funciona com `senha123`
+
+## Metadados
+
+- Completado em: 07/04/2026 20:05 ✅

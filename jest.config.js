@@ -8,6 +8,11 @@ module.exports = {
       testMatch: ['<rootDir>/tests/config/**/*.test.js'],
     },
     {
+      displayName: 'e2e-setup',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/tests/e2e/setup/**/*.test.js'],
+    },
+    {
       displayName: 'middleware',
       testEnvironment: 'node',
       testMatch: ['<rootDir>/tests/middleware/**/*.test.js'],
