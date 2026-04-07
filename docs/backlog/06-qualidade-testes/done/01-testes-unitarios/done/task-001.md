@@ -142,3 +142,7 @@ Todos os testes de `eventoService.test.js` passam com `npm run check`.
 - Teste de `restore` verifica `UsuarioEvento.restore` com `{ where: { evento_id: id } }`
 - `findAll` usa `findAndCountAll` e retorna `{ data, meta }`
 - `jest.clearAllMocks()` no `beforeEach` já existente cobre os novos mocks
+
+## Metadados
+
+- Completado em: 07/04/2026 02:00 ✅

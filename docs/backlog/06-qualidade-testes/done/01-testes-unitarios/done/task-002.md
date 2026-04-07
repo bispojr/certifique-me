@@ -136,3 +136,7 @@ Ambos os arquivos passam com `npm run check`.
 - `{ offset, limit }` calculados corretamente a partir de `page`/`perPage`
 - `meta.totalPages = Math.ceil(count / perPage)`
 - `jest.clearAllMocks()` no `beforeEach` já existente funciona para `findAndCountAll`
+
+## Metadados
+
+- Completado em: 07/04/2026 02:00 ✅

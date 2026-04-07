@@ -123,3 +123,7 @@ describe('POST /public/pagina/validar', () => {
 - `POST /public/pagina/validar` com código válido: 200 + HTML indicando certificado válido
 - `POST /public/pagina/validar` com código inválido: 200 + HTML indicando inválido
 - Setup e teardown isolam os dados com TRUNCATE CASCADE
+
+## Metadados
+
+- Completado em: 07/04/2026 02:11 ✅

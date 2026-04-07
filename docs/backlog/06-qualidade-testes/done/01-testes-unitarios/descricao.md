@@ -24,9 +24,9 @@ Completar cobertura de testes unitários dos services com: (1) cascata de soft d
 
 ## Tasks
 
-- task-001: Corrigir `eventoService.test.js` — mock `UsuarioEvento` + testes de cascata + paginação
-- task-002: Atualizar paginação em `participanteService.test.js` e `tiposCertificadosService.test.js`
-- task-003: Atualizar `certificadoService.test.js` — paginação + testes de `create` com `TiposCertificados`
+✅ task-001: Corrigir `eventoService.test.js` — mock `UsuarioEvento` + testes de cascata + paginação
+✅ task-002: Atualizar paginação em `participanteService.test.js` e `tiposCertificadosService.test.js`
+✅ task-003: Atualizar `certificadoService.test.js` — paginação + testes de `create` com `TiposCertificados`
 
 ## Dependências
 

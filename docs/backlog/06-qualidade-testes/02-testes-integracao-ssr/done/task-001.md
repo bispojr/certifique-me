@@ -111,3 +111,7 @@ describe('POST /auth/logout', () => {
 - `POST /auth/login` com sucesso: 302 + `Location: /admin/dashboard` + cookie `token`
 - `POST /auth/login` com falha: 302 + `Location: /auth/login`
 - `POST /auth/logout`: 302 + `Location: /auth/login`
+
+## Metadados
+
+- Completado em: 07/04/2026 02:04 ✅

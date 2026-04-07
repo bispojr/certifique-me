@@ -149,3 +149,7 @@ describe('create', () => {
 - Teste `campos faltantes`: erro contém `camposFaltantes: ['carga_horaria']`
 - Teste de sucesso: `Certificado.create` chamado com os dados corretos
 - `TiposCertificados` no mock do `jest.mock` com apenas `findByPk`
+
+## Metadados
+
+- Completado em: 07/04/2026 02:01 ✅
