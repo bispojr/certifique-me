@@ -29,7 +29,13 @@ jobs:
         run: docker-compose -f docker-compose.test.yml up -d
       - name: Wait for DB
         run: sleep 10
-      - name: Run lint, tests and coverage (check)
+      - name: Run lint
+        run: npm run lint
+      - name: Run format check
+        run: npm run format
+      - name: Show app_test container logs (debug)
+        run: docker-compose -f docker-compose.test.yml logs app_test || true
+      - name: Run tests with coverage
         env:
           DB_USER: postgres
           DB_PASSWORD: password
@@ -39,10 +45,7 @@ jobs:
           DB_NAME_TEST: certificados_test
           DB_PORT_TEST: 5433
           JWT_SECRET: jwt_secret_teste
-        run: |
-          docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run lint'
-          docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run format'
-          docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run test:coverage'
+        run: docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run test:coverage'
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
       - name: Run E2E tests
