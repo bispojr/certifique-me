@@ -16,6 +16,6 @@ describe('GET / (home) layout público', () => {
     expect(res.text).toMatch(/Validar/)
     expect(res.text).toMatch(/Entrar/)
     // Confirma slot body
-    expect(res.text).toMatch(/Welcome to/)
+    expect(res.text).toMatch(/Obter meus certificados/)
   })
 })

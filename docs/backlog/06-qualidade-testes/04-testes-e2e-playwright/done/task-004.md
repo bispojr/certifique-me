@@ -92,3 +92,7 @@ test('UC-P07 — valida certificado com código inválido', async ({ page }) => 
 - UC-P06: texto indicando certificado válido visível após código correto
 - UC-P07: texto indicando inválido visível após código errado
 - Nenhum teste depende de ordem de execução
+
+## Metadados
+
+- Completado em: 08/04/2026 11:00 ✅
