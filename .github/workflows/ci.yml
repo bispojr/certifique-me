@@ -40,9 +40,9 @@ jobs:
           DB_PORT_TEST: 5433
           JWT_SECRET: jwt_secret_teste
         run: |
-          docker-compose -f docker-compose.test.yml exec app_test sh -c 'npm run lint'
-          docker-compose -f docker-compose.test.yml exec app_test sh -c 'npm run format'
-          docker-compose -f docker-compose.test.yml exec app_test sh -c 'npm run test:coverage'
+          docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run lint'
+          docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run format'
+          docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run test:coverage'
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
       - name: Run E2E tests
