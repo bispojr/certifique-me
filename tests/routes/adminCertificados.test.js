@@ -17,29 +17,81 @@ const makeAuthCookie = (id, perfil) => {
 }
 
 describe('Admin SSR - certificados', () => {
-  let admin, gestor, participante, evento, tipo, certificado, adminCookie, gestorCookie
+  let admin,
+    gestor,
+    participante,
+    evento,
+    tipo,
+    certificado,
+    adminCookie,
+    gestorCookie
 
   beforeAll(async () => {
-    await sequelize.query('TRUNCATE TABLE certificados RESTART IDENTITY CASCADE')
-    await sequelize.query('TRUNCATE TABLE participantes RESTART IDENTITY CASCADE')
+    await sequelize.query(
+      'TRUNCATE TABLE certificados RESTART IDENTITY CASCADE',
+    )
+    await sequelize.query(
+      'TRUNCATE TABLE participantes RESTART IDENTITY CASCADE',
+    )
     await sequelize.query('TRUNCATE TABLE eventos RESTART IDENTITY CASCADE')
-    await sequelize.query('TRUNCATE TABLE tipos_certificados RESTART IDENTITY CASCADE')
+    await sequelize.query(
+      'TRUNCATE TABLE tipos_certificados RESTART IDENTITY CASCADE',
+    )
     await sequelize.query('TRUNCATE TABLE usuarios RESTART IDENTITY CASCADE')
-    admin = await Usuario.create({ nome: 'Admin', email: 'admin@admin.com', senha: 'senha123', perfil: 'admin' })
-    gestor = await Usuario.create({ nome: 'Gestor', email: 'gestor@admin.com', senha: 'senha123', perfil: 'gestor' })
+    admin = await Usuario.create({
+      nome: 'Admin',
+      email: 'admin@admin.com',
+      senha: 'senha123',
+      perfil: 'admin',
+    })
+    gestor = await Usuario.create({
+      nome: 'Gestor',
+      email: 'gestor@admin.com',
+      senha: 'senha123',
+      perfil: 'gestor',
+    })
     adminCookie = makeAuthCookie(admin.id, 'admin')
     gestorCookie = makeAuthCookie(gestor.id, 'gestor')
-    participante = await Participante.create({ nomeCompleto: 'Fulano', email: 'fulano@teste.com' })
-    evento = await Evento.create({ nome: 'Evento', codigo_base: 'EVT', ano: 2026, data_inicio: '2026-04-01', data_fim: '2026-04-02' })
-    tipo = await TiposCertificados.create({ codigo: 'TP', descricao: 'Tipo', campo_destaque: 'nome', texto_base: 'Texto', dados_dinamicos: { nome: {} } })
-    certificado = await Certificado.create({ nome: 'Fulano', participante_id: participante.id, evento_id: evento.id, tipo_certificado_id: tipo.id, valores_dinamicos: { nome: 'Fulano' }, codigo: 'ABC123', status: 'emitido' })
+    participante = await Participante.create({
+      nomeCompleto: 'Fulano',
+      email: 'fulano@teste.com',
+    })
+    evento = await Evento.create({
+      nome: 'Evento',
+      codigo_base: 'EVT',
+      ano: 2026,
+      data_inicio: '2026-04-01',
+      data_fim: '2026-04-02',
+    })
+    tipo = await TiposCertificados.create({
+      codigo: 'TP',
+      descricao: 'Tipo',
+      campo_destaque: 'nome',
+      texto_base: 'Texto',
+      dados_dinamicos: { nome: {} },
+    })
+    certificado = await Certificado.create({
+      nome: 'Fulano',
+      participante_id: participante.id,
+      evento_id: evento.id,
+      tipo_certificado_id: tipo.id,
+      valores_dinamicos: { nome: 'Fulano' },
+      codigo: 'ABC123',
+      status: 'emitido',
+    })
   })
 
   afterAll(async () => {
-    await sequelize.query('TRUNCATE TABLE certificados RESTART IDENTITY CASCADE')
-    await sequelize.query('TRUNCATE TABLE participantes RESTART IDENTITY CASCADE')
+    await sequelize.query(
+      'TRUNCATE TABLE certificados RESTART IDENTITY CASCADE',
+    )
+    await sequelize.query(
+      'TRUNCATE TABLE participantes RESTART IDENTITY CASCADE',
+    )
     await sequelize.query('TRUNCATE TABLE eventos RESTART IDENTITY CASCADE')
-    await sequelize.query('TRUNCATE TABLE tipos_certificados RESTART IDENTITY CASCADE')
+    await sequelize.query(
+      'TRUNCATE TABLE tipos_certificados RESTART IDENTITY CASCADE',
+    )
     // Não trunca a tabela de usuários para manter os usuários de autenticação
   })
 
@@ -50,10 +102,14 @@ describe('Admin SSR - certificados', () => {
   })
 
   it('GET /admin/certificados permite admin e gestor', async () => {
-    let res = await request(app).get('/admin/certificados').set('Cookie', adminCookie)
+    let res = await request(app)
+      .get('/admin/certificados')
+      .set('Cookie', adminCookie)
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Certificados/i)
-    res = await request(app).get('/admin/certificados').set('Cookie', gestorCookie)
+    res = await request(app)
+      .get('/admin/certificados')
+      .set('Cookie', gestorCookie)
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Certificados/i)
   })
@@ -72,7 +128,9 @@ describe('Admin SSR - certificados', () => {
       })
     expect(res.status).toBe(302)
     expect(res.headers.location).toMatch(/\/admin\/certificados/)
-    const cert = await Certificado.findOne({ where: { nome: 'Novo Certificado' } })
+    const cert = await Certificado.findOne({
+      where: { nome: 'Novo Certificado' },
+    })
     expect(cert).not.toBeNull()
   })
 

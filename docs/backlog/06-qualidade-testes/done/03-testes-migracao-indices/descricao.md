@@ -23,8 +23,8 @@ Cobrir com teste automatizado a migration de índices de performance criada em I
 
 ## Tasks
 
-| ID           | Arquivo                                                 | Descrição                            |
-| ------------ | ------------------------------------------------------- | ------------------------------------ |
+| ID              | Arquivo                                                 | Descrição                            |
+| --------------- | ------------------------------------------------------- | ------------------------------------ |
 | ✅ TEST-MIG-001 | `tests/migrations/performanceIndexes.migration.test.js` | up cria 5 índices; down remove todos |
 
 ## Dependências

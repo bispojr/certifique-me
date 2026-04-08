@@ -11,7 +11,9 @@ test.describe('auth helpers', () => {
     await seedE2E()
   })
 
-  test('loginAs faz login SSR e redireciona para dashboard', async ({ page }) => {
+  test('loginAs faz login SSR e redireciona para dashboard', async ({
+    page,
+  }) => {
     await loginAs(page, adminEmail, senha)
     expect(await isAuthenticated(page)).toBe(true)
     expect(page.url()).toContain('/admin/')

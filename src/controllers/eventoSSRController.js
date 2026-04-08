@@ -14,20 +14,24 @@ module.exports = {
         })
       } else if (req.usuario.perfil === 'gestor') {
         eventos = await Evento.findAll({
-          include: [{
-            association: 'usuarios',
-            where: { id: req.usuario.id },
-            through: { attributes: [] },
-          }],
+          include: [
+            {
+              association: 'usuarios',
+              where: { id: req.usuario.id },
+              through: { attributes: [] },
+            },
+          ],
         })
         arquivados = await Evento.findAll({
           paranoid: false,
           where: { deleted_at: { [Op.ne]: null } },
-          include: [{
-            association: 'usuarios',
-            where: { id: req.usuario.id },
-            through: { attributes: [] },
-          }],
+          include: [
+            {
+              association: 'usuarios',
+              where: { id: req.usuario.id },
+              through: { attributes: [] },
+            },
+          ],
         })
       } else {
         eventos = []

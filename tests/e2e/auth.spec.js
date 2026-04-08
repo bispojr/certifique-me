@@ -9,7 +9,9 @@ test.describe('Página de login', () => {
     await expect(page.locator('button[type="submit"]')).toHaveText('Entrar')
   })
 
-  test('exibe erro ao tentar login com credenciais inválidas', async ({ page }) => {
+  test('exibe erro ao tentar login com credenciais inválidas', async ({
+    page,
+  }) => {
     await page.goto('/auth/login')
     await page.fill('input[name="email"]', 'invalido@test.com')
     await page.fill('input[name="senha"]', 'senhaerrada')
@@ -23,7 +25,9 @@ test.describe('Página de login', () => {
     await expect(page.locator('.alert-danger').first()).toBeVisible()
   })
 
-  test('rota /admin/dashboard redireciona para login sem autenticação', async ({ page }) => {
+  test('rota /admin/dashboard redireciona para login sem autenticação', async ({
+    page,
+  }) => {
     await page.goto('/admin/dashboard')
     await expect(page).toHaveURL(/\/auth\/login/)
   })

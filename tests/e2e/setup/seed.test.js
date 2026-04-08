@@ -30,7 +30,13 @@ describe('E2E Seed', () => {
   it('cleanE2E remove todos os dados sem erros', async () => {
     await expect(cleanE2E()).resolves.not.toThrow()
     // Após cleanE2E, não deve haver usuários, eventos, etc.
-    const { Usuario, Evento, TiposCertificados, Participante, Certificado } = require('../../../src/models')
+    const {
+      Usuario,
+      Evento,
+      TiposCertificados,
+      Participante,
+      Certificado,
+    } = require('../../../src/models')
     const usuarios = await Usuario.findAll()
     const eventos = await Evento.findAll()
     const tipos = await TiposCertificados.findAll()

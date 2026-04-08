@@ -10,7 +10,7 @@ module.exports = async function authSSR(req, res, next) {
       res.locals.usuario = mockUser
       req.session.mockUser = mockUser
       return next()
-    } catch (e) {
+    } catch {
       return res.status(400).send('Mock user inválido')
     }
   }

@@ -17,7 +17,12 @@ describe('eventoSSRController', () => {
 
   it('index renderiza eventos e arquivados', async () => {
     const req = { flash: jest.fn(), usuario: { perfil: 'admin' } }
-    const res = { render: jest.fn(), redirect: jest.fn(), flash: jest.fn(), locals: {} }
+    const res = {
+      render: jest.fn(),
+      redirect: jest.fn(),
+      flash: jest.fn(),
+      locals: {},
+    }
     const eventos = [{ toJSON: () => ({ id: 1, nome: 'Ativo' }) }]
     const arquivados = [{ toJSON: () => ({ id: 2, nome: 'Arq' }) }]
     Evento.findAll

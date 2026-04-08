@@ -1,7 +1,12 @@
 const request = require('supertest')
 const jwt = require('jsonwebtoken')
 const app = require('../../app')
-const { Usuario, UsuarioEvento, Evento, sequelize } = require('../../src/models')
+const {
+  Usuario,
+  UsuarioEvento,
+  Evento,
+  sequelize,
+} = require('../../src/models')
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret'
 
@@ -30,8 +35,16 @@ beforeAll(async () => {
     perfil: 'gestor',
   })
   // Cria eventos
-  const evento1 = await Evento.create({ nome: 'Evento 1', codigo_base: 'EVT', ano: 2026 })
-  const evento2 = await Evento.create({ nome: 'Evento 2', codigo_base: 'ABC', ano: 2026 })
+  const evento1 = await Evento.create({
+    nome: 'Evento 1',
+    codigo_base: 'EVT',
+    ano: 2026,
+  })
+  const evento2 = await Evento.create({
+    nome: 'Evento 2',
+    codigo_base: 'ABC',
+    ano: 2026,
+  })
   // Associa gestor ao evento1
   await UsuarioEvento.create({ usuario_id: gestor.id, evento_id: evento1.id })
   adminCookie = makeAuthCookie(admin.id, 'admin')
@@ -100,14 +113,18 @@ describe('GET /admin/eventos', () => {
   })
 
   it('admin vê todos os eventos', async () => {
-    const res = await request(app).get('/admin/eventos').set('Cookie', adminCookie)
+    const res = await request(app)
+      .get('/admin/eventos')
+      .set('Cookie', adminCookie)
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Evento 1/)
     expect(res.text).toMatch(/Evento 2/)
   })
 
   it('gestor vê apenas eventos que gerencia', async () => {
-    const res = await request(app).get('/admin/eventos').set('Cookie', gestorCookie)
+    const res = await request(app)
+      .get('/admin/eventos')
+      .set('Cookie', gestorCookie)
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Evento 1/)
     expect(res.text).not.toMatch(/Evento 2/)
