@@ -22,6 +22,7 @@ async function dashboard(req, res) {
           Usuario.count(),
         ])
       return res.render('admin/dashboard', {
+        layout: 'layouts/admin',
         title: 'Dashboard',
         totalEventos,
         totalTipos,
@@ -50,6 +51,7 @@ async function dashboard(req, res) {
       : [0, 0]
 
     return res.render('admin/dashboard', {
+      layout: 'layouts/admin',
       title: 'Dashboard',
       totalCertificados,
       totalParticipantes,

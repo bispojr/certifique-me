@@ -117,3 +117,7 @@ test('UC-A08 — após logout, /admin/dashboard redireciona para /auth/login', a
 - UC-A05: acesso direto a rota protegida redireciona para login
 - UC-A07: após logout, URL é `/auth/login`
 - UC-A08: cookie limpo — nova tentativa de `/admin/dashboard` redireciona novamente
+
+## Metadados
+
+- Completado em: 10/04/2026 19:46 ✅
