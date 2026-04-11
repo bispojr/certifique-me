@@ -84,39 +84,71 @@
 </form>
 
 <script>
-  // Dados iniciais (edição) let dadosDinamicos =
-  {{{json tipo.dados_dinamicos}}}; if (!dadosDinamicos || typeof dadosDinamicos
-  !== 'object') dadosDinamicos = {}; function adicionarCampo(chave = '', rotulo
-  = '') { const container = document.getElementById('camposContainer'); const
-  idx = Date.now(); const div = document.createElement('div'); div.className =
-  'd-flex gap-2 mb-1 campo-row'; div.dataset.idx = idx; div.innerHTML = ` <input
-  type="text" placeholder="chave (sem espaços)" class="form-control campo-chave"
-  value="${chave}" oninput="sincronizar()"> <input type="text"
-  placeholder="rótulo" class="form-control campo-rotulo" value="${rotulo}"
-  oninput="sincronizar()"> <button type="button" class="btn btn-sm btn-danger"
-  onclick="this.closest('.campo-row').remove(); sincronizar()">✕</button> `;
-  container.appendChild(div); sincronizar(); } function sincronizar() { const
-  obj = {}; document.querySelectorAll('.campo-row').forEach(row => { const chave
-  = row.querySelector('.campo-chave').value.trim(); const rotulo =
-  row.querySelector('.campo-rotulo').value.trim(); if (chave) obj[chave] =
-  rotulo; }); document.getElementById('dados_dinamicos_json').value =
-  JSON.stringify(obj); // Atualiza select campo_destaque const sel =
-  document.getElementById('campo_destaque'); const atual = sel.value; while
-  (sel.options.length > 1) sel.remove(1); // mantém 'nome'
-  Object.keys(obj).forEach(k => { const opt = new Option(k, k, false, k ===
-  atual); sel.add(opt); }); atualizarPreview(); } function atualizarPreview() {
-  const texto = document.getElementById('texto_base').value; const obj = {};
-  document.querySelectorAll('.campo-row').forEach(row => { const chave =
-  row.querySelector('.campo-chave').value.trim(); const rotulo =
-  row.querySelector('.campo-rotulo').value.trim(); if (chave) obj[chave] =
-  `[${rotulo || chave}]`; }); obj['nome'] = '[nome]'; const preview =
-  texto.replace(/\$\{(\w+)\}/g, (_, k) => obj[k] || `${k}`);
-  document.getElementById('preview').textContent = preview; }
-  document.getElementById('texto_base').addEventListener('input',
-  atualizarPreview); // Popula campos existentes em modo edição
-  Object.entries(dadosDinamicos).forEach(([k, v]) => adicionarCampo(k, v)); if
-  (Object.keys(dadosDinamicos).length === 0) sincronizar(); // Serializa antes
-  do submit document.getElementById('tipoForm').addEventListener('submit', () =>
-  { sincronizar(); });
+  // Dados iniciais (edição)
+  let dadosDinamicos = {{{json tipo.dados_dinamicos}}};
+  if (!dadosDinamicos || typeof dadosDinamicos !== 'object') dadosDinamicos = {};
+
+  function adicionarCampo(chave = '', rotulo = '') {
+    const container = document.getElementById('camposContainer');
+    const idx = Date.now();
+    const div = document.createElement('div');
+    div.className = 'd-flex gap-2 mb-1 campo-row';
+    div.dataset.idx = idx;
+    div.innerHTML = `
+      <input type="text" placeholder="chave (sem espaços)" class="form-control campo-chave"
+             value="${chave}" oninput="sincronizar()">
+      <input type="text" placeholder="rótulo" class="form-control campo-rotulo"
+             value="${rotulo}" oninput="sincronizar()">
+      <button type="button" class="btn btn-sm btn-danger"
+              onclick="this.closest('.campo-row').remove(); sincronizar()">✕</button>
+    `;
+    container.appendChild(div);
+    sincronizar();
+  }
+
+  function sincronizar() {
+    const obj = {};
+    document.querySelectorAll('.campo-row').forEach(row => {
+      const chave = row.querySelector('.campo-chave').value.trim();
+      const rotulo = row.querySelector('.campo-rotulo').value.trim();
+      if (chave) obj[chave] = rotulo;
+    });
+    document.getElementById('dados_dinamicos_json').value = JSON.stringify(obj);
+
+    // Atualiza select campo_destaque
+    const sel = document.getElementById('campo_destaque');
+    const atual = sel.value;
+    while (sel.options.length > 1) sel.remove(1); // mantém 'nome'
+    Object.keys(obj).forEach(k => {
+      const opt = new Option(k, k, false, k === atual);
+      sel.add(opt);
+    });
+
+    atualizarPreview();
+  }
+
+  function atualizarPreview() {
+    const texto = document.getElementById('texto_base').value;
+    const obj = {};
+    document.querySelectorAll('.campo-row').forEach(row => {
+      const chave = row.querySelector('.campo-chave').value.trim();
+      const rotulo = row.querySelector('.campo-rotulo').value.trim();
+      if (chave) obj[chave] = `[${rotulo || chave}]`;
+    });
+    obj['nome'] = '[nome]';
+    const preview = texto.replace(/\$\{(\w+)\}/g, (_, k) => obj[k] || `\${${k}}`);
+    document.getElementById('preview').textContent = preview;
+  }
+
+  document.getElementById('texto_base').addEventListener('input', atualizarPreview);
+
+  // Popula campos existentes em modo edição
+  Object.entries(dadosDinamicos).forEach(([k, v]) => adicionarCampo(k, v));
+  if (Object.keys(dadosDinamicos).length === 0) sincronizar();
+
+  // Serializa antes do submit
+  document.getElementById('tipoForm').addEventListener('submit', () => {
+    sincronizar();
+  });
 </script>
 <!-- fim do conteúdo do formulário -->

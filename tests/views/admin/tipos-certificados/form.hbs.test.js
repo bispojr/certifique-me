@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const vm = require('vm')
 const Handlebars = require('handlebars')
 const cheerio = require('cheerio')
 
@@ -96,5 +97,105 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     })
     const $ = cheerio.load(html)
     expect($('.alert-danger').text()).toContain('Erro!')
+  })
+})
+
+// ─── Integridade do bloco <script> ───────────────────────────────────────────
+
+describe('views/admin/tipos-certificados/form.hbs — integridade do <script>', () => {
+  let template
+  let scriptContent
+
+  beforeAll(() => {
+    const source = fs.readFileSync(
+      path.join(__dirname, '../../../../views/admin/tipos-certificados/form.hbs'),
+      'utf8',
+    )
+    template = Handlebars.compile(source)
+    // Renderiza com dados_dinamicos nulos (caso novo) para extrair o script
+    const html = template({
+      tipo: null,
+      flash: {},
+      opcoesCampoDestaque: [{ value: 'nome', selected: true }],
+    })
+    const $ = cheerio.load(html)
+    scriptContent = $('script').last().html() || ''
+  })
+
+  it('o bloco <script> existe e não está vazio', () => {
+    expect(scriptContent.trim().length).toBeGreaterThan(0)
+  })
+
+  it('o JavaScript do bloco <script> é sintaticamente válido', () => {
+    expect(() => new vm.Script(scriptContent)).not.toThrow()
+  })
+
+  it('declara a variável dadosDinamicos fora de comentário', () => {
+    // Garante que nenhuma linha comentada contenha a declaração
+    const linhas = scriptContent.split('\n')
+    const declaracao = linhas.find((l) =>
+      l.replace(/\/\/.*/, '').includes('let dadosDinamicos'),
+    )
+    expect(declaracao).toBeDefined()
+  })
+
+  it('define a função adicionarCampo', () => {
+    expect(scriptContent).toMatch(/function adicionarCampo\s*\(/)
+  })
+
+  it('define a função sincronizar', () => {
+    expect(scriptContent).toMatch(/function sincronizar\s*\(/)
+  })
+
+  it('define a função atualizarPreview', () => {
+    expect(scriptContent).toMatch(/function atualizarPreview\s*\(/)
+  })
+
+  it('registra listener de submit no formulário', () => {
+    expect(scriptContent).toMatch(/tipoForm.*addEventListener.*submit/s)
+  })
+
+  it('registra listener de input no texto_base', () => {
+    expect(scriptContent).toMatch(/texto_base.*addEventListener.*input/s)
+  })
+
+  it('serializa dados_dinamicos como JSON válido quando tipo tem campos', () => {
+    const tipo = {
+      id: 1,
+      codigo: 'PA',
+      descricao: 'Palestrante',
+      dados_dinamicos: { tema: 'Tema', duracao: 'Duração' },
+      campo_destaque: 'tema',
+      texto_base: 'Certificamos ${nome} pelo tema ${tema}.',
+    }
+    const html = template({
+      tipo,
+      flash: {},
+      opcoesCampoDestaque: [
+        { value: 'nome', selected: false },
+        { value: 'tema', selected: true },
+        { value: 'duracao', selected: false },
+      ],
+    })
+    const $ = cheerio.load(html)
+    const script = $('script').last().html() || ''
+    // O JSON de dados_dinamicos deve aparecer inline no script
+    expect(script).toContain('"tema"')
+    expect(script).toContain('"duracao"')
+    // Deve ser sintaticamente válido também no modo edição
+    expect(() => new vm.Script(script)).not.toThrow()
+  })
+
+  it('usa dados_dinamicos={} quando tipo é null', () => {
+    const html = template({
+      tipo: null,
+      flash: {},
+      opcoesCampoDestaque: [{ value: 'nome', selected: true }],
+    })
+    const $ = cheerio.load(html)
+    const script = $('script').last().html() || ''
+    // O fallback para {} deve aparecer no script
+    expect(script).toContain('{}')
+    expect(() => new vm.Script(script)).not.toThrow()
   })
 })
