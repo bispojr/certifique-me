@@ -35,11 +35,14 @@ module.exports = {
         }
         let texto
         try {
-          texto = templateService.interpolate(tipo.texto_base, {
-            ...participante?.dataValues,
-            ...certificado?.dataValues,
-            ...evento?.dataValues,
-          })
+          // Monta objeto de interpolação priorizando nome do certificado/participante
+          const valores = {
+            ...certificado.valores_dinamicos,
+            nome: certificado.nome || participante?.nomeCompleto,
+            evento: evento?.nome,
+            // Adicione outros campos se necessário
+          }
+          texto = templateService.interpolate(tipo.texto_base, valores, valores.nome)
         } catch (err) {
           return reject(new Error(err.message || 'Erro de interpolação'))
         }

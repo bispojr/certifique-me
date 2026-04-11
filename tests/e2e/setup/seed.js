@@ -99,21 +99,14 @@ async function seedE2E() {
 }
 
 async function cleanE2E() {
-  const {
-    Certificado,
-    TiposCertificados,
-    Participante,
-    UsuarioEvento,
-    Usuario,
-    Evento,
-  } = require('../../../src/models')
-  // Deleta na ordem correta respeitando as foreign keys
-  await Certificado.destroy({ where: {}, force: true })
-  await TiposCertificados.destroy({ where: {}, force: true })
-  await Participante.destroy({ where: {}, force: true })
-  await UsuarioEvento.destroy({ where: {}, force: true })
-  await Usuario.destroy({ where: {}, force: true })
-  await Evento.destroy({ where: {}, force: true })
+  const { sequelize } = require('../../../src/models')
+  // Limpa todas as tabelas relevantes ignorando paranoid e FKs
+  await sequelize.query('TRUNCATE TABLE certificados RESTART IDENTITY CASCADE')
+  await sequelize.query('TRUNCATE TABLE participantes RESTART IDENTITY CASCADE')
+  await sequelize.query('TRUNCATE TABLE eventos RESTART IDENTITY CASCADE')
+  await sequelize.query('TRUNCATE TABLE tipos_certificados RESTART IDENTITY CASCADE')
+  await sequelize.query('TRUNCATE TABLE usuarios RESTART IDENTITY CASCADE')
+  await sequelize.query('TRUNCATE TABLE usuario_eventos RESTART IDENTITY CASCADE')
 }
 
 module.exports = { seedE2E, cleanE2E }
