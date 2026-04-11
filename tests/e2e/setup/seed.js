@@ -1,7 +1,6 @@
 const request = require('supertest')
 const jwt = require('jsonwebtoken')
 const app = require('../../../app')
-const { sequelize } = require('../../../src/models')
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret'
 
@@ -100,9 +99,21 @@ async function seedE2E() {
 }
 
 async function cleanE2E() {
-  await sequelize.query(
-    'TRUNCATE TABLE certificados, tipos_certificados, participantes, usuario_eventos, usuarios, eventos RESTART IDENTITY CASCADE',
-  )
+  const {
+    Certificado,
+    TiposCertificados,
+    Participante,
+    UsuarioEvento,
+    Usuario,
+    Evento,
+  } = require('../../../src/models')
+  // Deleta na ordem correta respeitando as foreign keys
+  await Certificado.destroy({ where: {}, force: true })
+  await TiposCertificados.destroy({ where: {}, force: true })
+  await Participante.destroy({ where: {}, force: true })
+  await UsuarioEvento.destroy({ where: {}, force: true })
+  await Usuario.destroy({ where: {}, force: true })
+  await Evento.destroy({ where: {}, force: true })
 }
 
 module.exports = { seedE2E, cleanE2E }

@@ -17,6 +17,7 @@ async function index(req, res) {
         numCertificados: t.certificados.length,
       }))
     return res.render('admin/tipos-certificados/index', {
+      layout: 'layouts/admin',
       tipos: mapCount(ativos),
       arquivados: mapCount(arquivados),
     })
@@ -37,6 +38,7 @@ async function novo(_req, res) {
       },
     )
     return res.render('admin/tipos-certificados/form', {
+      layout: 'layouts/admin',
       tipo: null,
       actionUrl: '/admin/tipos-certificados',
       opcoesCampoDestaque: [{ value: 'nome', selected: true }],
@@ -70,6 +72,7 @@ async function editar(req, res) {
       selected: key === campoDestaque,
     }))
     return res.render('admin/tipos-certificados/form', {
+      layout: 'layouts/admin',
       tipo: t,
       actionUrl: `/admin/tipos-certificados/${t.id}`,
       opcoesCampoDestaque: [

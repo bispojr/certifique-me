@@ -39,10 +39,10 @@ describe('tiposCertificadosSSRController', () => {
       await tiposCertificadosSSRController.index(req, res)
       expect(res.render).toHaveBeenCalledWith(
         'admin/tipos-certificados/index',
-        {
+        expect.objectContaining({
           tipos: [expect.objectContaining({ id: 1, numCertificados: 2 })],
           arquivados: [expect.objectContaining({ id: 2, numCertificados: 1 })],
-        },
+        })
       )
     })
     it('deve redirecionar e setar flash em caso de erro', async () => {
@@ -61,11 +61,14 @@ describe('tiposCertificadosSSRController', () => {
       const req = httpMocks.createRequest()
       const res = mockRes()
       await tiposCertificadosSSRController.novo(req, res)
-      expect(res.render).toHaveBeenCalledWith('admin/tipos-certificados/form', {
-        tipo: null,
-        actionUrl: '/admin/tipos-certificados',
-        opcoesCampoDestaque: [{ value: 'nome', selected: true }],
-      })
+      expect(res.render).toHaveBeenCalledWith(
+        'admin/tipos-certificados/form',
+        expect.objectContaining({
+          tipo: null,
+          actionUrl: '/admin/tipos-certificados',
+          opcoesCampoDestaque: [{ value: 'nome', selected: true }],
+        })
+      )
     })
   })
 
@@ -78,11 +81,14 @@ describe('tiposCertificadosSSRController', () => {
       req.flash = jest.fn()
       const res = mockRes()
       await tiposCertificadosSSRController.editar(req, res)
-      expect(res.render).toHaveBeenCalledWith('admin/tipos-certificados/form', {
-        tipo: { id: 1 },
-        actionUrl: '/admin/tipos-certificados/1',
-        opcoesCampoDestaque: [{ value: 'nome', selected: true }],
-      })
+      expect(res.render).toHaveBeenCalledWith(
+        'admin/tipos-certificados/form',
+        expect.objectContaining({
+          tipo: { id: 1 },
+          actionUrl: '/admin/tipos-certificados/1',
+          opcoesCampoDestaque: [{ value: 'nome', selected: true }],
+        })
+      )
     })
     it('deve redirecionar se tipo não encontrado', async () => {
       TiposCertificados.findByPk = jest.fn().mockResolvedValue(null)

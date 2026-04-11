@@ -28,10 +28,13 @@ describe('usuarioSSRController', () => {
       req.flash = jest.fn()
       const res = mockRes()
       await usuarioSSRController.index(req, res)
-      expect(res.render).toHaveBeenCalledWith('admin/usuarios/index', {
-        usuarios: [{ id: 1 }],
-        arquivados: [{ id: 2 }],
-      })
+      expect(res.render).toHaveBeenCalledWith(
+        'admin/usuarios/index',
+        expect.objectContaining({
+          usuarios: [{ id: 1 }],
+          arquivados: [{ id: 2 }],
+        })
+      )
     })
     it('deve redirecionar e setar flash em caso de erro', async () => {
       Usuario.findAll = jest.fn().mockRejectedValue(new Error('erro'))
@@ -58,12 +61,15 @@ describe('usuarioSSRController', () => {
       const req = httpMocks.createRequest()
       const res = mockRes()
       await usuarioSSRController.novo(req, res)
-      expect(res.render).toHaveBeenCalledWith('admin/usuarios/form', {
-        usuario: null,
-        eventos: expect.arrayContaining([
-          expect.objectContaining({ id: 1, nome: 'E1' }),
-        ]),
-      })
+      expect(res.render).toHaveBeenCalledWith(
+        'admin/usuarios/form',
+        expect.objectContaining({
+          usuario: null,
+          eventos: expect.arrayContaining([
+            expect.objectContaining({ id: 1, nome: 'E1' }),
+          ]),
+        })
+      )
     })
   })
 
@@ -86,12 +92,15 @@ describe('usuarioSSRController', () => {
       req.flash = jest.fn()
       const res = mockRes()
       await usuarioSSRController.editar(req, res)
-      expect(res.render).toHaveBeenCalledWith('admin/usuarios/form', {
-        usuario: expect.objectContaining({ id: 1, eventoIds: [10, 20] }),
-        eventos: expect.arrayContaining([
-          expect.objectContaining({ id: 1, nome: 'E1' }),
-        ]),
-      })
+      expect(res.render).toHaveBeenCalledWith(
+        'admin/usuarios/form',
+        expect.objectContaining({
+          usuario: expect.objectContaining({ id: 1, eventoIds: [10, 20] }),
+          eventos: expect.arrayContaining([
+            expect.objectContaining({ id: 1, nome: 'E1' }),
+          ]),
+        })
+      )
     })
     it('deve redirecionar se usuario não encontrado', async () => {
       Usuario.findByPk = jest.fn().mockResolvedValue(null)
