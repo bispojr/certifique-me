@@ -83,6 +83,11 @@ const swaggerDefinition = {
         scheme: 'bearer',
         bearerFormat: 'JWT',
       },
+      cookieAuth: {
+        type: 'apiKey',
+        in: 'cookie',
+        name: 'token',
+      },
     },
     schemas: {
       Participante: {

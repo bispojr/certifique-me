@@ -7,6 +7,37 @@ const authSSR = require('../middlewares/authSSR')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
+/**
+ * @swagger
+ * /auth/login:
+ *   get:
+ *     summary: Exibe formulário de login SSR
+ *     tags: [SSR - Auth]
+ *     responses:
+ *       200:
+ *         description: Página HTML com formulário de login
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *   post:
+ *     summary: Processa login SSR e redireciona
+ *     tags: [SSR - Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               senha:
+ *                 type: string
+ *     responses:
+ *       302:
+ *         description: Redirect para /admin/dashboard (sucesso) ou /auth/login (falha)
+ */
 // GET /auth/login
 router.get('/login', authSSR, (req, res) => {
   if (req.usuario) return res.redirect('/admin/dashboard')
@@ -40,6 +71,18 @@ router.post('/login', async (req, res) => {
   }
 })
 
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: Encerra sessão SSR e redireciona para login
+ *     tags: [SSR - Auth]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       302:
+ *         description: Redirect para /auth/login
+ */
 // POST /auth/logout
 router.post('/logout', (req, res) => {
   res.clearCookie('token')

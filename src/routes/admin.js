@@ -49,6 +49,24 @@ router.post(
   tiposCertificadosSSRController.restaurar,
 )
 
+/**
+ * @swagger
+ * /admin/dashboard:
+ *   get:
+ *     summary: Painel administrativo principal
+ *     tags: [SSR - Admin]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Página HTML do dashboard
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *       302:
+ *         description: Redirect para /auth/login se não autenticado
+ */
 // Dashboard
 router.get('/dashboard', dashboardController.dashboard)
 
@@ -91,6 +109,24 @@ router.post(
   usuarioSSRController.restaurar,
 )
 
+/**
+ * @swagger
+ * /admin/certificados:
+ *   get:
+ *     summary: Listagem SSR de certificados
+ *     tags: [SSR - Admin]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Página HTML com lista de certificados
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *       302:
+ *         description: Redirect para /auth/login se não autenticado
+ */
 // Certificados
 router.get('/certificados', rbac('monitor'), certificadoSSRController.index)
 router.get('/certificados/novo', rbac('gestor'), certificadoSSRController.novo)

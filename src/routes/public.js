@@ -7,6 +7,38 @@ const {
   TiposCertificados,
 } = require('../models')
 const pdfService = require('../services/pdfService')
+/**
+ * @swagger
+ * tags:
+ *   name: Public
+ *   description: Consulta e validação pública de certificados (sem autenticação)
+ */
+/**
+ * @swagger
+ * /public/certificados/{id}/pdf:
+ *   get:
+ *     summary: Gera e retorna o PDF de um certificado
+ *     tags: [Public]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID do certificado
+ *     responses:
+ *       200:
+ *         description: Arquivo PDF do certificado
+ *         content:
+ *           application/pdf:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       404:
+ *         description: Certificado não encontrado
+ *       500:
+ *         description: Erro ao gerar PDF
+ */
 // GET /public/certificados/:id/pdf
 router.get('/certificados/:id/pdf', async (req, res) => {
   const { id } = req.params
@@ -35,6 +67,37 @@ router.get('/certificados/:id/pdf', async (req, res) => {
   }
 })
 
+/**
+ * @swagger
+ * /public/certificados:
+ *   get:
+ *     summary: Lista certificados de um participante pelo e-mail
+ *     tags: [Public]
+ *     parameters:
+ *       - in: query
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: email
+ *         description: E-mail do participante
+ *     responses:
+ *       200:
+ *         description: Lista de certificados do participante
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 certificados:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Certificado'
+ *       400:
+ *         description: E-mail não informado
+ *       404:
+ *         description: Participante não encontrado
+ */
 // GET /public/certificados?email=...
 router.get('/certificados', async (req, res) => {
   const { email } = req.query
@@ -55,6 +118,44 @@ router.get('/certificados', async (req, res) => {
   }
 })
 
+/**
+ * @swagger
+ * /public/validar/{codigo}:
+ *   get:
+ *     summary: Valida um certificado pelo código
+ *     tags: [Public]
+ *     parameters:
+ *       - in: path
+ *         name: codigo
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Código único do certificado (ex. EDU-2026-001)
+ *     responses:
+ *       200:
+ *         description: Resultado da validação
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 valido:
+ *                   type: boolean
+ *                 certificado:
+ *                   $ref: '#/components/schemas/Certificado'
+ *       404:
+ *         description: Certificado não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 valido:
+ *                   type: boolean
+ *                   example: false
+ *                 mensagem:
+ *                   type: string
+ */
 // GET /public/validar/:codigo
 router.get('/validar/:codigo', async (req, res) => {
   const { codigo } = req.params
