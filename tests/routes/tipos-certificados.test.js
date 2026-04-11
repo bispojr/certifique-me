@@ -62,10 +62,17 @@ describe('Rotas de TiposCertificados', () => {
   })
 
   it('deve atualizar tipo de certificado', async () => {
+    const payload = {
+      codigo: 'AB',
+      descricao: 'Descrição Atualizada',
+      campo_destaque: 'nome',
+      texto_base: 'Texto base teste',
+      dados_dinamicos: {},
+    }
     const res = await request(app)
       .put(`/tipos-certificados/${tipoCertificadoId}`)
       .set('Authorization', `Bearer ${adminToken}`)
-      .send({ descricao: 'Descrição Atualizada' })
+      .send(payload)
     expect(res.status).toBe(200)
     expect(res.body).toHaveProperty('descricao', 'Descrição Atualizada')
   })

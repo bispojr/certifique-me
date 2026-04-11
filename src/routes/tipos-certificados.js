@@ -4,6 +4,8 @@ const tiposCertificadosController = require('../controllers/tiposCertificadosCon
 const auth = require('../middlewares/auth')
 const rbac = require('../middlewares/rbac')
 const scopedEvento = require('../middlewares/scopedEvento')
+const validate = require('../middlewares/validate')
+const tiposCertificadosSchema = require('../validators/tipos_certificados')
 
 /**
  * @swagger
@@ -143,6 +145,7 @@ router.post(
   auth,
   rbac('monitor'),
   scopedEvento,
+  validate(tiposCertificadosSchema),
   tiposCertificadosController.create,
 )
 router.get(
@@ -164,6 +167,7 @@ router.put(
   auth,
   rbac('monitor'),
   scopedEvento,
+  validate(tiposCertificadosSchema),
   tiposCertificadosController.update,
 )
 router.delete(

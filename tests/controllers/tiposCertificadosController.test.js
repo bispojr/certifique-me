@@ -34,12 +34,20 @@ describe('TiposCertificadosController', () => {
       id: 1,
       nome: 'Tipo Teste',
     })
+    const payload = {
+      codigo: 'AB',
+      descricao: 'Descrição teste',
+      campo_destaque: 'campo',
+      texto_base: 'texto',
+      dados_dinamicos: { campo1: 'string' },
+    }
+    tiposCertificadosService.create.mockResolvedValue({ id: 1, ...payload })
     const res = await request(app)
       .post('/tipos-certificados')
       .set('Authorization', `Bearer ${adminToken}`)
-      .send({ nome: 'Tipo Teste' })
+      .send(payload)
     expect(res.statusCode).toBe(201)
-    expect(res.body).toEqual({ id: 1, nome: 'Tipo Teste' })
+    expect(res.body).toEqual({ id: 1, ...payload })
   })
 
   it('deve retornar tipos de certificados paginados', async () => {
@@ -77,16 +85,20 @@ describe('TiposCertificadosController', () => {
   })
 
   it('deve atualizar um tipo de certificado', async () => {
-    tiposCertificadosService.update.mockResolvedValue({
-      id: 1,
-      nome: 'Atualizado',
-    })
+    const payload = {
+      codigo: 'CD',
+      descricao: 'Atualizado',
+      campo_destaque: 'campo',
+      texto_base: 'texto',
+      dados_dinamicos: { campo1: 'string' },
+    }
+    tiposCertificadosService.update.mockResolvedValue({ id: 1, ...payload })
     const res = await request(app)
       .put('/tipos-certificados/1')
       .set('Authorization', `Bearer ${adminToken}`)
-      .send({ nome: 'Atualizado' })
+      .send(payload)
     expect(res.statusCode).toBe(200)
-    expect(res.body).toEqual({ id: 1, nome: 'Atualizado' })
+    expect(res.body).toEqual({ id: 1, ...payload })
   })
 
   it('deve deletar um tipo de certificado', async () => {
