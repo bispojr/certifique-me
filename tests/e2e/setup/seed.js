@@ -12,6 +12,7 @@ async function seedE2E() {
     TiposCertificados,
     Participante,
     Certificado,
+    UsuarioEvento,
   } = require('../../../src/models')
 
   const admin = await Usuario.create({
@@ -34,6 +35,9 @@ async function seedE2E() {
     perfil: 'gestor',
     evento_id: evento.id,
   })
+
+  // Vincula gestor ao evento na tabela de junção (necessário para getEventoIds)
+  await UsuarioEvento.create({ usuario_id: gestor.id, evento_id: evento.id })
 
   const monitor = await Usuario.create({
     nome: 'Monitor E2E',
@@ -65,6 +69,18 @@ async function seedE2E() {
     codigo: 'E2E-2026-001',
     valores_dinamicos: { evento: 'Evento E2E' },
   })
+
+  // Certificado arquivado (soft-deleted) para testes de restaurar
+  const certificadoArquivado = await Certificado.create({
+    nome: 'Participante E2E',
+    status: 'cancelado',
+    participante_id: participante.id,
+    evento_id: evento.id,
+    tipo_certificado_id: tipo.id,
+    codigo: 'E2E-2026-002',
+    valores_dinamicos: { evento: 'Evento E2E' },
+  })
+  await certificadoArquivado.destroy()
 
   return {
     admin,

@@ -30,7 +30,7 @@ Cobrir os fluxos de ponta a ponta do sistema via browser automatizado: fluxo pú
 | ✅ E2E-003 | `tests/e2e/helpers/auth.js`, `tests/e2e/helpers/api.js` | Helpers `loginAs` e `createViaApi`                    |
 | ✅ E2E-004    | `tests/e2e/publico.spec.js`                             | Fluxo público (busca, validação, PDF)                 |
 | ✅ E2E-005    | `tests/e2e/auth.spec.js`                                | Fluxo de autenticação SSR                             |
-| E2E-006    | `tests/e2e/admin.spec.js`                               | CRUD painel admin com RBAC                            |
+| ✅ E2E-006    | `tests/e2e/admin.spec.js`                               | CRUD painel admin com RBAC                            |
 
 ## Dependências
 
