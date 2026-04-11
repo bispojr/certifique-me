@@ -1,9 +1,17 @@
 // Service para interpolação de texto_base com valores_dinamicos
 module.exports = {
-  interpolate(textoBase, valoresDinamicos) {
-    // Substitui ${chave} por valoresDinamicos[chave]
+  /**
+   * Interpola textoBase usando valoresDinamicos e, se não existir, o campo nome.
+   * @param {string} textoBase
+   * @param {object} valoresDinamicos
+   * @param {string} [nome]
+   * @returns {string}
+   */
+  interpolate(textoBase, valoresDinamicos, nome) {
     return textoBase.replace(/\$\{(\w+)\}/g, (match, chave) => {
-      return chave in valoresDinamicos ? valoresDinamicos[chave] : match
+      if (chave in valoresDinamicos) return valoresDinamicos[chave]
+      if (chave === 'nome' && nome) return nome
+      return match
     })
   },
 }

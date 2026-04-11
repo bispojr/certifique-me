@@ -75,6 +75,7 @@ async function detalhe(req, res) {
     const textoInterpolado = templateService.interpolate(
       certificado.TiposCertificado?.texto_base || '',
       certificado.valores_dinamicos || {},
+      certificado.nome,
     )
     return res.render('admin/certificados/detalhe', {
       layout: 'layouts/admin',
