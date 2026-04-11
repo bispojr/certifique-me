@@ -33,4 +33,9 @@ Registrar as 5 decisões arquiteturais pendentes no padrão ADR já adotado pelo
 
 ## Status
 
-⬜ 0/5 — Nenhum ADR pendente redigido
+- [x] DOC-ADR-001 — ADR 004 (PDFKit) concluída em 2026-04-10 23:40 (BRT)
+- [x] DOC-ADR-002 — ADR 005 (usuario_eventos) concluída em 2026-04-10 23:43 (BRT)
+- [x] DOC-ADR-003 — ADR 006 (paginação offset) concluída em 2026-04-10 23:44 (BRT)
+- [x] DOC-ADR-004 — ADR 007 (validação valores_dinamicos) concluída em 2026-04-10 23:45 (BRT)
+- [x] DOC-ADR-005 — ADR 008 (pdf on-the-fly) concluída em 2026-04-10 23:47 (BRT)
+✅ 5/5 — Todas as ADRs pendentes redigidas
