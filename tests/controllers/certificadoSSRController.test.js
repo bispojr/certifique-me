@@ -1,3 +1,25 @@
+  describe('deletar', () => {
+    it('deve remover (soft delete) certificado e redirecionar', async () => {
+      const destroy = jest.fn()
+      Certificado.findByPk = jest.fn().mockResolvedValue({ destroy })
+      const req = httpMocks.createRequest({ params: { id: 1 } })
+      req.flash = jest.fn()
+      const res = mockRes()
+      await certificadoSSRController.deletar(req, res)
+      expect(destroy).toHaveBeenCalled()
+      expect(res.redirect).toHaveBeenCalledWith('/admin/certificados')
+    })
+
+    it('deve exibir erro se certificado não encontrado', async () => {
+      Certificado.findByPk = jest.fn().mockResolvedValue(null)
+      const req = httpMocks.createRequest({ params: { id: 999 } })
+      req.flash = jest.fn()
+      const res = mockRes()
+      await certificadoSSRController.deletar(req, res)
+      expect(req.flash).toHaveBeenCalledWith('error', 'Certificado não encontrado.')
+      expect(res.redirect).toHaveBeenCalledWith('/admin/certificados')
+    })
+  })
 const certificadoSSRController = require('../../src/controllers/certificadoSSRController')
 const {
   Certificado,

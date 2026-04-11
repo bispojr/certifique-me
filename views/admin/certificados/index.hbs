@@ -60,6 +60,9 @@
               {{else}}bg-secondary{{/if}}">
               {{status}}
             </span>
+            <form method="POST" action="/admin/certificados/{{id}}/deletar" class="d-inline" onsubmit="return confirm('Remover este certificado? Esta ação pode ser desfeita em Arquivados.')">
+              <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+            </form>
           </td>
           <td>
             <a href="/admin/certificados/{{id}}" class="btn btn-sm btn-info">Ver</a>

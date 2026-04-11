@@ -1,3 +1,18 @@
+async function deletar(req, res) {
+  try {
+    const certificado = await Certificado.findByPk(req.params.id)
+    if (!certificado) {
+      req.flash('error', 'Certificado não encontrado.')
+      return res.redirect('/admin/certificados')
+    }
+    await certificado.destroy()
+    req.flash('success', 'Certificado removido (soft delete).')
+    return res.redirect('/admin/certificados')
+  } catch (error) {
+    req.flash('error', error.message)
+    return res.redirect('/admin/certificados')
+  }
+}
 const {
   Certificado,
   Participante,
@@ -241,4 +256,5 @@ module.exports = {
   atualizar,
   cancelar,
   restaurar,
+  deletar,
 }
