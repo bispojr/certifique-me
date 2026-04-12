@@ -45,6 +45,10 @@ jobs:
           DB_NAME_TEST: certificados_test
           DB_PORT_TEST: 5433
           JWT_SECRET: jwt_secret_teste
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
         run: docker-compose -f docker-compose.test.yml exec -T app_test sh -c 'npm run test:coverage'
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
@@ -63,6 +67,10 @@ jobs:
           SESSION_SECRET: sessao-teste-supersegura
           BASE_URL: http://localhost:3000
           NODE_ENV: e2e
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
         run: npm run test:e2e
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5

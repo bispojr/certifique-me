@@ -7,8 +7,10 @@ module.exports = {
    * @param {Object} certificado - Certificado com associações já carregadas (TiposCertificados, Participante, Evento)
    * @returns {Promise<Buffer>} Buffer do PDF gerado
    */
-  generateCertificadoPdf(certificado) {
-    return new Promise((resolve, reject) => {
+  async generateCertificadoPdf(certificado) {
+    // Lazy require para evitar dependência circular
+    const r2Service = require('./r2Service');
+    return new Promise(async (resolve, reject) => {
       try {
         // Log para depuração
         console.log('PDFService certificado:', certificado)
@@ -21,12 +23,25 @@ module.exports = {
           size: [594.96, 841.92], // A4 landscape em pontos
         })
         doc.page.margins.bottom = 0
-        // Futuro: incluir template de fundo com doc.image()
         const buffers = []
         doc.on('data', buffers.push.bind(buffers))
         doc.on('end', () => {
           resolve(Buffer.concat(buffers))
         })
+
+        // --- NOVO: Buscar e inserir imagem de fundo do R2 ---
+        // Caminho fixo ou dinâmico conforme necessidade
+        const backgroundKey = 'templates/educomp/2025/educomp.png';
+        try {
+          const bgResult = await r2Service.getFile(backgroundKey);
+          if (bgResult && bgResult.Body) {
+            // PDFKit exige buffer, x=0, y=0 para fundo
+            doc.image(bgResult.Body, 0, 0, { width: doc.page.width, height: doc.page.height });
+          }
+        } catch (err) {
+          console.warn('Não foi possível carregar o background do R2:', err.message);
+        }
+        // --- FIM NOVO ---
 
         // Dados principais
         const evento = certificado.Evento
