@@ -6,9 +6,7 @@ describe('GET / (home) layout público', () => {
     const res = await request(app).get('/')
     expect(res.status).toBe(200)
     // Confirma Bootstrap 5
-    expect(res.text).toMatch(
-      /https:\/\/cdn\.jsdelivr\.net\/npm\/bootstrap@5\.3\.3\/dist\/css\/bootstrap\.min\.css/,
-    )
+        expect(res.text).toMatch(/https:\/\/cdn\.jsdelivr\.net\/npm\/bootswatch@5\.3\.8\/dist\/brite\/bootstrap\.min\.css/)
     // Confirma navbar
     expect(res.text).toMatch(/<nav[^>]*navbar[^>]*>/)
     expect(res.text).toMatch(/Certifique-me/)

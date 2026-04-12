@@ -5,6 +5,7 @@ const { seedE2E, cleanE2E } = require('./setup/seed')
 let seed
 
 test.beforeAll(async () => {
+  await cleanE2E()
   seed = await seedE2E()
 })
 
@@ -56,8 +57,13 @@ test('UC-AD05 — admin acessa formulário de novo certificado', async ({
 test('UC-AD06 — gestor cancela certificado', async ({ page }) => {
   await loginAs(page, 'gestor.e2e@test.com', 'senha123')
   await page.goto('/admin/certificados')
-  // O cancelamento usa modal Bootstrap — clica no trigger da linha E2E-2026-001
-  const row = page.locator('tr', { hasText: 'E2E-2026-001' })
+  // Garante que o certificado está visível na tabela principal (não no arquivo)
+  const row = page.locator('table tbody tr').filter({
+    has: page.locator('td code', { hasText: 'E2E-2026-001' }),
+  })
+  await expect(row).toBeVisible()
+  // Garante que o status é 'emitido' (botão cancelar só aparece para não-cancelados)
+  await expect(row.locator('span.badge')).toHaveText('emitido')
   const cancelBtn = row.locator('button[data-bs-target="#modalCancelar"]')
   await expect(cancelBtn).toBeVisible()
   await cancelBtn.click()

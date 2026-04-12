@@ -13,6 +13,7 @@ const adminLinks = [
 
 test.describe('Navbar do Admin usa layout correto', () => {
   test.beforeAll(async () => {
+    await cleanE2E()
     await seedE2E()
   })
 
@@ -25,7 +26,7 @@ test.describe('Navbar do Admin usa layout correto', () => {
       await loginAs(page, 'admin.e2e@test.com', 'senha123')
       await page.goto(url)
       // Verifica se a navbar preta do admin está presente
-      const navbar = page.locator('nav.navbar.navbar-dark.bg-dark')
+      const navbar = page.locator('nav.navbar.navbar-light.bg-light')
       await expect(navbar).toBeVisible()
       // Verifica se o título contém "Admin"
       await expect(page).toHaveTitle(/Admin/)

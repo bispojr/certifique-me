@@ -29,6 +29,20 @@ async function index(req, res) {
     const { status, evento_id, tipo_id } = req.query
     const eventoIds = await getEventoIds(req)
 
+    // eventoIds === null → admin (sem filtro); === [] → gestor sem eventos (retorna nada)
+    if (eventoIds !== null && eventoIds.length === 0) {
+      const eventos = await Evento.findAll({ attributes: ['id', 'nome'] })
+      const tipos = await TiposCertificados.findAll({ attributes: ['id', 'descricao'] })
+      return res.render('admin/certificados/index', {
+        layout: 'layouts/admin',
+        certificados: [],
+        arquivados: [],
+        eventos,
+        tipos,
+        filtros: { status, evento_id, tipo_id },
+      })
+    }
+
     const where = {}
     if (status) where.status = status
     if (evento_id) where.evento_id = Number(evento_id)

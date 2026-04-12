@@ -3,6 +3,7 @@ const { loginAs } = require('./helpers/auth')
 const { seedE2E, cleanE2E } = require('./setup/seed')
 
 test.beforeAll(async () => {
+  await cleanE2E()
   await seedE2E()
 })
 

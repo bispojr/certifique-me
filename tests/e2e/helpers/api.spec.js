@@ -11,6 +11,10 @@ test.describe('api helpers', () => {
     adminToken = seed.adminToken
   })
 
+  test.afterAll(async () => {
+    await cleanE2E()
+  })
+
   test('createViaApi cria participante via API REST', async () => {
     const payload = {
       nomeCompleto: 'Participante API Teste',
