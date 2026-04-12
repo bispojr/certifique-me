@@ -18,31 +18,31 @@ test.describe('Dashboard Admin — cards de certificados', () => {
   })
 
   test('Exibe card Certificados', async ({ page }) => {
-    const card = page.locator('a[href="/admin/certificados"] .card-title', { hasText: 'Certificados' })
+    const card = page.locator('a[href="/admin/certificados"] .card-label', { hasText: 'Certificados' })
     await expect(card).toBeVisible()
     // O número deve ser visível
-    const value = card.locator('..').locator('.display-4.text-info')
+    const value = card.locator('..').locator('.card-value.text-info')
     await expect(value).toBeVisible()
   })
 
   test('Exibe card Pendentes', async ({ page }) => {
-    const card = page.locator('.card-title', { hasText: 'Pendentes' })
+    const card = page.locator('.card-label', { hasText: 'Pendentes' })
     await expect(card).toBeVisible()
     // O número deve ser visível
-    const value = card.locator('..').locator('.display-4.text-warning')
+    const value = card.locator('..').locator('.card-value.text-warning')
     await expect(value).toBeVisible()
   })
 
   test('Links dos cards estão corretos', async ({ page }) => {
-    const totalLink = page.locator('a[href="/admin/certificados"] .card-title', { hasText: 'Certificados' })
+    const totalLink = page.locator('a[href="/admin/certificados"] .card-label', { hasText: 'Certificados' })
     await expect(totalLink).toBeVisible()
-    const pendentesLink = page.locator('a[href="/admin/certificados?status=pendente"] .card-title', { hasText: 'Pendentes' })
+    const pendentesLink = page.locator('a[href="/admin/certificados?status=pendente"] .card-label', { hasText: 'Pendentes' })
     await expect(pendentesLink).toBeVisible()
   })
 
   test('Dashboard exibe 6 cards na mesma row', async ({ page }) => {
     // Seleciona todos os cards dentro da row principal do admin
-    const cards = page.locator('.row.g-3 > div.col-sm-6.col-lg')
+    const cards = page.locator('.row.g-4 > div.col-12.col-sm-6.col-xl-4')
     await expect(cards).toHaveCount(6)
   })
 
@@ -51,7 +51,7 @@ test.describe('Dashboard Admin — cards de certificados', () => {
     await page.setViewportSize({ width: 575, height: 900 })
     await page.goto('/admin/dashboard')
     // Todos os cards devem continuar visíveis
-    const cards = page.locator('.row.g-3 > div.col-sm-6.col-lg')
+    const cards = page.locator('.row.g-4 > div.col-12.col-sm-6.col-xl-4')
     await expect(cards).toHaveCount(6)
     // Cards devem estar empilhados (não lado a lado)
     // Verifica se o topo do segundo card está abaixo do primeiro

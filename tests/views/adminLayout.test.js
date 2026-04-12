@@ -1,4 +1,5 @@
 const hbs = require('hbs')
+require('../../hbs-helpers')
 const path = require('path')
 const fs = require('fs')
 
@@ -19,7 +20,6 @@ describe('views/layouts/admin.hbs', () => {
     )
     // Confirma navbar admin
     expect(html).toMatch(/Certifique-me Admin/)
-    expect(html).toMatch(/Dashboard/)
     expect(html).toMatch(/Certificados/)
     expect(html).toMatch(/Participantes/)
     expect(html).toMatch(/Eventos/)

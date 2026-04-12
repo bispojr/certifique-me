@@ -16,6 +16,9 @@ function registerHelpers(handlebarsInstance) {
   handlebarsInstance.registerHelper('toString', function (val) {
     return String(val ?? '')
   })
+  handlebarsInstance.registerHelper('or', function (a, b) {
+    return a || b
+  })
 }
 
 // Registra helpers no hbs (usado pela aplicação)

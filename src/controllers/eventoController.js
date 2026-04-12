@@ -14,7 +14,8 @@ class EventoController {
     try {
       const page = parseInt(req.query.page, 10) || 1
       const perPage = parseInt(req.query.perPage, 10) || 20
-      const result = await eventoService.findAll({ page, perPage })
+      const usuario = req.usuario
+      const result = await eventoService.findAll({ page, perPage, usuario })
       return res.status(200).json(result)
     } catch (error) {
       return res.status(400).json({ error: error.message })

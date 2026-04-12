@@ -7,6 +7,60 @@
       rel='stylesheet'
       href='https://cdn.jsdelivr.net/npm/bootswatch@5.3.8/dist/brite/bootstrap.min.css'
     />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      .dashboard-card {
+        border: none;
+        border-radius: 16px;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      }
+
+      .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+      }
+
+      .card-icon {
+        font-size: 28px;
+        opacity: 0.85;
+      }
+
+      .card-value {
+        font-size: 32px;
+        font-weight: 700;
+      }
+
+      .card-label {
+        font-size: 14px;
+        color: #6c757d;
+      }
+
+      /* Gradientes leves */
+      .bg-soft-primary {
+        background: linear-gradient(135deg, #e7f1ff, #ffffff);
+      }
+
+      .bg-soft-success {
+        background: linear-gradient(135deg, #e8f8f1, #ffffff);
+      }
+
+      .bg-soft-warning {
+        background: linear-gradient(135deg, #fff8e6, #ffffff);
+      }
+
+      .bg-soft-danger {
+        background: linear-gradient(135deg, #fdecea, #ffffff);
+      }
+
+      .bg-soft-info {
+        background: linear-gradient(135deg, #e6f7fb, #ffffff);
+      }
+    </style>
   </head>
   <body>
     <nav class='navbar navbar-expand-lg navbar-light bg-primary'>

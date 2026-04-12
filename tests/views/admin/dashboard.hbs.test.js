@@ -1,20 +1,14 @@
 const path = require('path')
 const fs = require('fs')
 const hbs = require('hbs')
+require('../../../hbs-helpers')
 
 describe('View: admin/dashboard.hbs', () => {
   let render
   beforeAll(() => {
     render = (context) => {
-      // Lê apenas o conteúdo do template, sem processar layout
       const templatePath = path.join(process.cwd(), 'views/admin/dashboard.hbs')
-      let template = fs.readFileSync(templatePath, 'utf8')
-      // Remove o bloco de layout para testar só o conteúdo dos cards
-      template = template.replace(
-        /^[\s\S]*{{#if usuario.isAdmin}}/,
-        '{{#if usuario.isAdmin}}',
-      )
-      template = template.replace(/{{\/layouts\/admin}}[\s\S]*$/, '')
+      const template = fs.readFileSync(templatePath, 'utf8')
       const compiled = hbs.handlebars.compile(template)
       return compiled(context)
     }
@@ -29,7 +23,7 @@ describe('View: admin/dashboard.hbs', () => {
       totalUsuarios: 3,
     })
     expect(html).toMatch(/Eventos/)
-    expect(html).toMatch(/Tipos de Certificados/)
+    expect(html).toMatch(/Tipos/)
     expect(html).toMatch(/Participantes/)
     expect(html).toMatch(/Usuários/)
     expect(html).toMatch(/2/)

@@ -2,12 +2,22 @@
 const { Evento } = require('../../src/models')
 
 module.exports = {
-  async findAll({ page = 1, perPage = 20 } = {}) {
+  async findAll({ page = 1, perPage = 20, usuario } = {}) {
     const offset = (page - 1) * perPage
-    const { count, rows } = await Evento.findAndCountAll({
+    const query = {
       offset,
       limit: perPage,
-    })
+    }
+    if (usuario && usuario.perfil !== 'admin') {
+      query.include = [
+        {
+          association: 'usuarios',
+          where: { id: usuario.id },
+          through: { attributes: [] },
+        },
+      ]
+    }
+    const { count, rows } = await Evento.findAndCountAll(query)
     return {
       data: rows,
       meta: {

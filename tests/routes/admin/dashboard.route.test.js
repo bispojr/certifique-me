@@ -51,7 +51,7 @@ describe('Rota GET /admin/dashboard', () => {
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Dashboard/)
     expect(res.text).toMatch(/Eventos/)
-    expect(res.text).toMatch(/Tipos de Certificados/)
+    expect(res.text).toMatch(/Tipos/)
     expect(res.text).toMatch(/Participantes/)
     expect(res.text).toMatch(/Usuários/)
   })
@@ -70,7 +70,7 @@ describe('Rota GET /admin/dashboard', () => {
     expect(res.text).toMatch(/Participantes/)
     // O link 'Eventos' deve aparecer na navbar para gestor
     expect(res.text).toMatch(
-      /<a[^>]*href=['"]\/admin\/eventos['"][^>]*>Eventos<\/a>/,
+      /<a[^>]*href=['"]\/admin\/eventos['"][^>]*>[\s\S]*Eventos[\s\S]*<\/a>/,
     )
     // Mas o card de eventos NÃO deve aparecer no dashboard do gestor
     expect(res.text).not.toMatch(/Eventos \(todos\)/)

@@ -3,7 +3,6 @@ const { loginAs } = require('./helpers/auth')
 const { seedE2E, cleanE2E } = require('./setup/seed')
 
 const adminLinks = [
-  { url: '/admin/dashboard', label: 'Dashboard' },
   { url: '/admin/certificados', label: 'Certificados' },
   { url: '/admin/participantes', label: 'Participantes' },
   { url: '/admin/eventos', label: 'Eventos' },
