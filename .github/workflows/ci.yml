@@ -13,8 +13,16 @@ jobs:
       NODE_ENV: test
     steps:
       - uses: actions/checkout@v4
+      - name: Create .env file with R2 secrets
+        run: |
+          echo "R2_ENDPOINT=${{ secrets.R2_ENDPOINT }}" >> .env
+          echo "R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}" >> .env
+          echo "R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}" >> .env
+          echo "R2_BUCKET=${{ secrets.R2_BUCKET }}" >> .env
       - name: Check R2 env vars
         run: |
+          set -a
+          [ -f .env ] && . .env
           for var in R2_ENDPOINT R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET; do
             if [ -z "${!var}" ]; then
               echo "$var is NOT set"
@@ -22,11 +30,6 @@ jobs:
               echo "$var is set"
             fi
           done
-        env:
-          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          R2_BUCKET: ${{ secrets.R2_BUCKET }}
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
