@@ -1,7 +1,7 @@
 <h2>{{title}}</h2>
 <div class='row mt-3'>
   <div class='col-md-6'>
-    <form method='POST' action='{{action}}'>
+    <form method='POST' action='{{action}}' enctype='multipart/form-data'>
       <div class='mb-3'>
         <label for='nome' class='form-label'>
           Nome do evento
@@ -48,6 +48,26 @@
           min='2000'
           max='2100'
         />
+      </div>
+      <div class='mb-3'>
+        <label for='template_base' class='form-label'>
+          Template base do certificado
+          <small class='text-muted'>(PNG ou JPG, máx. 2 MB)</small>
+        </label>
+        {{#if evento.url_template_base}}
+          <div class='mb-1 text-muted small'>
+            Atual:
+            <code>{{evento.url_template_base}}</code>
+          </div>
+        {{/if}}
+        <input
+          type='file'
+          class='form-control'
+          name='template_base'
+          id='template_base'
+          accept='.png,.jpg,.jpeg,image/png,image/jpeg'
+        />
+        <div class='form-text'>Deixe em branco para manter o template atual.</div>
       </div>
       <button type='submit' class='btn btn-primary'>Salvar</button>
       <a href='/admin/eventos' class='btn btn-secondary ms-2'>Cancelar</a>

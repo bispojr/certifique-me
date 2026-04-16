@@ -1,9 +1,13 @@
 const eventoSSRController = require('../../src/controllers/eventoSSRController')
 const eventoService = require('../../src/services/eventoService')
+const r2Service = require('../../src/services/r2Service')
 const { Evento } = require('../../src/models')
 const { Op } = require('sequelize')
 
 jest.mock('../../src/services/eventoService')
+jest.mock('../../src/services/r2Service', () => ({
+  uploadFile: jest.fn().mockResolvedValue({}),
+}))
 jest.mock('../../src/models', () => ({
   Evento: {
     findAll: jest.fn(),
@@ -86,7 +90,7 @@ describe('eventoSSRController', () => {
   })
 
   it('criar redireciona ao criar com sucesso', async () => {
-    const req = { body: { nome: 'Novo' }, flash: jest.fn() }
+    const req = { body: { nome: 'Novo', ano: '2026' }, file: null, flash: jest.fn() }
     const res = { render: jest.fn(), redirect: jest.fn() }
     eventoService.create.mockResolvedValue({})
     await eventoSSRController.criar(req, res)
@@ -97,20 +101,66 @@ describe('eventoSSRController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/admin/eventos')
   })
 
+  it('criar sem arquivo não envia url_template_base', async () => {
+    const req = { body: { nome: 'Novo', ano: '2026' }, file: null, flash: jest.fn() }
+    const res = { render: jest.fn(), redirect: jest.fn() }
+    eventoService.create.mockResolvedValue({})
+    await eventoSSRController.criar(req, res)
+    expect(eventoService.create).toHaveBeenCalledWith({ nome: 'Novo', ano: '2026' })
+    expect(r2Service.uploadFile).not.toHaveBeenCalled()
+  })
+
+  it('criar com arquivo faz upload e passa url_template_base', async () => {
+    const req = {
+      body: { nome: 'Congresso TI', ano: '2026' },
+      file: { buffer: Buffer.from('img'), mimetype: 'image/png' },
+      flash: jest.fn(),
+    }
+    const res = { render: jest.fn(), redirect: jest.fn() }
+    eventoService.create.mockResolvedValue({})
+    await eventoSSRController.criar(req, res)
+    expect(r2Service.uploadFile).toHaveBeenCalledWith(
+      'templates/congresso-ti/2026/base.png',
+      req.file.buffer,
+      'image/png',
+    )
+    expect(eventoService.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url_template_base: 'templates/congresso-ti/2026/base.png',
+      }),
+    )
+  })
+
+  it('criar com arquivo jpg usa extensão correta', async () => {
+    const req = {
+      body: { nome: 'Workshop', ano: '2027' },
+      file: { buffer: Buffer.from('img'), mimetype: 'image/jpeg' },
+      flash: jest.fn(),
+    }
+    const res = { render: jest.fn(), redirect: jest.fn() }
+    eventoService.create.mockResolvedValue({})
+    await eventoSSRController.criar(req, res)
+    expect(r2Service.uploadFile).toHaveBeenCalledWith(
+      'templates/workshop/2027/base.jpg',
+      req.file.buffer,
+      'image/jpeg',
+    )
+  })
+
   it('criar renderiza form com erro', async () => {
-    const req = { body: { nome: 'Novo' }, flash: jest.fn() }
+    const req = { body: { nome: 'Novo', ano: '2026' }, file: null, flash: jest.fn() }
     const res = { render: jest.fn(), redirect: jest.fn() }
     eventoService.create.mockRejectedValue(new Error('erro'))
     await eventoSSRController.criar(req, res)
     expect(req.flash).toHaveBeenCalledWith('error', 'erro')
     expect(res.render).toHaveBeenCalledWith(
       'admin/eventos/form',
-      expect.objectContaining({ evento: { nome: 'Novo' } }),
+      expect.objectContaining({ evento: req.body }),
     )
   })
 
   it('atualizar redireciona ao atualizar com sucesso', async () => {
-    const req = { params: { id: 1 }, body: { nome: 'Edit' }, flash: jest.fn() }
+    const req = { params: { id: 1 }, body: { nome: 'Edit', ano: '2026' }, file: null, flash: jest.fn() }
     const res = { render: jest.fn(), redirect: jest.fn() }
     eventoService.update.mockResolvedValue({})
     await eventoSSRController.atualizar(req, res)
@@ -121,8 +171,31 @@ describe('eventoSSRController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/admin/eventos')
   })
 
+  it('atualizar com arquivo atualiza url_template_base', async () => {
+    const req = {
+      params: { id: 1 },
+      body: { nome: 'Evento Editado', ano: '2026' },
+      file: { buffer: Buffer.from('img'), mimetype: 'image/png' },
+      flash: jest.fn(),
+    }
+    const res = { render: jest.fn(), redirect: jest.fn() }
+    eventoService.update.mockResolvedValue({})
+    await eventoSSRController.atualizar(req, res)
+    expect(r2Service.uploadFile).toHaveBeenCalledWith(
+      'templates/evento-editado/2026/base.png',
+      req.file.buffer,
+      'image/png',
+    )
+    expect(eventoService.update).toHaveBeenCalledWith(
+      1,
+      expect.objectContaining({
+        url_template_base: 'templates/evento-editado/2026/base.png',
+      }),
+    )
+  })
+
   it('atualizar redireciona com erro', async () => {
-    const req = { params: { id: 1 }, body: { nome: 'Edit' }, flash: jest.fn() }
+    const req = { params: { id: 1 }, body: { nome: 'Edit', ano: '2026' }, file: null, flash: jest.fn() }
     const res = { render: jest.fn(), redirect: jest.fn() }
     eventoService.update.mockRejectedValue(new Error('erro'))
     await eventoSSRController.atualizar(req, res)

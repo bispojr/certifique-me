@@ -1,3 +1,8 @@
+Na página https://certificaaqui.com/public/pagina/validar, esse botão voltar não tem nada a ver. Tem que tirar ele.
+
+Por que não renomear a url https://certificaaqui.com/public/pagina/validar para apenas
+https://certificaaqui.com/validar
+
 É preciso garantir uma padronização de ícones, como uma identidade visual. Todo evento (ou página associada a ele) tem o mesmo tipo de ícone (e talvez cor, se necessário). Trabalhar isso para todos as páginas principais (e seus grupos com certificação, eventos e administração).
 
 Sempre olhar o link dos certificados, principalmente da função "obterArquivo", para poder garantir a geração correta dos certificados.
