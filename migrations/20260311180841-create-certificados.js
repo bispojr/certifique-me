@@ -21,7 +21,7 @@ module.exports = {
       },
       codigo: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
         unique: true,
       },
       valores_dinamicos: {

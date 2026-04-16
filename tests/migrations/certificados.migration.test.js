@@ -22,6 +22,8 @@ describe('Migration: certificados', () => {
     expect(table).toHaveProperty('id')
     expect(table).toHaveProperty('nome')
     expect(table).toHaveProperty('status')
+    expect(table).toHaveProperty('codigo')
+    expect(table.codigo.allowNull).toBe(false)
     expect(table).toHaveProperty('valores_dinamicos')
     expect(table).toHaveProperty('participante_id')
     expect(table).toHaveProperty('evento_id')

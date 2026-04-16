@@ -42,6 +42,7 @@ describe('Admin SSR Certificados - Ordem e RBAC', () => {
       evento_id: evento.id,
       tipo_certificado_id: tipo.id,
       valores_dinamicos: {},
+      codigo: 'RTA-26-RT-1',
     })
     certId = cert.id
   })

@@ -36,6 +36,7 @@ describe('Certificado Model', () => {
     const certificadoData = {
       nome: 'Certificado de Minicurso',
       status: 'emitido',
+      codigo: 'EDU-26-PA-1',
       valores_dinamicos: { instrutor: 'Maria Souza', vagas: 30 },
       participante_id: participante.id,
       evento_id: evento.id,
@@ -58,6 +59,19 @@ describe('Certificado Model', () => {
     await expect(
       Certificado.create({
         status: 'emitido',
+        codigo: 'EDU-26-PA-2',
+        participante_id: participante.id,
+        evento_id: evento.id,
+        tipo_certificado_id: tipoCertificado.id,
+      }),
+    ).rejects.toThrow()
+  })
+
+  test('não deve criar certificado sem codigo', async () => {
+    await expect(
+      Certificado.create({
+        nome: 'Certificado de Palestra',
+        status: 'emitido',
         participante_id: participante.id,
         evento_id: evento.id,
         tipo_certificado_id: tipoCertificado.id,
@@ -70,6 +84,7 @@ describe('Certificado Model', () => {
       Certificado.create({
         nome: 'Certificado de Oficina',
         status: 'invalido',
+        codigo: 'EDU-26-PA-3',
         participante_id: participante.id,
         evento_id: evento.id,
         tipo_certificado_id: tipoCertificado.id,
@@ -81,6 +96,7 @@ describe('Certificado Model', () => {
     const certificado = await Certificado.create({
       nome: 'Certificado de Palestra',
       status: 'emitido',
+      codigo: 'EDU-26-PA-4',
       participante_id: participante.id,
       evento_id: evento.id,
       tipo_certificado_id: tipoCertificado.id,
@@ -99,6 +115,7 @@ describe('Certificado Model', () => {
     const certificado = await Certificado.create({
       nome: 'Certificado de Arduino',
       status: 'emitido',
+      codigo: 'EDU-26-PA-5',
       participante_id: participante.id,
       evento_id: evento.id,
       tipo_certificado_id: tipoCertificado.id,

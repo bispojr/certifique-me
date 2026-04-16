@@ -147,6 +147,7 @@ describe('Participante Model', () => {
       participante_id: participante.id,
       evento_id: evento.id,
       tipo_certificado_id: tipo.id,
+      codigo: 'EVT-26-MC-1',
     })
 
     // Busca certificados pelo participante
