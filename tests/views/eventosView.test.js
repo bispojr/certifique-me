@@ -20,6 +20,12 @@ describe('views/admin/eventos', () => {
     it('seção de arquivados usa <details> e summary', () => {
       expect(html).toMatch(/<details[\s\S]*<summary[^>]*>Eventos arquivados/)
     })
+    it('exibe coluna URL template base', () => {
+      expect(html).toMatch(/<th>URL template base<\/th>/)
+    })
+    it('exibe valor da url_template_base se presente', () => {
+      expect(html).toMatch(/{{#if url_template_base}}[\s\S]*{{url_template_base}}/)
+    })
   })
 
   describe('form.hbs', () => {

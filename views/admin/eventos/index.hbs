@@ -9,6 +9,7 @@
       <th>Nome</th>
       <th>Código base</th>
       <th>Ano</th>
+      <th>URL template base</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -18,6 +19,13 @@
         <td>{{nome}}</td>
         <td><code>{{codigo_base}}</code></td>
         <td>{{ano}}</td>
+        <td>
+          {{#if url_template_base}}
+            <code>{{url_template_base}}</code>
+          {{else}}
+            <span class="text-muted">—</span>
+          {{/if}}
+        </td>
         <td>
           <a
             href='/admin/eventos/{{id}}/editar'
@@ -35,7 +43,7 @@
       </tr>
     {{else}}
       <tr>
-        <td colspan='4' class='text-center text-muted'>Nenhum evento cadastrado.</td>
+        <td colspan='5' class='text-center text-muted'>Nenhum evento cadastrado.</td>
       </tr>
     {{/each}}
   </tbody>
@@ -50,6 +58,7 @@
           <th>Nome</th>
           <th>Código base</th>
           <th>Ano</th>
+          <th>URL template base</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -59,6 +68,13 @@
             <td>{{nome}}</td>
             <td><code>{{codigo_base}}</code></td>
             <td>{{ano}}</td>
+            <td>
+              {{#if url_template_base}}
+                <code>{{url_template_base}}</code>
+              {{else}}
+                <span class="text-muted">—</span>
+              {{/if}}
+            </td>
             <td>
               <form
                 method='POST'
