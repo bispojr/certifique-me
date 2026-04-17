@@ -11,6 +11,7 @@ module.exports = {
       displayName: 'e2e-setup',
       testEnvironment: 'node',
       testMatch: ['<rootDir>/tests/e2e/setup/**/*.test.js'],
+      setupFiles: ['<rootDir>/tests/e2e/setup/setupEnv.js'],
     },
     {
       displayName: 'middleware',

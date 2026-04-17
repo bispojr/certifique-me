@@ -126,14 +126,16 @@ module.exports = {
             `Use o código ${certificado.codigo} para validar o certificado em: `,
             validacaoX,
             validacaoY,
-            { width: doc.page.width, align: 'left' },
+            { continued: true, align: 'left' },
           )
         doc
           .fillColor('blue')
-          .text(`${endereco_validacao}`, validacaoX + 247, validacaoY, {
-            link: endereco_validacao,
-            underline: true,
-          })
+          .text(`${endereco_validacao}`,
+            {
+              link: endereco_validacao,
+              underline: true,
+              continued: false,
+            })
         doc.fillColor('black')
 
         doc.end()

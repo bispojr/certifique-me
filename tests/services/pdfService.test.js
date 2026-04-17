@@ -1,3 +1,4 @@
+const PDFDocument = require('pdfkit')
 const pdfService = require('../../src/services/pdfService')
 const templateService = require('../../src/services/templateService')
 
@@ -8,6 +9,46 @@ jest.mock('../../src/services/r2Service', () => ({
 const r2Service = require('../../src/services/r2Service')
 
 describe('pdfService.generateCertificadoPdf', () => {
+  it('deve usar continued:true no texto de validação para manter link junto', async () => {
+    const textSpy = jest.spyOn(PDFDocument.prototype, 'text')
+    jest
+      .spyOn(templateService, 'interpolate')
+      .mockReturnValue('Certificamos que João participou do evento.')
+
+    const certificado = {
+      codigo: 'VAL123',
+      dataValues: { codigo: 'VAL123' },
+      Evento: { nome: 'Evento Teste' },
+      Participante: { nomeCompleto: 'João' },
+      TiposCertificados: {
+        texto_base: 'Certificamos que {{nome}} participou do evento.',
+      },
+    }
+
+    await pdfService.generateCertificadoPdf(certificado)
+
+    const endereco_validacao =
+      process.env.ENDERECO_VALIDACAO || 'https://certificaaqui.com/validar'
+
+    const callsWithContinued = textSpy.mock.calls.filter(
+      ([text, , , opts]) =>
+        typeof text === 'string' &&
+        text.includes('para validar o certificado em:') &&
+        opts?.continued === true,
+    )
+    expect(callsWithContinued).toHaveLength(1)
+
+    const callsWithLink = textSpy.mock.calls.filter(
+      ([text, opts]) =>
+        typeof text === 'string' &&
+        text.includes(endereco_validacao) &&
+        opts?.link === endereco_validacao,
+    )
+    expect(callsWithLink).toHaveLength(1)
+
+    templateService.interpolate.mockRestore()
+    textSpy.mockRestore()
+  }, 15000)
   it('deve gerar um Buffer PDF válido começando com %PDF', async () => {
     // Mock de dados mínimos
     const certificado = {
