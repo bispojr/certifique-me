@@ -95,7 +95,7 @@ module.exports = {
             tipo.texto_base,
             valores,
             valores.nome,
-          )
+          ).trim()
         } catch (err) {
           return reject(new Error(err.message || 'Erro de interpolação'))
         }
