@@ -66,13 +66,14 @@ describe('views/admin/usuarios/form.hbs', () => {
     expect($('form').attr('action')).toBe('/admin/usuarios/42')
   })
 
-  it('exibe mensagem de erro', () => {
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
     const html = template({
       usuario: null,
       eventos: [],
-      flash: { error: 'Falha!' },
+      flash: { error: 'Falha!', success: 'Ok!' },
     })
     const $ = cheerio.load(html)
-    expect($('.alert-danger').text()).toContain('Falha!')
+    expect($('.alert-danger').length).toBe(0)
+    expect($('.alert-success').length).toBe(0)
   })
 })

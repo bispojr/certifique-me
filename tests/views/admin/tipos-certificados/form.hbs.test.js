@@ -89,14 +89,15 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     expect($('#texto_base').text()).toContain('${nome}')
   })
 
-  it('exibe mensagem de erro se flash.error', () => {
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
     const html = template({
       tipo: null,
-      flash: { error: 'Erro!' },
+      flash: { error: 'Erro!', success: 'Ok!' },
       opcoesCampoDestaque: [{ value: 'nome', selected: true }],
     })
     const $ = cheerio.load(html)
-    expect($('.alert-danger').text()).toContain('Erro!')
+    expect($('.alert-danger').length).toBe(0)
+    expect($('.alert-success').length).toBe(0)
   })
 })
 

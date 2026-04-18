@@ -149,7 +149,7 @@ describe('views/admin/certificados/index.hbs', () => {
     expect($('details table tbody tr').length).toBe(1)
   })
 
-  it('exibe mensagens flash de sucesso e erro', () => {
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
     const html = template({
       certificados: [],
       arquivados: [],
@@ -159,7 +159,7 @@ describe('views/admin/certificados/index.hbs', () => {
       flash: { success: 'OK', error: 'ERRO' },
     })
     const $ = cheerio.load(html)
-    expect($('.alert-success').text()).toContain('OK')
-    expect($('.alert-danger').text()).toContain('ERRO')
+    expect($('.alert-success').length).toBe(0)
+    expect($('.alert-danger').length).toBe(0)
   })
 })

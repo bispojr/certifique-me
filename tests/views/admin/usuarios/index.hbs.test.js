@@ -93,14 +93,14 @@ describe('views/admin/usuarios/index.hbs', () => {
     expect($('details summary').length).toBe(0)
   })
 
-  it('exibe mensagem de sucesso e erro', () => {
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
     const html = template({
       usuarios: [],
       arquivados: [],
       flash: { success: 'ok', error: 'fail' },
     })
     const $ = cheerio.load(html)
-    expect($('.alert-success').text()).toContain('ok')
-    expect($('.alert-danger').text()).toContain('fail')
+    expect($('.alert-success').length).toBe(0)
+    expect($('.alert-danger').length).toBe(0)
   })
 })

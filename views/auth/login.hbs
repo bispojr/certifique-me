@@ -4,12 +4,6 @@
       <div class='card-body'>
         <h4 class='card-title mb-4 text-center'>Entrar</h4>
 
-        {{#if flash.error}}
-          {{#each flash.error}}
-            <div class='alert alert-danger'>{{this}}</div>
-          {{/each}}
-        {{/if}}
-
         <form action='/auth/login' method='POST'>
           <div class='mb-3'>
             <label for='email' class='form-label'>E-mail</label>

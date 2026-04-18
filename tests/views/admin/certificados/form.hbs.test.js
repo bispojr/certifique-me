@@ -70,4 +70,17 @@ describe('admin/certificados/form.hbs', () => {
     expect($('#valores_dinamicos_json').length).toBe(1)
     expect($('#camposDinamicosContainer').length).toBe(1)
   })
+
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
+    const html = render({
+      participantes: [],
+      eventos: [],
+      tipos: [],
+      certificado: null,
+      flash: { success: 'OK', error: 'ERRO' },
+    })
+    const $ = cheerio.load(html)
+    expect($('.alert-success').length).toBe(0)
+    expect($('.alert-danger').length).toBe(0)
+  })
 })

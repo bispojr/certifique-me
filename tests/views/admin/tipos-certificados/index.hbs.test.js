@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const Handlebars = require('handlebars')
+const cheerio = require('cheerio')
 
 const templatePath = path.join(
   __dirname,
@@ -54,16 +55,15 @@ describe('views/admin/tipos-certificados/index.hbs', () => {
     )
   })
 
-  it('renderiza flash de sucesso e erro', () => {
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
     const html = template({
       tipos: [],
       arquivados: [],
       flash: { success: 'ok', error: 'fail' },
     })
-    expect(html).toContain('alert alert-success')
-    expect(html).toContain('ok')
-    expect(html).toContain('alert alert-danger')
-    expect(html).toContain('fail')
+    const $ = cheerio.load(html)
+    expect($('.alert-success').length).toBe(0)
+    expect($('.alert-danger').length).toBe(0)
   })
 
   it('renderiza seção de arquivados quando houver', () => {

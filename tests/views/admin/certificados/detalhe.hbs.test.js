@@ -82,7 +82,7 @@ describe('views/admin/certificados/detalhe.hbs', () => {
     expect($('table').length).toBe(0)
   })
 
-  it('exibe mensagem flash de sucesso e erro', () => {
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
     const html = template({
       certificado: {
         valores_dinamicos: null,
@@ -94,8 +94,8 @@ describe('views/admin/certificados/detalhe.hbs', () => {
       flash: { success: 'OK', error: 'ERRO' },
     })
     const $ = cheerio.load(html)
-    expect($('.alert-success').text()).toContain('OK')
-    expect($('.alert-danger').text()).toContain('ERRO')
+    expect($('.alert-success').length).toBe(0)
+    expect($('.alert-danger').length).toBe(0)
   })
 
   it('exibe botão Voltar para /admin/certificados', () => {

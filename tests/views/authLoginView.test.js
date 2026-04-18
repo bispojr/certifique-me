@@ -21,8 +21,9 @@ describe('views/auth/login.hbs', () => {
     )
   })
 
-  it('contém {{#if flash.error}} para exibição de erros', () => {
-    expect(html).toMatch(/{{#if +flash\.error}}/)
+  it('não renderiza flash na view (responsabilidade do layout)', () => {
+    expect(html).not.toMatch(/{{#if +flash\.error}}/)
+    expect(html).not.toMatch(/{{#if +flash\.success}}/)
   })
 
   it('contém campo email e senha', () => {
