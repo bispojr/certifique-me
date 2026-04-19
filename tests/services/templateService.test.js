@@ -53,7 +53,9 @@ describe('templateService.interpolate', () => {
   it('remove espaços e quebras de linha do início e fim após interpolação', () => {
     const textoBase = `\n\n   Certificamos que ${'${nome}'} participou do evento.   \n\n`
     const valores = { nome: 'Maria' }
-    const resultado = templateService.interpolate(textoBase, valores, valores.nome).trim()
+    const resultado = templateService
+      .interpolate(textoBase, valores, valores.nome)
+      .trim()
     // Não deve ter espaços/quebras de linha no início/fim
     expect(resultado.startsWith('Certificamos')).toBe(true)
     expect(resultado.endsWith('evento.')).toBe(true)
@@ -63,14 +65,20 @@ describe('templateService.interpolate', () => {
   it('não remove espaços internos válidos', () => {
     const textoBase = 'Certificamos que ${nome} participou do evento.'
     const valores = { nome: 'João da Silva' }
-    const resultado = templateService.interpolate(textoBase, valores, valores.nome).trim()
-    expect(resultado).toBe('Certificamos que João da Silva participou do evento.')
+    const resultado = templateService
+      .interpolate(textoBase, valores, valores.nome)
+      .trim()
+    expect(resultado).toBe(
+      'Certificamos que João da Silva participou do evento.',
+    )
   })
 
   it('mantém texto limpo mesmo com valores com espaços', () => {
     const textoBase = 'Certificamos que ${nome} participou.'
     const valores = { nome: '   Ana   ' }
-    const resultado = templateService.interpolate(textoBase, valores, valores.nome).trim()
+    const resultado = templateService
+      .interpolate(textoBase, valores, valores.nome)
+      .trim()
     expect(resultado).toBe('Certificamos que    Ana    participou.')
   })
 })

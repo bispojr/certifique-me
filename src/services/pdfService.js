@@ -91,11 +91,9 @@ module.exports = {
             evento: evento?.nome,
             // Adicione outros campos se necessário
           }
-          texto = templateService.interpolate(
-            tipo.texto_base,
-            valores,
-            valores.nome,
-          ).trim()
+          texto = templateService
+            .interpolate(tipo.texto_base, valores, valores.nome)
+            .trim()
         } catch (err) {
           return reject(new Error(err.message || 'Erro de interpolação'))
         }
@@ -128,14 +126,11 @@ module.exports = {
             validacaoY,
             { continued: true, align: 'left' },
           )
-        doc
-          .fillColor('blue')
-          .text(`${endereco_validacao}`,
-            {
-              link: endereco_validacao,
-              underline: true,
-              continued: false,
-            })
+        doc.fillColor('blue').text(`${endereco_validacao}`, {
+          link: endereco_validacao,
+          underline: true,
+          continued: false,
+        })
         doc.fillColor('black')
 
         doc.end()

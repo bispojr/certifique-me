@@ -30,7 +30,6 @@ Por que não remover esse link "Meus Certificados" dessa página https://certifi
 Sempre olhar o link dos certificados, principalmente da função "obterArquivo", para poder garantir a geração correta dos certificados.
 https://github.com/EduCompBR/educompbrasil-site/blob/master/routes/simposio/2025/educomp/pt-BR/certificado.js
 
-
 =============================
 Página Inicial
 ==============================

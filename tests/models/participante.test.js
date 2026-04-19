@@ -1,13 +1,18 @@
 const { Participante, sequelize } = require('../../src/models')
 
-
 describe('Participante Model', () => {
   beforeEach(async () => {
     // Limpa tabelas relacionadas para evitar conflitos de chave única e FK
-    await sequelize.query('TRUNCATE TABLE certificados RESTART IDENTITY CASCADE')
-    await sequelize.query('TRUNCATE TABLE participantes RESTART IDENTITY CASCADE')
+    await sequelize.query(
+      'TRUNCATE TABLE certificados RESTART IDENTITY CASCADE',
+    )
+    await sequelize.query(
+      'TRUNCATE TABLE participantes RESTART IDENTITY CASCADE',
+    )
     await sequelize.query('TRUNCATE TABLE eventos RESTART IDENTITY CASCADE')
-    await sequelize.query('TRUNCATE TABLE tipos_certificados RESTART IDENTITY CASCADE')
+    await sequelize.query(
+      'TRUNCATE TABLE tipos_certificados RESTART IDENTITY CASCADE',
+    )
   })
 
   test('deve criar participante com dados válidos', async () => {
@@ -135,6 +140,7 @@ describe('Participante Model', () => {
       ano: 2026,
     })
     const tipo = await TiposCertificados.create({
+      evento_id: evento.id,
       codigo: 'MC',
       descricao: 'Minicurso',
       campo_destaque: 'tema',

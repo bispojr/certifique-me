@@ -8,11 +8,11 @@ Este guia descreve como executar os testes (Jest e Playwright) e como subir o se
 
 ## Bancos de dados por ambiente
 
-| Ambiente | Banco | Porta |
-|---|---|---|
-| `development` | `certificados_test` | 5432 |
-| `test` (Jest) | `certificados_test` | 5433 |
-| `e2e` (Playwright) | `certificados_e2e` | 5434 |
+| Ambiente           | Banco               | Porta |
+| ------------------ | ------------------- | ----- |
+| `development`      | `certificados_test` | 5432  |
+| `test` (Jest)      | `certificados_test` | 5433  |
+| `e2e` (Playwright) | `certificados_e2e`  | 5434  |
 
 > Jest e Playwright usam bancos **diferentes**. Não interferem entre si.
 > O servidor `development` (porta 5432) é o único que pode conflitar com a inspeção visual manual.
@@ -105,6 +105,7 @@ Use este fluxo quando quiser **ver a aplicação com os olhos** — navegar pela
 ### Passo a passo
 
 **Terminal 1 — subir o servidor:**
+
 ```bash
 NODE_ENV=development node ./bin/www
 # ou simplesmente
@@ -114,6 +115,7 @@ npm start
 O servidor ficará disponível em: **http://localhost:3000**
 
 **Terminal 2 — popular o banco com dados de seed:**
+
 ```bash
 NODE_ENV=development node -e "
 process.env.NODE_ENV = 'development';
@@ -127,10 +129,10 @@ cleanE2E().then(() => seedE2E()).then(() => {
 
 **Credenciais criadas pelo seed:**
 
-| Perfil | E-mail | Senha |
-|---|---|---|
-| Admin | `admin.e2e@test.com` | `senha123` |
-| Gestor | `gestor.e2e@test.com` | `senha123` |
+| Perfil  | E-mail                 | Senha      |
+| ------- | ---------------------- | ---------- |
+| Admin   | `admin.e2e@test.com`   | `senha123` |
+| Gestor  | `gestor.e2e@test.com`  | `senha123` |
 | Monitor | `monitor.e2e@test.com` | `senha123` |
 
 Acesse **http://localhost:3000/auth/login** e entre com qualquer uma dessas credenciais.
@@ -174,12 +176,12 @@ Não há conflito de banco (bancos separados), mas ambos podem tentar subir um s
 
 ## Resumo rápido
 
-| O que fazer | Comando |
-|---|---|
-| Rodar Jest completo | `npm run test:ci` |
-| Rodar Playwright completo | `npx playwright test` |
-| Ver Playwright com browser | `npx playwright test --headed` |
+| O que fazer                   | Comando                                               |
+| ----------------------------- | ----------------------------------------------------- |
+| Rodar Jest completo           | `npm run test:ci`                                     |
+| Rodar Playwright completo     | `npx playwright test`                                 |
+| Ver Playwright com browser    | `npx playwright test --headed`                        |
 | Depurar um spec passo a passo | `npx playwright test --debug tests/e2e/admin.spec.js` |
-| Subir servidor + seed visual | `npm start` + seed no Terminal 2 |
-| Parar servidor na porta 3000 | `kill $(lsof -t -i:3000)` |
-| Limpar banco E2E manualmente | `cleanE2E()` via node (ver acima) |
+| Subir servidor + seed visual  | `npm start` + seed no Terminal 2                      |
+| Parar servidor na porta 3000  | `kill $(lsof -t -i:3000)`                             |
+| Limpar banco E2E manualmente  | `cleanE2E()` via node (ver acima)                     |
