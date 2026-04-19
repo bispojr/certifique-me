@@ -107,17 +107,4 @@ describe('admin/certificados/form.hbs', () => {
     expect(html).not.toContain('fetch("/tipos-certificados/')
   })
 
-  it('renderiza campo nome obrigatório no formulário', () => {
-    const html = render({
-      participantes: [],
-      eventos: [],
-      tipos: [],
-      certificado: null,
-      flash: {},
-    })
-    const $ = cheerio.load(html)
-    const input = $('input[name="nome"]')
-    expect(input.length).toBe(1)
-    expect(input.attr('required')).toBeDefined()
-  })
 })

@@ -158,20 +158,9 @@ async function criar(req, res) {
     let nome = req.body.nome
     // Se não houver campos dinâmicos, preenche nome com nomeCompleto do participante
     if (!nome || nome.trim() === '') {
-      const tipo = await TiposCertificados.findByPk(
-        Number(req.body.tipo_certificado_id),
-      )
-      if (
-        tipo &&
-        (!tipo.dados_dinamicos ||
-          Object.keys(tipo.dados_dinamicos).length === 0)
-      ) {
-        const participante = await Participante.findByPk(
-          Number(req.body.participante_id),
-        )
-        if (participante) {
-          nome = participante.nomeCompleto
-        }
+      const participante = await Participante.findByPk(Number(req.body.participante_id))
+      if (participante) {
+        nome = participante.nomeCompleto
       }
     }
     await certificadoService.create({
@@ -200,8 +189,16 @@ async function atualizar(req, res) {
     const valores_dinamicos = JSON.parse(
       req.body.valores_dinamicos_json || '{}',
     )
+    // Preenche nome automaticamente se não informado
+    let nome = req.body.nome
+    if (!nome || nome.trim() === '') {
+      const participante = await Participante.findByPk(Number(req.body.participante_id))
+      if (participante) {
+        nome = participante.nomeCompleto
+      }
+    }
     await certificado.update({
-      nome: req.body.nome,
+      nome,
       status: req.body.status,
       participante_id: Number(req.body.participante_id),
       evento_id: Number(req.body.evento_id),
