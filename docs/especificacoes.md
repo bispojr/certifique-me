@@ -531,15 +531,15 @@ usuarios         N ──── N  eventos  (via usuario_eventos)
 
 ## Interface SSR — Admin (requer authSSR + rbac)
 
-| Rota                                        | Perfil mínimo  | Operação                         |
-| ------------------------------------------- | -------------- | -------------------------------- |
-| `GET /admin/dashboard`                      | monitor        | Dashboard com estatísticas       |
-| `GET/POST /admin/eventos`                   | gestor/admin   | CRUD de eventos                  |
-| `GET/POST /admin/participantes`             | monitor        | CRUD de participantes            |
-| `GET/POST /admin/tipos-certificados`        | gestor         | CRUD de tipos de certificados    |
-| `GET/POST /admin/certificados`              | monitor/gestor | CRUD de certificados             |
-| `GET/POST /admin/usuarios`                  | admin          | CRUD de usuários                 |
-| `GET/POST /admin/perfil/alterar-senha`      | monitor        | Alterar própria senha            |
+| Rota                                   | Perfil mínimo  | Operação                      |
+| -------------------------------------- | -------------- | ----------------------------- |
+| `GET /admin/dashboard`                 | monitor        | Dashboard com estatísticas    |
+| `GET/POST /admin/eventos`              | gestor/admin   | CRUD de eventos               |
+| `GET/POST /admin/participantes`        | monitor        | CRUD de participantes         |
+| `GET/POST /admin/tipos-certificados`   | gestor         | CRUD de tipos de certificados |
+| `GET/POST /admin/certificados`         | monitor/gestor | CRUD de certificados          |
+| `GET/POST /admin/usuarios`             | admin          | CRUD de usuários              |
+| `GET/POST /admin/perfil/alterar-senha` | monitor        | Alterar própria senha         |
 
 ---
 

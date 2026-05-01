@@ -1,4 +1,5 @@
-const BASE_URL = process.env.BASE_URL || `http://localhost:${process.env.PORT || '3000'}`
+const BASE_URL =
+  process.env.BASE_URL || `http://localhost:${process.env.PORT || '3000'}`
 
 /**
  * Realiza login SSR via formulário de /auth/login.

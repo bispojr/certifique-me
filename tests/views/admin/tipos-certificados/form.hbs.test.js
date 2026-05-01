@@ -100,18 +100,18 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     expect($('.alert-success').length).toBe(0)
   })
 
-  it('exibe mensagem amigável se nenhum evento disponível', () => {
+  it('renderiza select de evento quando opcoesEvento fornecidas', () => {
     const html = template({
       tipo: null,
       flash: {},
       opcoesCampoDestaque: [{ value: 'nome', selected: true }],
-      opcoesEvento: [],
-      nenhumEvento: true,
+      opcoesEvento: [{ value: 1, label: 'Evento A' }],
     })
     const $ = cheerio.load(html)
-    expect($('.alert-warning').length).toBe(1)
-    expect($('.alert-warning').text()).toMatch(/Nenhum evento disponível/)
-    expect($('select[name="evento_id"]').length).toBe(0)
+    expect($('select[name="evento_id"]').length).toBe(1)
+    expect($('select[name="evento_id"] option[value="1"]').text()).toBe(
+      'Evento A',
+    )
   })
 })
 

@@ -16,6 +16,7 @@ describe('Rotas SSR /admin/tipos-certificados', () => {
   let agent
   let gestorToken
   let gestorOutroToken
+  let gestorSemEventoToken
   let adminToken
   let eventoId
   let outroEventoId
@@ -67,6 +68,14 @@ describe('Rotas SSR /admin/tipos-certificados', () => {
     adminToken = jwt.sign({ id: admin.id }, JWT_SECRET)
     gestorToken = jwt.sign({ id: gestor.id }, JWT_SECRET)
     gestorOutroToken = jwt.sign({ id: gestorOutro.id }, JWT_SECRET)
+
+    const gestorSemEvento = await Usuario.create({
+      nome: 'Gestor Sem Evento',
+      email: 'gestorsemevento@gestor.com',
+      senha: 'senha123',
+      perfil: 'gestor',
+    })
+    gestorSemEventoToken = jwt.sign({ id: gestorSemEvento.id }, JWT_SECRET)
   })
 
   it('GET /admin/tipos-certificados exige autenticação SSR', async () => {
@@ -89,6 +98,14 @@ describe('Rotas SSR /admin/tipos-certificados', () => {
       .set('Cookie', `token=${gestorToken}`)
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Novo Tipo de Certificado/)
+  })
+
+  it('GET /admin/tipos-certificados/novo redireciona gestor sem eventos com mensagem de erro', async () => {
+    const res = await agent
+      .get('/admin/tipos-certificados/novo')
+      .set('Cookie', `token=${gestorSemEventoToken}`)
+    expect(res.status).toBe(302)
+    expect(res.headers.location).toBe('/admin/tipos-certificados')
   })
 
   it('POST /admin/tipos-certificados/:id/deletar funciona para tipo do próprio evento', async () => {

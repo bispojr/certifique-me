@@ -19,6 +19,18 @@ Este guia descreve como executar os testes (Jest e Playwright) e como subir o se
 
 ---
 
+## Passo 0. Subir o Docker (banco de dados)
+
+Antes de rodar o servidor local, seed ou testes, suba os containers necessários:
+
+```bash
+docker-compose up -d
+```
+
+Isso garante que o PostgreSQL estará disponível nas portas corretas para todos os ambientes.
+
+---
+
 ## 1. Testes Jest
 
 ### Via linha de comando

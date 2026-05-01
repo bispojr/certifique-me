@@ -1,4 +1,9 @@
-const { TiposCertificados, Certificado, Evento } = require('../models')
+const {
+  TiposCertificados,
+  Certificado,
+  Evento,
+  UsuarioEvento,
+} = require('../models')
 const { Op } = require('sequelize')
 
 /**
@@ -8,9 +13,16 @@ const { Op } = require('sequelize')
  */
 async function getEventosIds(usuario) {
   if (usuario.perfil === 'admin') return null
-  if (typeof usuario.getEventos !== 'function') return []
-  const eventos = await usuario.getEventos()
-  return eventos.map((e) => Number(e.id))
+  if (typeof usuario.getEventos === 'function') {
+    const eventos = await usuario.getEventos()
+    return eventos.map((e) => Number(e.id))
+  }
+  // authSSR retorna plain object sem métodos de associação: busca direta
+  const associacoes = await UsuarioEvento.findAll({
+    where: { usuario_id: usuario.id },
+    attributes: ['evento_id'],
+  })
+  return associacoes.map((a) => Number(a.evento_id))
 }
 
 /**
@@ -71,24 +83,30 @@ async function index(req, res) {
 async function novo(req, res) {
   try {
     const eventosIds = await getEventosIds(req.usuario)
+
+    if (Array.isArray(eventosIds) && eventosIds.length === 0) {
+      req.flash(
+        'error',
+        'Nenhum evento vinculado ao seu usuário. Solicite ao administrador a vinculação a um evento antes de criar tipos de certificados.',
+      )
+      return res.redirect('/admin/tipos-certificados')
+    }
+
     let eventos = []
     if (eventosIds === null) {
-      // Admin: busca todos os eventos
       eventos = await Evento.findAll({ attributes: ['id', 'nome'] })
-    } else if (Array.isArray(eventosIds) && eventosIds.length > 0) {
+    } else {
       eventos = await Evento.findAll({
         where: { id: eventosIds },
         attributes: ['id', 'nome'],
       })
     }
-    const nenhumEvento = Array.isArray(eventosIds) && eventosIds.length === 0
     return res.render('admin/tipos-certificados/form', {
       layout: 'layouts/admin',
       tipo: null,
       actionUrl: '/admin/tipos-certificados',
       opcoesCampoDestaque: [{ value: 'nome', selected: true }],
       opcoesEvento: eventos.map((e) => ({ value: e.id, label: e.nome })),
-      nenhumEvento,
     })
   } catch (error) {
     req.flash('error', error.message)
