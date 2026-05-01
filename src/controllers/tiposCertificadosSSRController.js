@@ -71,17 +71,24 @@ async function index(req, res) {
 async function novo(req, res) {
   try {
     const eventosIds = await getEventosIds(req.usuario)
-    const whereEvento = eventosIds ? { id: eventosIds } : {}
-    const eventos = await Evento.findAll({
-      where: whereEvento,
-      attributes: ['id', 'nome'],
-    })
+    let eventos = []
+    if (eventosIds === null) {
+      // Admin: busca todos os eventos
+      eventos = await Evento.findAll({ attributes: ['id', 'nome'] })
+    } else if (Array.isArray(eventosIds) && eventosIds.length > 0) {
+      eventos = await Evento.findAll({
+        where: { id: eventosIds },
+        attributes: ['id', 'nome'],
+      })
+    }
+    const nenhumEvento = Array.isArray(eventosIds) && eventosIds.length === 0
     return res.render('admin/tipos-certificados/form', {
       layout: 'layouts/admin',
       tipo: null,
       actionUrl: '/admin/tipos-certificados',
       opcoesCampoDestaque: [{ value: 'nome', selected: true }],
       opcoesEvento: eventos.map((e) => ({ value: e.id, label: e.nome })),
+      nenhumEvento,
     })
   } catch (error) {
     req.flash('error', error.message)

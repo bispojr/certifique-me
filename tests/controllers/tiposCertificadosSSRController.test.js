@@ -80,6 +80,27 @@ describe('tiposCertificadosSSRController', () => {
           actionUrl: '/admin/tipos-certificados',
           opcoesCampoDestaque: [{ value: 'nome', selected: true }],
           opcoesEvento: [{ value: 1, label: 'Evento A' }],
+          nenhumEvento: false,
+        }),
+      )
+    })
+
+    it('deve renderizar mensagem amigável se gestor não tem eventos', async () => {
+      // Simula usuário gestor sem eventos
+      const gestorUsuario = { perfil: 'gestor', getEventos: jest.fn().mockResolvedValue([]) }
+      Evento.findAll = jest.fn().mockResolvedValue([])
+      const req = httpMocks.createRequest()
+      req.usuario = gestorUsuario
+      const res = mockRes()
+      await tiposCertificadosSSRController.novo(req, res)
+      expect(res.render).toHaveBeenCalledWith(
+        'admin/tipos-certificados/form',
+        expect.objectContaining({
+          tipo: null,
+          actionUrl: '/admin/tipos-certificados',
+          opcoesCampoDestaque: [{ value: 'nome', selected: true }],
+          opcoesEvento: [],
+          nenhumEvento: true,
         }),
       )
     })

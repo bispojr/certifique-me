@@ -99,6 +99,20 @@ describe('views/admin/tipos-certificados/form.hbs', () => {
     expect($('.alert-danger').length).toBe(0)
     expect($('.alert-success').length).toBe(0)
   })
+
+  it('exibe mensagem amigável se nenhum evento disponível', () => {
+    const html = template({
+      tipo: null,
+      flash: {},
+      opcoesCampoDestaque: [{ value: 'nome', selected: true }],
+      opcoesEvento: [],
+      nenhumEvento: true,
+    })
+    const $ = cheerio.load(html)
+    expect($('.alert-warning').length).toBe(1)
+    expect($('.alert-warning').text()).toMatch(/Nenhum evento disponível/)
+    expect($('select[name="evento_id"]').length).toBe(0)
+  })
 })
 
 // ─── Integridade do bloco <script> ───────────────────────────────────────────

@@ -16,7 +16,7 @@ let adminToken
 let participanteId, eventoId, tipoCertificadoId
 
 beforeAll(async () => {
-  await sequelize.query('TRUNCATE TABLE usuarios RESTART IDENTITY CASCADE')
+  await sequelize.query('TRUNCATE TABLE certificados, tipos_certificados, participantes, eventos, usuarios RESTART IDENTITY CASCADE')
   await Certificado.destroy({ where: {}, force: true })
   await Participante.destroy({ where: {}, force: true })
   await Evento.destroy({ where: {}, force: true })
