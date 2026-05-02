@@ -9,7 +9,7 @@
     "start": "node ./bin/www",
     "test": "jest --runInBand --detectOpenHandles",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --runInBand --coverage",
     "test:models": "jest tests/models",
     "test:routes": "jest tests/routes",
     "test:docker": "docker-compose -f docker-compose.test.yml up -d && sleep 5 && npm test",

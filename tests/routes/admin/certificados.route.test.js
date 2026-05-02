@@ -14,20 +14,13 @@ describe('Admin SSR Certificados - Ordem e RBAC', () => {
   let certId
 
   beforeAll(async () => {
-    // Limpeza via raw SQL na ordem correta de FK (evita RESTRICT e paranoid scope):
-    // 1. certificados (depende de participantes, eventos e tipos_certificados via CASCADE)
-    // 2. tipos_certificados (depende de eventos via RESTRICT)
-    // 3. eventos e participantes (independentes entre si)
+    // TRUNCATE garante estado limpo independente da ordem de execução entre projetos Jest.
+    // Sem isso, tests de outros projetos (models, controllers) com sync({ force: true })
+    // ou TRUNCATE podem deixar o banco em estado inconsistente.
     await sequelize.query(
-      `DELETE FROM certificados WHERE codigo IN ('RTA-26-RT-1', 'FST-26-NP-1')`,
-    )
-    await sequelize.query(`DELETE FROM tipos_certificados WHERE codigo IN ('RT', 'NP')`)
-    await sequelize.query(`DELETE FROM eventos WHERE codigo_base IN ('RTA', 'FST')`)
-    await sequelize.query(
-      `DELETE FROM participantes WHERE email IN ('participante_rota@certifique.me', 'fulano-auto@ex.com')`,
+      `TRUNCATE TABLE certificados, tipos_certificados, participantes, eventos RESTART IDENTITY CASCADE`,
     )
 
-    // Dados limpos: usa create simples em vez de findOrCreate
     const participante = await Participante.create({
       nomeCompleto: 'Participante Rota Teste',
       email: 'participante_rota@certifique.me',
