@@ -6,6 +6,7 @@ const {
   Participante,
   Evento,
   TiposCertificados,
+  sequelize,
 } = require('../../../src/models')
 
 describe('Admin SSR Certificados - Ordem e RBAC', () => {
@@ -13,48 +14,46 @@ describe('Admin SSR Certificados - Ordem e RBAC', () => {
   let certId
 
   beforeAll(async () => {
-    // Limpa dados residuais de execuções anteriores
-    await Certificado.destroy({ where: { codigo: 'RTA-26-RT-1' }, force: true })
-    await Certificado.destroy({ where: { codigo: 'FST-26-NP-1' }, force: true })
-    await Participante.destroy({
-      where: { email: ['participante_rota@certifique.me', 'fulano-auto@ex.com'] },
-      force: true,
-    })
+    // Limpeza via raw SQL na ordem correta de FK (evita RESTRICT e paranoid scope):
+    // 1. certificados (depende de participantes, eventos e tipos_certificados via CASCADE)
+    // 2. tipos_certificados (depende de eventos via RESTRICT)
+    // 3. eventos e participantes (independentes entre si)
+    await sequelize.query(
+      `DELETE FROM certificados WHERE codigo IN ('RTA-26-RT-1', 'FST-26-NP-1')`,
+    )
+    await sequelize.query(`DELETE FROM tipos_certificados WHERE codigo IN ('RT', 'NP')`)
+    await sequelize.query(`DELETE FROM eventos WHERE codigo_base IN ('RTA', 'FST')`)
+    await sequelize.query(
+      `DELETE FROM participantes WHERE email IN ('participante_rota@certifique.me', 'fulano-auto@ex.com')`,
+    )
 
-    const [participante] = await Participante.findOrCreate({
-      where: { email: 'participante_rota@certifique.me' },
-      defaults: {
-        nomeCompleto: 'Participante Rota Teste',
-        email: 'participante_rota@certifique.me',
-        instituicao: 'Inst. Teste',
-      },
+    // Dados limpos: usa create simples em vez de findOrCreate
+    const participante = await Participante.create({
+      nomeCompleto: 'Participante Rota Teste',
+      email: 'participante_rota@certifique.me',
+      instituicao: 'Inst. Teste',
     })
-    const [evento] = await Evento.findOrCreate({
-      where: { codigo_base: 'RTA', ano: 2026 },
-      defaults: { nome: 'Evento Rota Teste', codigo_base: 'RTA', ano: 2026 },
+    const evento = await Evento.create({
+      nome: 'Evento Rota Teste',
+      codigo_base: 'RTA',
+      ano: 2026,
     })
-    const [tipo] = await TiposCertificados.findOrCreate({
-      where: { codigo: 'RT', evento_id: evento.id },
-      defaults: {
-        evento_id: evento.id,
-        codigo: 'RT',
-        descricao: 'Tipo Rota Teste',
-        campo_destaque: 'nome',
-        texto_base: 'Certificado de ${nome_completo}.',
-        dados_dinamicos: {},
-      },
+    const tipo = await TiposCertificados.create({
+      evento_id: evento.id,
+      codigo: 'RT',
+      descricao: 'Tipo Rota Teste',
+      campo_destaque: 'nome',
+      texto_base: 'Certificado de ${nome_completo}.',
+      dados_dinamicos: {},
     })
-    const [cert] = await Certificado.findOrCreate({
-      where: { codigo: 'RTA-26-RT-1' },
-      defaults: {
-        nome: 'Certificado Rota Teste',
-        status: 'emitido',
-        participante_id: participante.id,
-        evento_id: evento.id,
-        tipo_certificado_id: tipo.id,
-        valores_dinamicos: {},
-        codigo: 'RTA-26-RT-1',
-      },
+    const cert = await Certificado.create({
+      nome: 'Certificado Rota Teste',
+      status: 'emitido',
+      participante_id: participante.id,
+      evento_id: evento.id,
+      tipo_certificado_id: tipo.id,
+      valores_dinamicos: {},
+      codigo: 'RTA-26-RT-1',
     })
     certId = cert.id
   })
@@ -186,15 +185,14 @@ describe('Admin SSR Certificados - Ordem e RBAC', () => {
   })
 
   afterAll(async () => {
-    await Certificado.destroy({
-      where: { codigo: ['RTA-26-RT-1', 'FST-26-NP-1'] },
-      force: true,
-    })
-    await TiposCertificados.destroy({ where: { codigo: ['RT', 'NP'] }, force: true })
-    await Evento.destroy({ where: { codigo_base: ['RTA', 'FST'] }, force: true })
-    await Participante.destroy({
-      where: { email: ['participante_rota@certifique.me', 'fulano-auto@ex.com'] },
-      force: true,
-    })
+    // Usa SQL direto para evitar problemas de FK com onDelete: RESTRICT e registros soft-deleted
+    await sequelize.query(
+      `DELETE FROM certificados WHERE codigo IN ('RTA-26-RT-1', 'FST-26-NP-1')`,
+    )
+    await sequelize.query(
+      `DELETE FROM participantes WHERE email IN ('participante_rota@certifique.me', 'fulano-auto@ex.com')`,
+    )
+    await sequelize.query(`DELETE FROM tipos_certificados WHERE codigo IN ('RT', 'NP')`)
+    await sequelize.query(`DELETE FROM eventos WHERE codigo_base IN ('RTA', 'FST')`)
   })
 })
