@@ -39,7 +39,7 @@ jobs:
       - name: Install docker-compose
         run: sudo apt-get update && sudo apt-get install -y docker-compose
       - name: Clean up Docker containers (before)
-        run: docker-compose -f docker-compose.test.yml down --remove-orphans || true
+        run: docker-compose -f docker-compose.test.yml down --volumes --remove-orphans || true
       - name: Clean up all containers
         run: docker ps -aq | xargs -r docker rm -f || true
       - name: Start test containers
@@ -94,4 +94,4 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Clean up Docker containers (after)
-        run: docker-compose -f docker-compose.test.yml down --remove-orphans || true
+        run: docker-compose -f docker-compose.test.yml down --volumes --remove-orphans || true
