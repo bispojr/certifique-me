@@ -6,6 +6,9 @@ const { Certificado, Participante, Evento } = require('../../src/models')
 
 jest.mock('../../src/models')
 
+// Garante helpers de data disponíveis para SSR
+require('../../hbs-helpers-date')
+
 describe('SSR POST rotas públicas de certificados', () => {
   let app
   beforeAll(() => {
@@ -66,7 +69,7 @@ describe('SSR POST rotas públicas de certificados', () => {
       id: 1,
       codigo: 'ABC123',
       nome: 'Certificado Teste',
-      Participante: { nome: 'João', email: 'joao@exemplo.com' },
+      Participante: { nomeCompleto: 'João', email: 'joao@exemplo.com' },
       Evento: { nome: 'Evento Teste' },
       status: 'emitido',
       created_at: '2026-03-26',

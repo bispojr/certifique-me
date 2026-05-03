@@ -1,5 +1,6 @@
 // Helpers do Handlebars
 require('./hbs-helpers')
+require('./hbs-helpers-date')
 var createError = require('http-errors')
 var express = require('express')
 var path = require('path')

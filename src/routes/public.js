@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Certificado, Participante } = require('../models')
+const { Certificado, Participante, Evento } = require('../models')
 
 // ─── SSR: páginas públicas ────────────────────────────────────────────────────
 
@@ -56,11 +56,16 @@ router.post('/validar', async (req, res) => {
   try {
     const certificado = await Certificado.findOne({
       where: { codigo },
-      include: [{ model: Participante }],
+      include: [
+        { model: Participante },
+        { model: Evento }
+      ],
     })
     if (!certificado) {
       return res.render('certificados/validar-resultado', { valido: false })
     }
+    // Log para depuração do objeto certificado e seus relacionamentos
+    console.log('DEBUG certificado:', JSON.stringify(certificado, null, 2))
     return res.render('certificados/validar-resultado', {
       valido: true,
       certificado,
@@ -105,31 +110,6 @@ router.post('/pagina/buscar', async (req, res) => {
   }
 })
 
-// POST /public/pagina/validar
-router.post('/pagina/validar', async (req, res) => {
-  const { codigo } = req.body
-  if (!codigo) {
-    return res.render('certificados/form-validar', {
-      mensagem: 'Informe o código do certificado.',
-    })
-  }
-  try {
-    const certificado = await Certificado.findOne({
-      where: { codigo },
-      include: [{ model: Participante }, { model: Evento }],
-    })
-    if (!certificado) {
-      return res.render('certificados/validar-resultado', { valido: false })
-    }
-    return res.render('certificados/validar-resultado', {
-      valido: true,
-      certificado,
-    })
-  } catch {
-    return res.render('certificados/form-validar', {
-      mensagem: 'Erro ao validar certificado. Tente novamente.',
-    })
-  }
-})
+// POST /public/pagina/validar - REMOVIDO
 
 module.exports = router

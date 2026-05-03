@@ -14,7 +14,7 @@
             <dd class='col-sm-8'><code>{{certificado.codigo}}</code></dd>
 
             <dt class='col-sm-4'>Participante</dt>
-            <dd class='col-sm-8'>{{certificado.Participante.nome}}</dd>
+            <dd class='col-sm-8'>{{certificado.Participante.nomeCompleto}}</dd>
 
             <dt class='col-sm-4'>E-mail</dt>
             <dd class='col-sm-8'>{{certificado.Participante.email}}</dd>
@@ -26,7 +26,7 @@
             <dd class='col-sm-8'>{{certificado.status}}</dd>
 
             <dt class='col-sm-4'>Emitido em</dt>
-            <dd class='col-sm-8'>{{certificado.created_at}}</dd>
+            <dd class='col-sm-8'>{{formatDatePtBr certificado.created_at}}</dd>
           </dl>
           <a
             href='/api/certificados/{{certificado.id}}/pdf'

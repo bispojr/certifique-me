@@ -1,6 +1,3 @@
-Por que não renomear a url https://certificaaqui.com/public/pagina/validar para apenas
-https://certificaaqui.com/validar
-
 Em /public/pagina/buscar, é preciso aparecer tanto o nome de evento quanto o tipo de certificado. Também se pode tirar o link "buscar novamente".
 
 Fazer com que a rota https://certificaaqui.com/validar/EDC-25-PT-109 mostre a validação do certificado.

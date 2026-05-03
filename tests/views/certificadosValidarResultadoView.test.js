@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const handlebars = require('handlebars')
+require('../../hbs-helpers-date')
 
 describe('View: certificados/validar-resultado.hbs', () => {
   let template
@@ -22,7 +23,7 @@ describe('View: certificados/validar-resultado.hbs', () => {
         codigo: 'ABC123',
         status: 'emitido',
         created_at: '2026-03-26',
-        Participante: { nome: 'Maria', email: 'maria@teste.com' },
+        Participante: { nomeCompleto: 'Maria', email: 'maria@teste.com' },
         Evento: { nome: 'Evento Teste' },
       },
     })
@@ -33,7 +34,8 @@ describe('View: certificados/validar-resultado.hbs', () => {
     expect(html).toMatch(/maria@teste.com/)
     expect(html).toMatch(/Evento Teste/)
     expect(html).toMatch(/emitido/)
-    expect(html).toMatch(/2026-03-26/)
+    // Valida formato amigável da data
+    expect(html).toMatch(/\d{2}\/\d{2}\/\d{2}, \d{2}h\d{2}, Horário de Brasília\./)
     expect(html).toMatch(/href='\/api\/certificados\/42\/pdf'/)
     expect(html).not.toMatch(/Inválido/)
   })
