@@ -12,7 +12,7 @@ test.afterAll(async () => {
 })
 
 test('UC-A01 — página de login renderiza formulário', async ({ page }) => {
-  await page.goto('/auth/login')
+  await page.goto('/login')
   await expect(page.locator('input[name="email"]')).toBeVisible()
   await expect(page.locator('input[name="senha"]')).toBeVisible()
   await expect(page.locator('button[type="submit"]')).toBeVisible()
@@ -25,17 +25,17 @@ test('UC-A02 — login com credenciais válidas (admin) redireciona para dashboa
   await expect(page).toHaveURL(/\/admin\/dashboard/)
 })
 
-test('UC-A03 — login com credenciais inválidas permanece em /auth/login', async ({
+test('UC-A03 — login com credenciais inválidas permanece em /login', async ({
   page,
 }) => {
   await loginAs(page, 'admin.e2e@test.com', 'senhaerrada')
-  await expect(page).toHaveURL(/\/auth\/login/)
+  await expect(page).toHaveURL(/\/login/)
 })
 
 test('UC-A04 — login com credenciais inválidas exibe mensagem de erro', async ({
   page,
 }) => {
-  await page.goto('/auth/login')
+  await page.goto('/login')
   await page.fill('input[name="email"]', 'naoexiste@test.com')
   await page.fill('input[name="senha"]', 'qualquer')
   await page.click('button[type="submit"]')
@@ -44,11 +44,11 @@ test('UC-A04 — login com credenciais inválidas exibe mensagem de erro', async
   ).toBeVisible()
 })
 
-test('UC-A05 — rota protegida sem autenticação redireciona para /auth/login', async ({
+test('UC-A05 — rota protegida sem autenticação redireciona para /login', async ({
   page,
 }) => {
   await page.goto('/admin/dashboard')
-  await expect(page).toHaveURL(/\/auth\/login/)
+  await expect(page).toHaveURL(/\/login/)
 })
 
 test('UC-A06 — login com gestor redireciona para dashboard', async ({
@@ -58,25 +58,25 @@ test('UC-A06 — login com gestor redireciona para dashboard', async ({
   await expect(page).toHaveURL(/\/admin\/dashboard/)
 })
 
-test('UC-A07 — logout limpa sessão e redireciona para /auth/login', async ({
+test('UC-A07 — logout limpa sessão e redireciona para /login', async ({
   page,
 }) => {
   await loginAs(page, 'admin.e2e@test.com', 'senha123')
   await expect(page).toHaveURL(/\/admin\/dashboard/)
-  // Submete o formulário de logout (POST /auth/logout)
+  // Submete o formulário de logout (POST /logout)
   await page.click(
-    'button[data-action="logout"], form[action="/auth/logout"] button',
+    'button[data-action="logout"], form[action="/logout"] button',
   )
-  await expect(page).toHaveURL(/\/auth\/login/)
+  await expect(page).toHaveURL(/\/login/)
 })
 
-test('UC-A08 — após logout, /admin/dashboard redireciona para /auth/login', async ({
+test('UC-A08 — após logout, /admin/dashboard redireciona para /login', async ({
   page,
 }) => {
   await loginAs(page, 'admin.e2e@test.com', 'senha123')
   await page.click(
-    'button[data-action="logout"], form[action="/auth/logout"] button',
+    'button[data-action="logout"], form[action="/logout"] button',
   )
   await page.goto('/admin/dashboard')
-  await expect(page).toHaveURL(/\/auth\/login/)
+  await expect(page).toHaveURL(/\/login/)
 })

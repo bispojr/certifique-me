@@ -65,10 +65,10 @@ const rotas = [
 
 rotas.forEach((rota) => {
   describe(`GET ${rota}`, () => {
-    it('redireciona para /auth/login sem autenticação', async () => {
+    it('redireciona para /login sem autenticação', async () => {
       const res = await request(app).get(rota)
       expect(res.status).toBe(302)
-      expect(res.headers.location).toMatch(/\/auth\/login/)
+      expect(res.headers.location).toMatch(/\/login/)
     })
 
     it('retorna 200 para admin autenticado', async () => {
@@ -87,7 +87,7 @@ describe('GET /admin/usuarios', () => {
   it('redireciona sem autenticação', async () => {
     const res = await request(app).get('/admin/usuarios')
     expect(res.status).toBe(302)
-    expect(res.headers.location).toMatch(/\/auth\/login/)
+    expect(res.headers.location).toMatch(/\/login/)
   })
 
   it('retorna 200 para admin autenticado', async () => {
@@ -106,10 +106,10 @@ describe('GET /admin/usuarios', () => {
 })
 
 describe('GET /admin/eventos', () => {
-  it('redireciona para /auth/login sem autenticação', async () => {
+  it('redireciona para /login sem autenticação', async () => {
     const res = await request(app).get('/admin/eventos')
     expect(res.status).toBe(302)
-    expect(res.headers.location).toMatch(/\/auth\/login/)
+    expect(res.headers.location).toMatch(/\/login/)
   })
 
   it('admin vê todos os eventos', async () => {

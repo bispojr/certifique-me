@@ -33,7 +33,7 @@ module.exports = async function authSSR(req, res, next) {
     res.locals.usuario = null
     // Se for rota SSR (admin), redireciona para login
     if (req.originalUrl.startsWith('/admin')) {
-      return res.redirect('/auth/login')
+      return res.redirect('/login')
     }
     return next()
   }
@@ -44,7 +44,7 @@ module.exports = async function authSSR(req, res, next) {
       req.usuario = null
       res.locals.usuario = null
       if (req.originalUrl.startsWith('/admin')) {
-        return res.redirect('/auth/login')
+        return res.redirect('/login')
       }
       return next()
     }
@@ -62,7 +62,7 @@ module.exports = async function authSSR(req, res, next) {
     req.usuario = null
     res.locals.usuario = null
     if (req.originalUrl.startsWith('/admin')) {
-      return res.redirect('/auth/login')
+      return res.redirect('/login')
     }
     return next()
   }

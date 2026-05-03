@@ -126,7 +126,7 @@ describe('Gestor/Monitor SSR - Participante', () => {
   it('GET /admin/participantes (gestor) só vê participantes do evento vinculado', async () => {
     const agent = request.agent(app)
     await agent
-      .post('/auth/login')
+      .post('/login')
       .send({ email: 'gestor@email.com', senha: '123456' })
       .redirects(1)
     const res = await agent.get('/admin/participantes')
@@ -141,7 +141,7 @@ describe('Gestor/Monitor SSR - Participante', () => {
   it('GET /admin/participantes (monitor) só vê participantes do evento vinculado', async () => {
     const agent = request.agent(app)
     await agent
-      .post('/auth/login')
+      .post('/login')
       .send({ email: 'monitor@email.com', senha: '123456' })
       .redirects(1)
     const res = await agent.get('/admin/participantes')
@@ -163,7 +163,7 @@ describe('Admin SSR - Participante', () => {
   it('GET /admin/participantes vê todos os participantes de todos os eventos', async () => {
     const agent = request.agent(app)
     await agent
-      .post('/auth/login')
+      .post('/login')
       .send({ email: 'admin@email.com', senha: '123456' })
       .redirects(1)
     const res = await agent.get('/admin/participantes')
@@ -177,7 +177,7 @@ describe('Admin SSR - Participante', () => {
   it('GET /admin/participantes lista participantes ativos e arquivados separados', async () => {
     const agent = request.agent(app)
     await agent
-      .post('/auth/login')
+      .post('/login')
       .send({ email: 'admin@email.com', senha: '123456' })
       .redirects(1)
     const res = await agent.get('/admin/participantes')
@@ -201,7 +201,7 @@ describe('Admin SSR - Participante', () => {
   it('GET /admin/participantes?q=joao filtra por nome/email', async () => {
     const agent = request.agent(app)
     await agent
-      .post('/auth/login')
+      .post('/login')
       .send({ email: 'admin@email.com', senha: '123456' })
       .redirects(1)
     const res = await agent.get('/admin/participantes?q=joao')

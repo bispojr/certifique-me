@@ -53,7 +53,7 @@ describe('Certificado SSR - preenchimento automático do nome', () => {
 
     // Faz login SSR com o admin criado acima
     await agent
-      .post('/auth/login')
+      .post('/login')
       .send({ email: 'admin-auto-nome@certifique.me', senha: 'senha123' })
       .redirects(1)
 

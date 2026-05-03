@@ -34,7 +34,7 @@ describe('Rotas SSR /admin/usuarios', () => {
   it('GET /admin/usuarios exige autenticação SSR', async () => {
     const res = await agent.get('/admin/usuarios')
     expect(res.status).toBe(302)
-    expect(res.headers.location).toBe('/auth/login')
+    expect(res.headers.location).toBe('/login')
   })
 
   it('GET /admin/usuarios exige rbac admin', async () => {

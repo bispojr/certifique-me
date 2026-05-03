@@ -30,7 +30,7 @@ describe('views/layouts/admin.hbs', () => {
     expect(html).toMatch(/Admin[\s\S]*\(admin\)/)
     // Confirma botão de logout (aceita atributos extras)
     expect(html).toMatch(
-      /<form[^>]+action=['\"]?\/auth\/logout['\"]?[^>]*method=['\"]?POST['\"]?[^>]*>/,
+      /<form[^>]+action=['\"]?\/logout['\"]?[^>]*method=['\"]?POST['\"]?[^>]*>/,
     )
     // Confirma slot body
     expect(html).toMatch(/Conteúdo do painel/)

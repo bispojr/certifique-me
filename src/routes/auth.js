@@ -36,7 +36,7 @@ const JWT_SECRET = process.env.JWT_SECRET
  *                 type: string
  *     responses:
  *       302:
- *         description: Redirect para /admin/dashboard (sucesso) ou /auth/login (falha)
+ *         description: Redirect para /admin/dashboard (sucesso) ou /login (falha)
  */
 // GET /auth/login
 router.get('/login', authSSR, (req, res) => {
@@ -51,12 +51,12 @@ router.post('/login', async (req, res) => {
     const usuario = await Usuario.findOne({ where: { email } })
     if (!usuario) {
       req.flash('error', 'Credenciais inválidas')
-      return res.redirect('/auth/login')
+      return res.redirect('/login')
     }
     const valid = await bcrypt.compare(senha, usuario.senha)
     if (!valid) {
       req.flash('error', 'Credenciais inválidas')
-      return res.redirect('/auth/login')
+      return res.redirect('/login')
     }
     const token = jwt.sign(
       { id: usuario.id, perfil: usuario.perfil },
@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
     return res.redirect('/admin/dashboard')
   } catch {
     req.flash('error', 'Erro interno. Tente novamente.')
-    return res.redirect('/auth/login')
+    return res.redirect('/login')
   }
 })
 
@@ -81,12 +81,12 @@ router.post('/login', async (req, res) => {
  *       - cookieAuth: []
  *     responses:
  *       302:
- *         description: Redirect para /auth/login
+ *         description: Redirect para /login
  */
 // POST /auth/logout
 router.post('/logout', (req, res) => {
   res.clearCookie('token')
-  return res.redirect('/auth/login')
+  return res.redirect('/login')
 })
 
 module.exports = router

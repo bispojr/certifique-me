@@ -1,19 +1,19 @@
 
 
 /**
- * Realiza login SSR via formulário de /auth/login.
+ * Realiza login SSR via formulário de /login.
  * Após o login, o cookie 'token' fica armazenado no contexto do Playwright.
  * @param {import('@playwright/test').Page} page
  * @param {string} email
  * @param {string} senha
  */
 async function loginAs(page, email, senha) {
-  await page.goto('/auth/login')
+  await page.goto('/login')
   await page.fill('input[name="email"]', email)
   await page.fill('input[name="senha"]', senha)
   await page.click('button[type="submit"]')
   // Aguarda redirecionamento para o painel
-  await page.waitForURL(/\/admin\/dashboard|\/auth\/login/)
+  await page.waitForURL(/\/admin\/dashboard|\/login/)
 }
 
 /**

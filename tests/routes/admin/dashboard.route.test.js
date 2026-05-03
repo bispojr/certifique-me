@@ -37,7 +37,7 @@ describe('Rota GET /admin/dashboard', () => {
   it('deve exigir autenticação SSR', async () => {
     const res = await agent.get('/admin/dashboard')
     expect(res.status).toBe(302)
-    expect(res.headers.location).toBe('/auth/login')
+    expect(res.headers.location).toBe('/login')
   })
 
   it('deve renderizar dashboard para admin com totais', async () => {

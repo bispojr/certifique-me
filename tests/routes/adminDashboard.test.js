@@ -37,10 +37,10 @@ describe('GET /admin/dashboard', () => {
     await sequelize.query('TRUNCATE TABLE usuarios RESTART IDENTITY CASCADE')
   })
 
-  it('redireciona para /auth/login se não autenticado', async () => {
+  it('redireciona para /login se não autenticado', async () => {
     const res = await request(app).get('/admin/dashboard')
     expect(res.status).toBe(302)
-    expect(res.headers.location).toBe('/auth/login')
+    expect(res.headers.location).toBe('/login')
   })
 
   it('renderiza dashboard para admin', async () => {

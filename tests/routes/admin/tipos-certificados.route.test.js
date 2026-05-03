@@ -81,7 +81,7 @@ describe('Rotas SSR /admin/tipos-certificados', () => {
   it('GET /admin/tipos-certificados exige autenticação SSR', async () => {
     const res = await agent.get('/admin/tipos-certificados')
     expect(res.status).toBe(302)
-    expect(res.headers.location).toBe('/auth/login')
+    expect(res.headers.location).toBe('/login')
   })
 
   it('GET /admin/tipos-certificados exige rbac gestor/admin', async () => {

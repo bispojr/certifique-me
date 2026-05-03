@@ -115,6 +115,6 @@ test.describe('Alterar senha — perfil do usuário', () => {
     page,
   }) => {
     await page.goto('/admin/perfil/alterar-senha')
-    await expect(page).toHaveURL(/\/auth\/login/)
+    await expect(page).toHaveURL(/\/login/)
   })
 })

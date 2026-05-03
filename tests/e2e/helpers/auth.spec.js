@@ -22,6 +22,6 @@ test.describe('auth helpers', () => {
   test('loginAs falha com senha errada', async ({ page }) => {
     await loginAs(page, adminEmail, 'errada')
     expect(await isAuthenticated(page)).toBe(false)
-    expect(page.url()).toContain('/auth/login')
+    expect(page.url()).toContain('/login')
   })
 })

@@ -15,9 +15,9 @@ describe('views/auth/login.hbs', () => {
     expect(fs.existsSync(viewPath)).toBe(true)
   })
 
-  it("contém <form action='/auth/login' method='POST'>", () => {
+  it("contém <form action='/login' method='POST'>", () => {
     expect(html).toMatch(
-      /<form[^>]+action=['\"]?\/auth\/login['\"]?[^>]*method=['\"]?POST['\"]?/,
+      /<form[^>]+action=['"]?\/login['"]?[^>]*method=['"]?POST['"]?/,
     )
   })
 

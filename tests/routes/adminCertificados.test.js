@@ -99,7 +99,7 @@ describe('Admin SSR - certificados', () => {
   it('GET /admin/certificados exige autenticação', async () => {
     const res = await request(app).get('/admin/certificados')
     expect(res.status).toBe(302)
-    expect(res.headers.location).toBe('/auth/login')
+    expect(res.headers.location).toBe('/login')
   })
 
   it('GET /admin/certificados permite admin e gestor', async () => {

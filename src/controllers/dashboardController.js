@@ -9,7 +9,7 @@ const {
 async function dashboard(req, res) {
   try {
     if (!req.usuario) {
-      return res.redirect('/auth/login')
+      return res.redirect('/login')
     }
     const { perfil } = req.usuario
 
