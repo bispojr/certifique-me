@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Certificado, Participante, Evento } = require('../models')
+const { Certificado, Participante, Evento, TiposCertificados } = require('../models')
 
 // ─── SSR: páginas públicas ────────────────────────────────────────────────────
 
@@ -51,16 +51,18 @@ router.post('/validar', async (req, res) => {
   try {
     const certificado = await Certificado.findOne({
       where: { codigo },
-      include: [{ model: Participante }, { model: Evento }],
+      include: [
+        { model: Participante },
+        { model: Evento },
+        { model: TiposCertificados, as: 'TiposCertificados' },
+      ],
     })
     if (!certificado) {
       return res.render('certificados/validar-resultado', { valido: false })
     }
-    // Log para depuração do objeto certificado e seus relacionamentos
-    console.log('DEBUG certificado:', JSON.stringify(certificado, null, 2))
     return res.render('certificados/validar-resultado', {
       valido: true,
-      certificado,
+      certificado: typeof certificado.toJSON === 'function' ? certificado.toJSON() : certificado,
     })
   } catch {
     return res.render('certificados/form-validar', {

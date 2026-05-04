@@ -49,7 +49,7 @@ async function seedE2E() {
   const tipo = await TiposCertificados.create({
     evento_id: evento.id,
     codigo: 'EE', // apenas letras
-    descricao: 'Tipo E2E',
+    descricao: 'Palestrante',
     campo_destaque: 'nome',
     texto_base: 'Certificado de ${nome} no ${evento}',
     dados_dinamicos: { evento: 'string' },

@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       Certificado.belongsTo(models.Evento, { foreignKey: 'evento_id' })
       Certificado.belongsTo(models.TiposCertificados, {
         foreignKey: 'tipo_certificado_id',
+        as: 'TiposCertificados',
       })
     }
   }
