@@ -12,6 +12,7 @@ const INCLUDES = [
   { model: Evento, attributes: ['id', 'nome'] },
   {
     model: TiposCertificados,
+    as: 'TiposCertificados',
     attributes: ['id', 'descricao', 'texto_base', 'dados_dinamicos'],
   },
 ]

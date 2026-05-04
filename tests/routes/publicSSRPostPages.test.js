@@ -71,6 +71,7 @@ describe('SSR POST rotas públicas de certificados', () => {
       nome: 'Certificado Teste',
       Participante: { nomeCompleto: 'João', email: 'joao@exemplo.com' },
       Evento: { nome: 'Evento Teste' },
+      TiposCertificados: { descricao: 'Palestrante' },
       status: 'emitido',
       created_at: '2026-03-26',
     })
@@ -80,6 +81,7 @@ describe('SSR POST rotas públicas de certificados', () => {
     expect(res.text).toMatch(/João/)
     expect(res.text).toMatch(/Evento Teste/)
     expect(res.text).toMatch(/ABC123/)
+    expect(res.text).toMatch(/Tipo de Certificado[\s\S]*Palestrante/)
   })
 
   it('POST /validar com código inválido renderiza validar-resultado (valido: false)', async () => {

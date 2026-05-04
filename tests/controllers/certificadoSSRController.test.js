@@ -56,7 +56,7 @@ describe('certificadoSSRController', () => {
     it('deve renderizar detalhe do certificado', async () => {
       const certificado = {
         id: 1,
-        TiposCertificado: { texto_base: 'TEXTO' },
+        TiposCertificados: { texto_base: 'TEXTO' },
         valores_dinamicos: { nome: 'X' },
       }
       Certificado.findByPk = jest.fn().mockResolvedValue(certificado)
