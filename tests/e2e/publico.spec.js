@@ -36,6 +36,9 @@ test('UC-P03 — validação de certificado por código', async ({ page }) => {
   )
   await expect(page.locator('text=Evento E2E')).toBeVisible()
 
+  // Garante que o tipo de certificado aparece
+  await expect(page.locator('dt:has-text("Tipo de Certificado") + dd')).toHaveText('Palestrante')
+
   // Assert formato amigável da data
   const dataText = await page
     .locator('dt:has-text("Emitido em") + dd')

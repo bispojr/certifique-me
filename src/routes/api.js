@@ -49,7 +49,7 @@ router.get('/certificados/:id/pdf', async (req, res) => {
       include: [
         { model: Participante },
         { model: Evento },
-        { model: TiposCertificados },
+        { model: TiposCertificados, as: 'TiposCertificados' },
       ],
     })
     if (!certificado) {
