@@ -1,5 +1,3 @@
-
-
 /**
  * Realiza login SSR via formulário de /login.
  * Após o login, o cookie 'token' fica armazenado no contexto do Playwright.

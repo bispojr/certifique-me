@@ -73,9 +73,7 @@ describe('SSR Público - POST', () => {
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Seus certificados/i)
     expect(res.text).toMatch(/Fulano/)
-    expect(res.text).toMatch(
-      /href=['"]\/api\/certificados\/[0-9]+\/pdf['"]?/,
-    )
+    expect(res.text).toMatch(/href=['"]\/api\/certificados\/[0-9]+\/pdf['"]?/)
   })
 
   it('POST /obter - não encontrado', async () => {

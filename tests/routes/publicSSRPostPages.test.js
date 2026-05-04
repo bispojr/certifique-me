@@ -74,9 +74,7 @@ describe('SSR POST rotas públicas de certificados', () => {
       status: 'emitido',
       created_at: '2026-03-26',
     })
-    const res = await request(app)
-      .post('/validar')
-      .send('codigo=ABC123')
+    const res = await request(app).post('/validar').send('codigo=ABC123')
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Certificado Válido/)
     expect(res.text).toMatch(/João/)
@@ -86,17 +84,13 @@ describe('SSR POST rotas públicas de certificados', () => {
 
   it('POST /validar com código inválido renderiza validar-resultado (valido: false)', async () => {
     Certificado.findOne.mockResolvedValue(null)
-    const res = await request(app)
-      .post('/validar')
-      .send('codigo=ERR')
+    const res = await request(app).post('/validar').send('codigo=ERR')
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Certificado Inválido/)
   })
 
   it('POST /validar sem código re-renderiza form-validar com mensagem', async () => {
-    const res = await request(app)
-      .post('/validar')
-      .send('codigo=')
+    const res = await request(app).post('/validar').send('codigo=')
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Informe o código do certificado/)
   })

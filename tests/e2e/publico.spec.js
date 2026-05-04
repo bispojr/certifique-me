@@ -31,13 +31,19 @@ test('UC-P03 — validação de certificado por código', async ({ page }) => {
   await page.fill('input[name="codigo"]', 'E2E-2026-001')
   await page.click('button[type="submit"]')
   await expect(page.locator('text=Certificado Válido')).toBeVisible()
-  await expect(page.locator('dt:has-text("Participante") + dd')).toHaveText('Participante E2E')
+  await expect(page.locator('dt:has-text("Participante") + dd')).toHaveText(
+    'Participante E2E',
+  )
   await expect(page.locator('text=Evento E2E')).toBeVisible()
 
   // Assert formato amigável da data
-  const dataText = await page.locator('dt:has-text("Emitido em") + dd').textContent()
+  const dataText = await page
+    .locator('dt:has-text("Emitido em") + dd')
+    .textContent()
   // Exemplo: 02/05/26, 21h47, Horário de Brasília.
-  expect(dataText).toMatch(/\d{2}\/\d{2}\/\d{2}, \d{2}h\d{2}, Horário de Brasília\./)
+  expect(dataText).toMatch(
+    /\d{2}\/\d{2}\/\d{2}, \d{2}h\d{2}, Horário de Brasília\./,
+  )
 })
 
 test('UC-P04 — exibe mensagem para certificado inválido', async ({ page }) => {

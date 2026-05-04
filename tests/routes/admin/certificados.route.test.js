@@ -185,7 +185,11 @@ describe('Admin SSR Certificados - Ordem e RBAC', () => {
     await sequelize.query(
       `DELETE FROM participantes WHERE email IN ('participante_rota@certifique.me', 'fulano-auto@ex.com')`,
     )
-    await sequelize.query(`DELETE FROM tipos_certificados WHERE codigo IN ('RT', 'NP')`)
-    await sequelize.query(`DELETE FROM eventos WHERE codigo_base IN ('RTA', 'FST')`)
+    await sequelize.query(
+      `DELETE FROM tipos_certificados WHERE codigo IN ('RT', 'NP')`,
+    )
+    await sequelize.query(
+      `DELETE FROM eventos WHERE codigo_base IN ('RTA', 'FST')`,
+    )
   })
 })

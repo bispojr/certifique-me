@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { Certificado, Participante, Evento, TiposCertificados } = require('../models')
+const {
+  Certificado,
+  Participante,
+  Evento,
+  TiposCertificados,
+} = require('../models')
 const pdfService = require('../services/pdfService')
 
 /**

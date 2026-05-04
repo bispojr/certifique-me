@@ -4,11 +4,6 @@ const { Certificado, Participante, Evento } = require('../models')
 
 // ─── SSR: páginas públicas ────────────────────────────────────────────────────
 
-// GET /opcoes
-router.get('/opcoes', (req, res) => {
-  res.render('certificados/opcoes')
-})
-
 // GET /obter
 router.get('/obter', (req, res) => {
   res.render('certificados/form-obter')
@@ -56,10 +51,7 @@ router.post('/validar', async (req, res) => {
   try {
     const certificado = await Certificado.findOne({
       where: { codigo },
-      include: [
-        { model: Participante },
-        { model: Evento }
-      ],
+      include: [{ model: Participante }, { model: Evento }],
     })
     if (!certificado) {
       return res.render('certificados/validar-resultado', { valido: false })
@@ -78,7 +70,6 @@ router.post('/validar', async (req, res) => {
 })
 
 module.exports = router
-
 
 router.get('/pagina/validar', (req, res) => {
   res.render('certificados/form-validar')

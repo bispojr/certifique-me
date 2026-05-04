@@ -14,13 +14,6 @@ describe('SSR rotas públicas de certificados', () => {
     app.use('/', publicRouter)
   })
 
-  it('GET /opcoes renderiza HTML', async () => {
-    const res = await request(app).get('/opcoes')
-    expect(res.status).toBe(200)
-    expect(res.headers['content-type']).toMatch(/html/)
-    expect(res.text).toMatch(/certificados/i)
-  })
-
   it('GET /obter renderiza HTML', async () => {
     const res = await request(app).get('/obter')
     expect(res.status).toBe(200)

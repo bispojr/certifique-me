@@ -5,9 +5,7 @@ https://github.com/EduCompBR/educompbrasil-site/blob/master/routes/simposio/2025
 
 Existe essa rota public/pagina/buscar? Precisa?
 
-Em POST /validar, é preciso aparecer o tipo de certificado. 
-
-Em GET /validar, seria interessante remover o botão "voltar".
+Em POST /validar, é preciso aparecer o tipo de certificado.
 
 Fazer com que a rota https://certificaaqui.com/validar/EDC-25-PT-109 mostre a validação do certificado.
 
