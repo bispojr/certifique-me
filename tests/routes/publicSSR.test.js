@@ -103,4 +103,35 @@ describe('SSR Público - POST', () => {
     expect(res.status).toBe(200)
     expect(res.text).toMatch(/Certificado inválido|não encontrado/i)
   })
+
+  describe('GET /validar/:codigo', () => {
+    it('exibe certificado válido quando o código existe', async () => {
+      const res = await request(app).get(`/validar/${certificado.codigo}`)
+      expect(res.status).toBe(200)
+      expect(res.text).toMatch(/Certificado válido/i)
+      expect(res.text).toMatch(/ABC123/)
+    })
+
+    it('exibe resultado inválido quando o código não existe', async () => {
+      const res = await request(app).get('/validar/CODIGOINEXISTENTE')
+      expect(res.status).toBe(200)
+      expect(res.text).toMatch(/Certificado inválido|não encontrado/i)
+    })
+
+    it('retorna 400 para código com caracteres inválidos (SQL injection)', async () => {
+      const res = await request(app).get("/validar/abc'OR'1'='1")
+      expect(res.status).toBe(400)
+    })
+
+    it('retorna 400 para código com espaço (SQL injection)', async () => {
+      const res = await request(app).get('/validar/ABC%20OR%201=1')
+      expect(res.status).toBe(400)
+    })
+
+    it('retorna 400 para código excessivamente longo', async () => {
+      const codigoLongo = 'A'.repeat(61)
+      const res = await request(app).get(`/validar/${codigoLongo}`)
+      expect(res.status).toBe(400)
+    })
+  })
 })

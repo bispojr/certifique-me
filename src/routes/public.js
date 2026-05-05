@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const { Certificado, Participante, Evento, TiposCertificados } = require('../models')
 
+// Aceita apenas letras (A-Z), números e hífens — protege contra SQL injection e entradas maliciosas
+const CODIGO_CERTIFICADO_REGEX = /^[A-Z0-9-]{1,60}$/i
+
 // ─── SSR: páginas públicas ────────────────────────────────────────────────────
 
 // GET /obter
@@ -71,13 +74,37 @@ router.post('/validar', async (req, res) => {
   }
 })
 
-module.exports = router
+// GET /validar/:codigo — valida certificado diretamente pela URL
+router.get('/validar/:codigo', async (req, res) => {
+  const codigo = req.params.codigo
 
-router.get('/pagina/validar', (req, res) => {
-  res.render('certificados/form-validar')
+  if (!CODIGO_CERTIFICADO_REGEX.test(codigo)) {
+    return res.status(400).render('certificados/form-validar', {
+      mensagem: 'Código inválido. Use apenas letras, números e hífens.',
+    })
+  }
+
+  try {
+    const certificado = await Certificado.findOne({
+      where: { codigo },
+      include: [
+        { model: Participante },
+        { model: Evento },
+        { model: TiposCertificados, as: 'TiposCertificados' },
+      ],
+    })
+    if (!certificado) {
+      return res.render('certificados/validar-resultado', { valido: false })
+    }
+    return res.render('certificados/validar-resultado', {
+      valido: true,
+      certificado: typeof certificado.toJSON === 'function' ? certificado.toJSON() : certificado,
+    })
+  } catch {
+    return res.render('certificados/form-validar', {
+      mensagem: 'Erro ao validar certificado. Tente novamente.',
+    })
+  }
 })
-
-
-// POST /public/pagina/validar - REMOVIDO
 
 module.exports = router
