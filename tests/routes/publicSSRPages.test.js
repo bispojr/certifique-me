@@ -27,4 +27,9 @@ describe('SSR rotas públicas de certificados', () => {
     expect(res.headers['content-type']).toMatch(/html/)
     expect(res.text).toMatch(/validar/i)
   })
+
+  it('GET /validar/:codigo com caracteres inválidos retorna 400', async () => {
+    const res = await request(app).get("/validar/abc'OR'1'='1")
+    expect(res.status).toBe(400)
+  })
 })
