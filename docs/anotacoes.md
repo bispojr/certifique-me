@@ -1,7 +1,3 @@
-Fazer com que a rota https://certificaaqui.com/validar/EDC-25-PT-109 mostre a validação do certificado.
-
-Atualizar o link de "Validar" na página "/validar" para active (e remover a rota "/certificado/validar")
-
 Habilitar a possibilidade de o usuário registrar múltiplos emails.
 
 Padronização de ícones realizadas. Estender para as subpáginas (bebendo de resourceMeta):
