@@ -1,5 +1,3 @@
-Em POST /validar, é preciso aparecer o tipo de certificado.
-
 Fazer com que a rota https://certificaaqui.com/validar/EDC-25-PT-109 mostre a validação do certificado.
 
 Atualizar o link de "Validar" na página "/validar" para active (e remover a rota "/certificado/validar")
@@ -12,6 +10,8 @@ Padronização de ícones realizadas. Estender para as subpáginas (bebendo de r
 - Tipos
 - Usuários
 - etc.
+
+Ver uma forma interessante de visualizar esses dados de certificados. Perguntar pra GenAI.
 
 =============================
 Página Inicial
